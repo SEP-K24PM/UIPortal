@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1525
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI_portal", "UI_portal\UI_portal.csproj", "{E49372C6-8113-448E-90A0-D8048733E6A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E49372C6-8113-448E-90A0-D8048733E6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E49372C6-8113-448E-90A0-D8048733E6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E49372C6-8113-448E-90A0-D8048733E6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E49372C6-8113-448E-90A0-D8048733E6A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D77D3D8-724F-4D59-8BCC-3F663A5E73DC}
+	EndGlobalSection
+EndGlobal
