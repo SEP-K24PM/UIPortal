@@ -392,7 +392,6 @@ namespace UI_portal.Controllers
         {
             // retrive the data from table  
             var personlist = users.UserName;
-            username_email list = new username_email();
             // Pass the "personlist" object for conversion object to JSON string  
             string jsondata = new JavaScriptSerializer().Serialize(personlist);
             string path = Server.MapPath("~/App_Data/output.json");
