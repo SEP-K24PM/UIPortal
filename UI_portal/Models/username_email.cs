@@ -9,7 +9,5 @@ namespace UI_portal.Models
     public class username_email
     {
         public string email_username { get; set; }
-  
-
     }
 }
