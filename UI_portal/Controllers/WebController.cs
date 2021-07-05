@@ -21,10 +21,11 @@ namespace UI_portal.Controllers
     {
         static string path = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/output.json");
         private static List<string> list_user = new List<string>();
-        static private string myUrl = "http:/localhost:55875/api/web";
+        static private string myUrl = "http:/localhost:8762/account";
         private static HttpClient _httpClient = new HttpClient();
         username_email username_Email = new username_email();
         private static readonly HttpClient client = new HttpClient();
+        string test = "";
 
         [HttpGet]
         public IEnumerable<string> GetNames()        
