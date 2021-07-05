@@ -24,14 +24,13 @@ namespace UI_portal.Controllers
         static private string myUrl = "http:/localhost:55875/api/web";
         private static HttpClient _httpClient = new HttpClient();
         username_email username_Email = new username_email();
-        private object obj;
         private static readonly HttpClient client = new HttpClient();
 
         [HttpGet]
         public IEnumerable<string> GetNames()        
         {
             readfile();
-            //POSTData(readJSON(obj), myUrl);        
+            //readJSON();
             //List<string> loi = new List<string> { "Loi post API" };
             return list_user ;
         }
@@ -54,7 +53,7 @@ namespace UI_portal.Controllers
             }
             list_user.Count();
         }
-        private List<string> readJSON(object obj)
+        private List<string> readJSON()
         {
             List<string> parsedData = new List<string>();
 
@@ -73,19 +72,32 @@ namespace UI_portal.Controllers
             }
             return parsedData;
         }
-        public async Task POSTData(List<string> list , string url)
+        [HttpPost]
+        public async Task POSTData()
         {
-            using (var client = new HttpClient())
+            var httpClient = new HttpClient();
+            List<string> list = readJSON();
+
+            var httpRequestMessage = new HttpRequestMessage();
+            httpRequestMessage.Method = HttpMethod.Post;
+            httpRequestMessage.RequestUri = new Uri(myUrl);
+
+            // Tạo StringContent
+            string jsoncontent = "";
+            string [] strArray = list.ToArray();
+            foreach (string ele in strArray)
             {
-                client.BaseAddress = new Uri(myUrl);
-                var content = new FormUrlEncodedContent(new[]
-                {
-                new KeyValuePair<string, string>("", "login")
-            });
-                var result = await client.PostAsync("/api/web/exists", content);
-                string resultContent = await result.Content.ReadAsStringAsync();
-                Console.WriteLine(resultContent);
+                string temp = ele.ToString();
+                jsoncontent += temp;
             }
+
+            var httpContent = new StringContent(jsoncontent, Encoding.UTF8, "application/json");
+            httpRequestMessage.Content = httpContent;
+
+            var response = await httpClient.SendAsync(httpRequestMessage);
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine(responseContent);
         }
 
 
