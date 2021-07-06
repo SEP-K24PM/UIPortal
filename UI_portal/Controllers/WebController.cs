@@ -21,13 +21,15 @@ namespace UI_portal.Controllers
     {
         static string path = System.Web.HttpContext.Current.Server.MapPath("~/App_Data/output.json");
         private static List<string> list_user = new List<string>();
-        static private string myUrl = "http:/localhost:8762/account";
+        static private string ResUrl = "http://localhost:8762/account/";
         private static HttpClient _httpClient = new HttpClient();
-        username_email username_Email = new username_email();
         private static HttpClient client = new HttpClient();
-        string test = "";
-        [AcceptVerbs("GET")]
-        public async Task show()
+        string ListToJSON = "";
+
+        [Route("api/web/post")]
+        [AcceptVerbs("POST")]
+        [HttpPost]
+        public async Task post()
         {
             using (StreamReader sr = new StreamReader(path))
             {
@@ -44,14 +46,56 @@ namespace UI_portal.Controllers
                     }
                 }
             }
+            var arrayTemp = list_user.ToArray();
+            foreach(string ele in arrayTemp)
+            {
+                ListToJSON += ele;
+            }
+            using (var httpClient = new HttpClient())
+            {
+                var httpMessRequest = new HttpRequestMessage();
+                httpMessRequest.Method = HttpMethod.Post;
+                httpMessRequest.RequestUri = new Uri(ResUrl);
+                httpMessRequest.Headers.Add("User-Agent", "Mozilla/5.0");
 
-            HttpResponseMessage response = await client.PostAsJsonAsync("http://localhost:55875/api/web/", list_user);
-            var posted = response.Content.ReadAsStringAsync().Result;
+                var data = @ListToJSON;
+                var content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                httpMessRequest.Content = content;
+
+                var httpResponeMess = await httpClient.SendAsync(httpMessRequest);
+
+                var html = httpResponeMess.Content.ReadAsStringAsync();
+
+                Console.WriteLine(html);
+
+            }
+
         }
 
-        [Route("api/web/get")]
+        /*
+        [Route("api/web")]
         [AcceptVerbs("GET")]
-        [HttpPost]
+        [HttpGet]
+        public List<string> show()
+        {
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (sr.Peek() >= 0)
+                {
+                    string str;
+                    string[] strArray;
+                    str = sr.ReadLine();
+                    strArray = str.Split(',');
+                    foreach (string ele in strArray)
+                    {
+                        string temp = ele.ToString();
+                        list_user.Add(temp);
+                    }
+                }
+            }
+            return list_user;
+        }
         public string GetNames()
         {
             show();
@@ -71,17 +115,18 @@ namespace UI_portal.Controllers
 
             return html;
         }
-
+        
         [Route("api/web/post")]
         [AcceptVerbs("POST")]
         [HttpPost]
         public string PostContent()
         {
-            var htmltask = GetNames();
-            var result = PostWebContent(htmltask);
-            result.Wait();
-            return result.Result;
-
+            var htmltask = GetWebContent("http:/localhost:55875/api/web");
+            htmltask.Wait();
+            var temp = htmltask.Result;
+            var result = PostWebContent(temp);
+            var _final = result.Result;
+            return _final;
         }
         /*
         private List<string> readJSON()
@@ -132,11 +177,11 @@ namespace UI_portal.Controllers
             Console.WriteLine(responseContent);
         }
         */
+        /*
         public async Task<string> GetWebContent(string url)
         {
             using (var httpClient = new HttpClient())
             {
-                Console.WriteLine($"Starting connect {url}");
                 try
                 {
                     // Thêm header vào HTTP Request
@@ -199,8 +244,7 @@ namespace UI_portal.Controllers
                 string result = response.Content.ReadAsStringAsync().Result;
                 Console.WriteLine(result);
             }
-
         }
-
+        */
     }
 }

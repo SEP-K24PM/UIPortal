@@ -6,7 +6,7 @@ using System.Web;
 
 namespace UI_portal.Models
 {
-    class username_email
+    public class username_email
     {
         public string email_username { get; set; }
     }

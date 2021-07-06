@@ -20,6 +20,7 @@ namespace UI_portal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        
 
         public AccountController()
         {
@@ -391,21 +392,16 @@ namespace UI_portal.Controllers
             return View(model);
         }
         public async void insertToJSON(ApplicationUser users)
-        {
+        {     
             // retrive the data from table  
             var personlist = users.UserName;
             // Pass the "personlist" object for conversion object to JSON string  
             string jsondata = new JavaScriptSerializer().Serialize(personlist);
             string path = Server.MapPath("~/App_Data/output.json");
             // post that JSON to sv,
-            //System.IO.File.AppendAllText(path, jsondata + ",");
-            WebController controller = new WebController();
-            await controller.postJsonToUrl(jsondata);
-
-            /*
-             
-
-*/
+            System.IO.File.AppendAllText(path, jsondata + ",");
+            WebController callPostAPI = new WebController();
+            await callPostAPI.post();
         }
 
 
@@ -475,7 +471,6 @@ namespace UI_portal.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-
         internal class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri)
