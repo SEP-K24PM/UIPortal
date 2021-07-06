@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -10,7 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using UI_portal.Models;
-
+using UI_portal.Controllers;
 namespace UI_portal.Controllers
 {
     [Authorize]
@@ -388,15 +390,22 @@ namespace UI_portal.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-        public void insertToJSON(ApplicationUser users)
+        public async void insertToJSON(ApplicationUser users)
         {
             // retrive the data from table  
             var personlist = users.UserName;
             // Pass the "personlist" object for conversion object to JSON string  
             string jsondata = new JavaScriptSerializer().Serialize(personlist);
             string path = Server.MapPath("~/App_Data/output.json");
-            // Write that JSON to txt file,
-            System.IO.File.AppendAllText(path, jsondata + ",");
+            // post that JSON to sv,
+            //System.IO.File.AppendAllText(path, jsondata + ",");
+            WebController controller = new WebController();
+            await controller.postJsonToUrl(jsondata);
+
+            /*
+             
+
+*/
         }
 
 

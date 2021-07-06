@@ -24,18 +24,10 @@ namespace UI_portal.Controllers
         static private string myUrl = "http:/localhost:8762/account";
         private static HttpClient _httpClient = new HttpClient();
         username_email username_Email = new username_email();
-        private static readonly HttpClient client = new HttpClient();
+        private static HttpClient client = new HttpClient();
         string test = "";
-
-        [HttpGet]
-        public IEnumerable<string> GetNames()        
-        {
-            readfile();
-            //readJSON();
-            //List<string> loi = new List<string> { "Loi post API" };
-            return list_user ;
-        }
-        public void readfile()
+        [AcceptVerbs("GET")]
+        public async Task show()
         {
             using (StreamReader sr = new StreamReader(path))
             {
@@ -45,15 +37,53 @@ namespace UI_portal.Controllers
                     string[] strArray;
                     str = sr.ReadLine();
                     strArray = str.Split(',');
-                    foreach(string ele in strArray)
+                    foreach (string ele in strArray)
                     {
                         string temp = ele.ToString();
                         list_user.Add(temp);
                     }
                 }
             }
-            list_user.Count();
+
+            HttpResponseMessage response = await client.PostAsJsonAsync("http://localhost:55875/api/web/", list_user);
+            var posted = response.Content.ReadAsStringAsync().Result;
         }
+
+        [Route("api/web/get")]
+        [AcceptVerbs("GET")]
+        [HttpPost]
+        public string GetNames()
+        {
+            show();
+            // GET json from : http:/localhost:55875/api/web
+            //readfile();
+            //readJSON();
+            //List<string> loi = new List<string> { "Loi post API" };
+            //return list_user ;
+
+            var htmltask = GetWebContent("http:/localhost:55875/api/web");
+            htmltask.Wait(); // Chờ tải xong
+                             // Hoặc wait htmltask; nếu chuyển Main thành async 
+
+            var html = htmltask.Result;
+            Console.WriteLine(html);
+            Console.WriteLine(html != null ? html.Substring(0, 255) : "Lỗi");
+
+            return html;
+        }
+
+        [Route("api/web/post")]
+        [AcceptVerbs("POST")]
+        [HttpPost]
+        public string PostContent()
+        {
+            var htmltask = GetNames();
+            var result = PostWebContent(htmltask);
+            result.Wait();
+            return result.Result;
+
+        }
+        /*
         private List<string> readJSON()
         {
             List<string> parsedData = new List<string>();
@@ -68,12 +98,13 @@ namespace UI_portal.Controllers
             strArray = str.Split(',');
             foreach (string ele in strArray)
             {
-                string temp = ele.ToString();  
+                string temp = ele.ToString();
                 parsedData.Add(temp);
             }
             return parsedData;
         }
-        [HttpPost]
+        */
+        /*
         public async Task POSTData()
         {
             var httpClient = new HttpClient();
@@ -85,7 +116,7 @@ namespace UI_portal.Controllers
 
             // Tạo StringContent
             string jsoncontent = "";
-            string [] strArray = list.ToArray();
+            string[] strArray = list.ToArray();
             foreach (string ele in strArray)
             {
                 string temp = ele.ToString();
@@ -100,7 +131,76 @@ namespace UI_portal.Controllers
 
             Console.WriteLine(responseContent);
         }
+        */
+        public async Task<string> GetWebContent(string url)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                Console.WriteLine($"Starting connect {url}");
+                try
+                {
+                    // Thêm header vào HTTP Request
+                    httpClient.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml+json");
+                    HttpResponseMessage response = new HttpResponseMessage();
+                    response = await httpClient.GetAsync(url);
 
+                    // Phát sinh Exception nếu mã trạng thái trả về là lỗi 
+                    response.EnsureSuccessStatusCode();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Tải thành công - statusCode {(int)response.StatusCode} {response.ReasonPhrase}");
+                        // Đọc thông tin header trả về
+                        //ShowHeaders(response.Headers);
+
+
+                        Console.WriteLine("Starting read data");
+
+                        // Đọc nội dung content trả về
+                        string htmltext = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine($"Nhận được {htmltext.Length} ký tự");
+                        Console.WriteLine();
+                        Console.WriteLine(response.RequestMessage);
+                        return htmltext;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Lỗi - statusCode {response.StatusCode} {response.ReasonPhrase}");
+                        return null;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return null;
+                }
+            }
+        }
+        public async Task<string> PostWebContent(string htmlTask)
+        {
+            var content = htmlTask;
+            var stringContent = new StringContent(content);
+            using (var httpClient = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:55875");               
+                var result = await client.PostAsync("/api/web/post", stringContent);
+                string resultContent = await result.Content.ReadAsStringAsync();
+                Console.WriteLine(resultContent);
+                return resultContent;
+            }
+        }
+        public async Task postJsonToUrl(string jsondata)
+        {
+            var data = new StringContent(jsondata, Encoding.UTF8, "application/json");
+            var url = "http://localhost:55875/api/web/";
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.PostAsync(url, data);
+                string result = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine(result);
+            }
+
+        }
 
     }
 }
