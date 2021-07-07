@@ -13,6 +13,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using UI_portal.Models;
 using UI_portal.Controllers;
+using UI_portal.Services;
+
 namespace UI_portal.Controllers
 {
     [Authorize]
@@ -20,6 +22,7 @@ namespace UI_portal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private AccountService _accountService = new AccountService();
         
 
         public AccountController()
@@ -347,6 +350,7 @@ namespace UI_portal.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    _accountService.sendEmailData(loginInfo.Email);
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -359,7 +363,7 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             
-            username_email list = new username_email();
+            //username_email list = new username_email();
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
@@ -381,7 +385,6 @@ namespace UI_portal.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        insertToJSON(user);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -391,19 +394,6 @@ namespace UI_portal.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-        public async void insertToJSON(ApplicationUser users)
-        {     
-            // retrive the data from table  
-            var personlist = users.UserName;
-            // Pass the "personlist" object for conversion object to JSON string  
-            string jsondata = new JavaScriptSerializer().Serialize(personlist);
-            string path = Server.MapPath("~/App_Data/output.json");
-            // post that JSON to sv,
-            System.IO.File.AppendAllText(path, jsondata + ",");
-            WebController callPostAPI = new WebController();
-            await callPostAPI.post();
-        }
-
 
         //
         // POST: /Account/LogOff
