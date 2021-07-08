@@ -23,13 +23,13 @@ namespace UI_portal.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private AccountService _accountService = new AccountService();
-        
+
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -41,9 +41,9 @@ namespace UI_portal.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -127,7 +127,7 @@ namespace UI_portal.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -162,8 +162,8 @@ namespace UI_portal.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -351,10 +351,20 @@ namespace UI_portal.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                     _accountService.sendEmailData(loginInfo.Email);
-                    Session["userEmailLogin"] = loginInfo.Email;
-                    //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });                    
-                    return RedirectToAction("Index", "Manage");
+                    var user = new ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email };
+                    var resultCreate = await UserManager.CreateAsync(user);
+                    if (resultCreate.Succeeded)
+                    {
+                        resultCreate = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                        if (resultCreate.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+                    return RedirectToAction("Index", "Home");
             }
         }
 
@@ -365,7 +375,7 @@ namespace UI_portal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            
+
             //username_email list = new username_email();
             if (User.Identity.IsAuthenticated)
             {
