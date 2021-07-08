@@ -340,6 +340,7 @@ namespace UI_portal.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session["userEmailLogin"] = loginInfo.Email;
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -351,7 +352,9 @@ namespace UI_portal.Controllers
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     _accountService.sendEmailData(loginInfo.Email);
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    Session["userEmailLogin"] = loginInfo.Email;
+                    //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });                    
+                    return RedirectToAction("Index", "Manage");
             }
         }
 
