@@ -194,6 +194,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Thing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Startup.cs" />
@@ -2743,6 +2745,7 @@
     <Content Include="Content\Assets\img\icons\alarm.svg" />
     <Content Include="Content\Assets\img\icons\arrowdown.svg" />
     <Content Include="Content\Assets\img\icons\behance-brands.svg" />
+    <Content Include="Content\Assets\img\icons\bell.svg" />
     <Content Include="Content\Assets\img\icons\check.svg" />
     <Content Include="Content\Assets\img\icons\closebtn.svg" />
     <Content Include="Content\Assets\img\icons\closebtnw.svg" />
@@ -2751,6 +2754,7 @@
     <Content Include="Content\Assets\img\icons\edit-button.svg" />
     <Content Include="Content\Assets\img\icons\eye-pw.svg" />
     <Content Include="Content\Assets\img\icons\facebook-f-brands.svg" />
+    <Content Include="Content\Assets\img\icons\four-squares.svg" />
     <Content Include="Content\Assets\img\icons\github-alt-brands.svg" />
     <Content Include="Content\Assets\img\icons\icons8-check-100.png" />
     <Content Include="Content\Assets\img\icons\icons8-mailbox-100.png" />
