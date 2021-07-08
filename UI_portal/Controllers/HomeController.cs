@@ -17,9 +17,10 @@ namespace UI_portal.Controllers
 
         public async Task<ActionResult> About()
         {
-            ViewBag.Message = "Your application description page.";
+            
             AccountService accountService = new AccountService();
-            accountService.sendEmailData("aaa@vanlanguni.vn");
+            string user = await accountService.getUserProfile();
+            ViewBag.Message = user;
             return View();
         }
 
