@@ -250,3 +250,5 @@ AkavacheSqliteLinkerOverride.cs
 NuGetBuild
 WiX.Toolset.DummyFile.txt
 GitHubVS.sln.DotSettings
+UI_portal/App_Data/aspnet-UI_portal-20210704061617_log.ldf
+UI_portal/App_Data/aspnet-UI_portal-20210704061617.mdf

@@ -450,3 +450,4 @@ D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Mi
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.csproj.GenerateResource.cache
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.addstringid.resources
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.addblock.resources
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.dontknow.resources

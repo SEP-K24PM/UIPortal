@@ -14,6 +14,7 @@ using Microsoft.Owin.Security;
 using UI_portal.Models;
 using UI_portal.Controllers;
 using UI_portal.Services;
+using UI_portal.Areas.Admin.Models;
 
 namespace UI_portal.Controllers
 {
@@ -22,7 +23,8 @@ namespace UI_portal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private AccountService _accountService = new AccountService();
+        private UserAccountService _accountService = new UserAccountService();
+        private AdminAccountService _adminService = new AdminAccountService();
 
 
         public AccountController()
@@ -58,6 +60,13 @@ namespace UI_portal.Controllers
                 _userManager = value;
             }
         }
+        [AllowAnonymous]
+        public ActionResult UserLogin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
 
         //
         // GET: /Account/Login
@@ -83,10 +92,17 @@ namespace UI_portal.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var adminToSend = new Admin_Account();
+            adminToSend.email = model.Email;
+            var response = await _adminService.SendEmailData(adminToSend);
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                result = SignInStatus.Failure;
+            }
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal("/Admin/HomeAdmin/");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "Trang chủ";
     Layout = "";
 }
@@ -46,8 +47,14 @@
                 <div class="logo">
                 </div>
                 <div class="signin-check">
-                    <p class="not-sigin">Have an account? <a href="/signin.html">Sign in</a></p>
-                    <p class="signed">Hi! </p> <!--Thêm tên user vào sau chữ Hi -->
+                    @if (Request.IsAuthenticated)
+                    {
+                        <p class="signed">Xin chào! @User.Identity.GetUserName()</p> <!--Thêm tên user vào sau chữ Hi -->
+                    }
+                    else
+                    {
+                        <p class="not-sigin"> <a href="@Url.Action("UserLogin", "Account")">Đăng nhập</a></p>
+                    }
                 </div>
                 <a href="/user/profile.html" class="buttonnav account">
                     <div class="account"></div>
