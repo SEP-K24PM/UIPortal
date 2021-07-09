@@ -13,8 +13,8 @@ namespace UI_portal.Models
         public string rated_user_id { get; set; }
         public string rater_id { get; set; }
         public string post_id { get; set; }
-        public Account rated_user { get; set; }
-        public Account rater { get; set; }
+        public User_Account rated_user { get; set; }
+        public User_Account rater { get; set; }
         public Post post { get; set; }
     }
 }

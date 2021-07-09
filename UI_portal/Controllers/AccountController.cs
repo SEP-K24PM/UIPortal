@@ -337,6 +337,9 @@ namespace UI_portal.Controllers
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var userToSend = new User_Account();
+            userToSend.email = loginInfo.Email;
+            var userAccount = await _accountService.sendEmailData(userToSend);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -352,8 +355,7 @@ namespace UI_portal.Controllers
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                    _accountService.sendEmailData(loginInfo.Email);
-                    var user = new ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email };
+                    var user = new ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email, accountId = userAccount.id, block = userAccount.block };
                     var resultCreate = await UserManager.CreateAsync(user);
                     if (resultCreate.Succeeded)
                     {

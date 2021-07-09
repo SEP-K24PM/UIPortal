@@ -200,8 +200,12 @@
     <Compile Include="Migrations\202107081837217_addstringid.Designer.cs">
       <DependentUpon>202107081837217_addstringid.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107091454088_addblock.cs" />
+    <Compile Include="Migrations\202107091454088_addblock.Designer.cs">
+      <DependentUpon>202107091454088_addblock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\User_Account.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -3387,6 +3391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202107081837217_addstringid.resx">
       <DependentUpon>202107081837217_addstringid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107091454088_addblock.resx">
+      <DependentUpon>202107091454088_addblock.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

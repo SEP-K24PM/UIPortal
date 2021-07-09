@@ -16,8 +16,8 @@ namespace UI_portal.Models
         public string admin_id { get; set; }
 
         public Post post { get; set; }
-        public Account reporter { get; set; }
-        public Account admin { get; set; }
+        public User_Account reporter { get; set; }
+        public User_Account admin { get; set; }
 
     }
 }

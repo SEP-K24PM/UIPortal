@@ -8,6 +8,10 @@ namespace UI_portal.Constants
     public static class EndPoints
     {
         /// <summary>
+        /// require body String email
+        /// </summary>
+        public static string USER_ACCOUNT_SAVE = "http://localhost:8762/api/user-account/login";
+        /// <summary>
         /// require body Post post
         /// </summary>
         public static string POST_SAVE = "http://localhost:8762/api/post/save";
