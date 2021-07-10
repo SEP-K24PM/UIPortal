@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace UI_portal.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Manager")]
     public class HomeAdminController : Controller
     {
         // GET: Admin/Home
@@ -14,5 +14,7 @@ namespace UI_portal.Areas.Admin.Controllers
         {
             return View();
         }
+
+        
     }
 }

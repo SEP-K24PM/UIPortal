@@ -356,6 +356,7 @@ namespace UI_portal.Controllers
             var userToSend = new User_Account();
             userToSend.email = loginInfo.Email;
             var userAccount = await _accountService.sendEmailData(userToSend);
+            if (userAccount.block) result = SignInStatus.LockedOut;
             switch (result)
             {
                 case SignInStatus.Success:
