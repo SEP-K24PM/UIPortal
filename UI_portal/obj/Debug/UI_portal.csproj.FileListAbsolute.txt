@@ -446,3 +446,8 @@ C:\UIPortal\UI_portal\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\UIPortal\UI_portal\bin\Microsoft.Owin.Security.OAuth.xml
 C:\UIPortal\UI_portal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\UIPortal\UI_portal\obj\Debug\UI_portal.csproj.CopyComplete
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.InitialCreate.resources
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.csproj.GenerateResource.cache
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.addstringid.resources
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.addblock.resources
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.dontknow.resources

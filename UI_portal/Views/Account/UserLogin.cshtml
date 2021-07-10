@@ -1,0 +1,71 @@
+﻿@model UI_portal.Models.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+@using UI_portal.Models
+@{
+    Layout = null;
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>VLS | Đăng nhập</title>
+    <link rel="icon" href="@Url.Content("~/Content/Assets/img/icons/7.svg")">
+    <meta name="title" content="" />
+    <meta name="description" content="" />
+    <!-- meta facebook -->
+    <meta property="og:locale" content="vi" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Đăng nhập" />
+    <meta property="og:description" content="" />
+    <meta property="og:url" content="" />
+    <meta property="og:site_name" content="" />
+    <meta property="og:image" content="" />
+
+    <link rel="stylesheet" href="@Url.Content("~/Content/Assets/dest/style.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/Assets/dest/fonts.css")">
+</head>
+
+<body>
+    <main class="signin-page">
+
+        <!-- <img src="img/bannersignin.jpg" alt=""> -->
+        <div class="dots"></div>
+        <div class="dots2"></div>
+        <div class="dots3"></div>
+        <a class="logo" href="@Url.Action("Index", "Home")">
+            <img src="@Url.Content("~/Content/Assets/img/icons/10.svg")" alt="">
+        </a>
+        @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "signin-form" }))
+        {
+            <h3>Đăng nhập</h3>
+            <p>Đăng nhập bằng email Văn Lang</p>
+            @Html.AntiForgeryToken()
+            foreach (AuthenticationDescription p in loginProviders)
+            {
+                <button type="submit" class="btn btn-default" id="@p.AuthenticationType"
+                        name="provider" value="@p.AuthenticationType"
+                        title="Log in using your @p.Caption account">
+                    @p.AuthenticationType
+                </button>
+            }
+        }
+        @*<form class="signin-form" autocomplete="off" action="#">
+            <input type="email" name="email" placeholder="Email" />
+            <div class="input-icon">
+                <input type="password" name="email" placeholder="Mật khẩu" />
+                <i class="fa fa-eye show-password"><img src="@Url.Content("~/Content/Assets/img/icons/eye-pw.svg")" alt=""></i>
+            </div>
+            <a href="#" class="forgot">Quên mật khẩu?</a>
+            <button>Đăng nhập</button>
+        </form>*@
+    </main>
+    <script type="text/javascript" src="@Url.Content("~/Content/Assets/dest/jsmain.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/Assets/dest/main.js")"></script>
+</body>
+
+</html>

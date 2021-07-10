@@ -14,6 +14,7 @@ using Microsoft.Owin.Security;
 using UI_portal.Models;
 using UI_portal.Controllers;
 using UI_portal.Services;
+using UI_portal.Areas.Admin.Models;
 
 namespace UI_portal.Controllers
 {
@@ -22,14 +23,15 @@ namespace UI_portal.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private AccountService _accountService = new AccountService();
-        
+        private UserAccountService _accountService = new UserAccountService();
+        private AdminAccountService _adminService = new AdminAccountService();
+
 
         public AccountController()
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -41,9 +43,9 @@ namespace UI_portal.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -58,6 +60,13 @@ namespace UI_portal.Controllers
                 _userManager = value;
             }
         }
+        [AllowAnonymous]
+        public ActionResult UserLogin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
 
         //
         // GET: /Account/Login
@@ -83,10 +92,17 @@ namespace UI_portal.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var adminToSend = new Admin_Account();
+            adminToSend.email = model.Email;
+            var response = await _adminService.SendEmailData(adminToSend);
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                result = SignInStatus.Failure;
+            }
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToLocal("/Admin/HomeAdmin/");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -127,7 +143,7 @@ namespace UI_portal.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -162,8 +178,8 @@ namespace UI_portal.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -337,6 +353,10 @@ namespace UI_portal.Controllers
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var userToSend = new User_Account();
+            userToSend.email = loginInfo.Email;
+            var userAccount = await _accountService.sendEmailData(userToSend);
+            if (userAccount.block) result = SignInStatus.LockedOut;
             switch (result)
             {
                 case SignInStatus.Success:
@@ -351,10 +371,19 @@ namespace UI_portal.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    _accountService.sendEmailData(loginInfo.Email);
-                    Session["userEmailLogin"] = loginInfo.Email;
-                    //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });                    
-                    return RedirectToAction("Index", "Manage");
+                    var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                    var user = new ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email, accountId = userAccount.id, block = userAccount.block };
+                    var resultCreate = await UserManager.CreateAsync(user);
+                    if (resultCreate.Succeeded)
+                    {
+                        resultCreate = await UserManager.AddLoginAsync(user.Id, loginInfo.Login);
+                        if (resultCreate.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+                    return RedirectToAction("Index", "Home");
             }
         }
 
@@ -365,7 +394,7 @@ namespace UI_portal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
-            
+
             //username_email list = new username_email();
             if (User.Identity.IsAuthenticated)
             {

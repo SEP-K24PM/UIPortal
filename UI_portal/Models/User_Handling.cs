@@ -12,5 +12,7 @@ namespace UI_portal.Models
         public string reason { get; set; }
         public string user_id { get; set; }
         public string admin_id { get; set; }
+        public User_Account user { get; set; }
+        public User_Account admin { get; set; }
     }
 }

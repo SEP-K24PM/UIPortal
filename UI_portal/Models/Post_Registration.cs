@@ -16,5 +16,6 @@ namespace UI_portal.Models
 
         public Thing thing { get; set; }
         public Post post { get; set; }
+        public User_Account user { get; set; }
     }
 }

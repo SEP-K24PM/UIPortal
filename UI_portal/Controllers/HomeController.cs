@@ -18,7 +18,7 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> About()
         {
             
-            AccountService accountService = new AccountService();
+            UserAccountService accountService = new UserAccountService();
             string user = await accountService.getUserProfile();
             ViewBag.Message = user;
             return View();
