@@ -11,8 +11,14 @@ namespace UI_portal.Constants
         /// require body String email
         /// </summary>
         public static string USER_ACCOUNT_SAVE = "http://localhost:8762/api/user-account/login";
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static string ADMIN_ACCOUNT_SAVE = "http://localhost:8762/api/admin/login";
+        /// <summary>
+        /// no require
+        /// </summary>
+        public static string NEWSFEED = "http://localhost:8762/api/newsfeed/";
         /// <summary>
         /// require body Post post
         /// </summary>

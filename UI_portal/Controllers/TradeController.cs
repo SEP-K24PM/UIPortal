@@ -11,7 +11,7 @@ namespace UI_portal.Controllers
     public class TradeController : Controller
     {
         [HttpPost]
-        public ActionResult RegisterPost(string postId, Post_Registration postRegistration)
+        public ActionResult RegisterPost(string postId, PostRegistration postRegistration)
         {
             return View();
         }

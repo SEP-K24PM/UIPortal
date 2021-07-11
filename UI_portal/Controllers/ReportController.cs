@@ -11,7 +11,7 @@ namespace UI_portal.Controllers
     {
         [Authorize]
         [HttpPost]
-        public ActionResult Create(Post_Report report)
+        public ActionResult Create(PostReport report)
         {
             return View();
         }

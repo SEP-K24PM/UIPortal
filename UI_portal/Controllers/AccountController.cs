@@ -92,7 +92,7 @@ namespace UI_portal.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            var adminToSend = new Admin_Account();
+            var adminToSend = new AdminAccount();
             adminToSend.email = model.Email;
             var response = await _adminService.SendEmailData(adminToSend);
             if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -353,7 +353,7 @@ namespace UI_portal.Controllers
 
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            var userToSend = new User_Account();
+            var userToSend = new UserAccount();
             userToSend.email = loginInfo.Email;
             var userAccount = await _accountService.sendEmailData(userToSend);
             if (userAccount.block) result = SignInStatus.LockedOut;

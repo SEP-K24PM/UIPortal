@@ -11,7 +11,7 @@ namespace UI_portal.Controllers
     {
         [Authorize]
         [HttpPost]
-        public ActionResult Create(User_Rating userRating)
+        public ActionResult Create(UserRating userRating)
         {
             return View();
         }

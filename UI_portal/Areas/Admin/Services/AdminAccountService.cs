@@ -20,7 +20,7 @@ namespace UI_portal.Services
 
         HttpClient _client = new HttpClient();
 
-        public async Task<HttpResponseMessage> SendEmailData(Admin_Account account)
+        public async Task<HttpResponseMessage> SendEmailData(AdminAccount account)
         {
             var convertedAdmin = JsonConvert.SerializeObject(account);
             var request = new HttpRequestMessage();

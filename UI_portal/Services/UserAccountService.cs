@@ -20,7 +20,7 @@ namespace UI_portal.Services
 
         HttpClient _client = new HttpClient();
 
-        public async Task<User_Account> sendEmailData(User_Account user)
+        public async Task<UserAccount> sendEmailData(UserAccount user)
         {
             var convertedUser = JsonConvert.SerializeObject(user);
             var request = new HttpRequestMessage();
@@ -30,7 +30,7 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            User_Account resultUser = await response.Content.ReadAsAsync<User_Account>();
+            UserAccount resultUser = await response.Content.ReadAsAsync<UserAccount>();
             return resultUser;
         }
         public async Task<string> getUserProfile()

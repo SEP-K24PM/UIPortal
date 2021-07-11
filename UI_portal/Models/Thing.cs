@@ -20,6 +20,6 @@ namespace UI_portal.Models
 
         public Category category;
         public Post post;
-        public User_Account account;
+        public UserAccount account;
     }
 }
