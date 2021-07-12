@@ -9,11 +9,6 @@ namespace UI_portal.Controllers
 {
     public class PostController : Controller
     {
-        // GET: Post
-        public ActionResult List(string userId)
-        {
-            return View();
-        }
 
         public ActionResult Details(string postId)
         {

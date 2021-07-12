@@ -10,5 +10,9 @@ namespace UI_portal.Models
         public string id { get; set; }
         public string email { get; set; }
         public bool block { get; set; }
+
+        public List<UserRating> userRatingList { get; set; }
+        public List<Thing> thingList { get; set; }
+        public List<Notification> notificationList { get; set; }
     }
 }

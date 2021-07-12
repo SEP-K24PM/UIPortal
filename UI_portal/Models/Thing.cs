@@ -7,19 +7,17 @@ namespace UI_portal.Models
 {
     public class Thing
     {
-        public string id { get; set; }
-        public string thing_name { get; set; }
-        public string origin { get; set; }
-        public int price { get; set; }
-        public int quantity { get; set; }
-        public string used_time { get; set; }
-        public string image { get; set; }
-        public string user_id { get; set; }
-        public string category_id { get; set; }
-        public string post_id { get; set; }
-
-        public Category category;
-        public Post post;
-        public UserAccount account;
-    }
+        private string id { get; set; }
+        private String thing_name { get; set; }
+        private String origin { get; set; }
+        private int price { get; set; }
+        private int quantity { get; set; }
+        private String used_time { get; set; }
+        private String image { get; set; }
+        private string user_id { get; set; }
+        private string category_id { get; set; }
+        private UserAccount userAccount { get; set; }
+        private Category category { get; set; }
+        private Post post { get; set; }
+}
 }

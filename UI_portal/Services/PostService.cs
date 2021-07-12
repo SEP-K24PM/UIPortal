@@ -23,7 +23,7 @@ namespace UI_portal.Services
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(EndPoints.NEWSFEED);
+            request.RequestUri = new Uri(ApiConstants.NEWSFEED);
 
             HttpResponseMessage response = await _client.SendAsync(request);
 

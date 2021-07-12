@@ -11,6 +11,7 @@ namespace UI_portal.Controllers
         // GET: Profile
         public ActionResult Index(string userId)
         {
+
             return View();
         }
 

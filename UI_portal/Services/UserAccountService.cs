@@ -25,7 +25,7 @@ namespace UI_portal.Services
             var convertedUser = JsonConvert.SerializeObject(user);
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(EndPoints.USER_ACCOUNT_SAVE);
+            request.RequestUri = new Uri(ApiConstants.USER_ACCOUNT_SAVE);
             request.Content = new StringContent(convertedUser, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.SendAsync(request);

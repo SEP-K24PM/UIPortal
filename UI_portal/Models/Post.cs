@@ -18,5 +18,6 @@ namespace UI_portal.Models
         public string thing_id { get; set; }
 
         public Thing thing { get; set; }
+        public List<PostRegistration> postRegistrationList { get; set; }
     }
 }
