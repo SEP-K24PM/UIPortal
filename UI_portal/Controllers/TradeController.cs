@@ -11,12 +11,12 @@ namespace UI_portal.Controllers
     public class TradeController : Controller
     {
         [HttpPost]
-        public ActionResult RegisterPost(string postId, PostRegistration postRegistration)
+        public ActionResult Register(string postId, PostRegistration postRegistration)
         {
             return View();
         }
 
-        public ActionResult ApproveRegister(string registerPostId)
+        public ActionResult AcceptRegister(string registerPostId)
         {
             return View();
         }

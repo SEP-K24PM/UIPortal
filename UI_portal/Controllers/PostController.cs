@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using UI_portal.Models;
+using UI_portal.Services;
 
 namespace UI_portal.Controllers
 {
     public class PostController : Controller
     {
+        private PostService postService;
 
-        public ActionResult Details(string postId)
+        public async Task<ActionResult> DetailsAsync(string postId)
         {
-            return View();
+            postService = new PostService();
+            Post post = await postService.getDetails(postId);
+            return View(post);
         }
 
         [Authorize]

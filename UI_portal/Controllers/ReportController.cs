@@ -7,9 +7,16 @@ using UI_portal.Models;
 
 namespace UI_portal.Controllers
 {
+    [Authorize]
     public class ReportController : Controller
     {
-        [Authorize]
+        [HttpGet]
+        public ActionResult Create(string postId)
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public ActionResult Create(PostReport report)
         {
