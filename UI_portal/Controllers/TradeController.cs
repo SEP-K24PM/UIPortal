@@ -20,7 +20,7 @@ namespace UI_portal.Controllers
             tradeService = new TradeService();
             var registed = await tradeService.getRegistration(postRegistration);
 
-            return View(registed);
+            return View();
         }
 
         public async Task<ActionResult> AcceptRegister(string registerPostId)

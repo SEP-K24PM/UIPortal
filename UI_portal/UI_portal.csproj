@@ -3407,6 +3407,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Newsfeed\Index.cshtml" />
     <Content Include="Views\Post\DetailsAsync.cshtml" />
+    <Content Include="Views\Trade\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3420,7 +3421,6 @@
     <Folder Include="Views\Rate\" />
     <Folder Include="Views\Report\" />
     <Folder Include="Views\Thing\" />
-    <Folder Include="Views\Trade\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
