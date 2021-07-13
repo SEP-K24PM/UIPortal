@@ -18,8 +18,8 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> About()
         {
             
-            UserAccountService accountService = new UserAccountService();
-            string user = await accountService.getUserProfile();
+            UserService profile = new UserService();
+            var user = await profile.getUserProfile("14551453-4e68-4e40-9aac-fda12a7b11bc");
             ViewBag.Message = user;
             return View();
         }
