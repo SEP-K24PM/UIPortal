@@ -7,6 +7,17 @@ namespace UI_portal.Models
 {
     public class PostRegistration
     {
+        
+        public PostRegistration(string des, bool chosen, string thingId, string userID, string postID)
+        {
+            this.description = des;
+            this.chosen = chosen = false;
+            this.thing_id = thingId;
+            this.user_id = userID;
+            this.post_id = postID;
+        }
+        
+
         public string id { get; set; }
         public string description { get; set; }
         public bool chosen { get; set; }
