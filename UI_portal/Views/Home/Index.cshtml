@@ -11,7 +11,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>VLS | Home</title>
+    <title>VLS | Trang chủ</title>
     <link rel="icon" href="@Url.Content("~/Content/Assets/img/icons/7.svg")">
     <meta name="title" content="" />
     <meta name="description" content="" />
@@ -56,19 +56,22 @@
                         <p class="not-sigin"> <a href="@Url.Action("UserLogin", "Account")">Đăng nhập</a></p>
                     }
                 </div>
-                <a href="/user/profile.html" class="buttonnav account">
-                    <div class="account"></div>
-                </a>
-                <a href="/user/account/edit.html" class="buttonnav setting">
-                    <div class="setting"></div>
-                </a>
+                @if (Request.IsAuthenticated)
+                {
+                    <a href="@Url.Action("Index", "User", new { userId = User.Identity.GetUserId() })" class="buttonnav account">
+                        <div class="account"></div>
+                    </a>
+                    <a href="/user/account/edit.html" class="buttonnav setting">
+                        <div class="setting"></div>
+                    </a>
+                }
                 <nav class="navigation">
                     <ul>
-                        <li><a href="/index.html">Home</a></li>
-                        <li><a href="/market.html">Market</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Service</a></li>
-                        <li><a href="">Contact</a></li>
+                        <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                        <li><a href="@Url.Action("Index", "Newsfeed")">Newsfeed</a></li>
+                        <li><a href="@Url.Action("Create", "Post")">Đăng bài</a></li>
+                        @*<li><a href="">Service</a></li>
+                <li><a href="">Contact</a></li>*@
                     </ul>
                 </nav>
                 <div class="colorbar" style="height: 100%; top: 0%; opacity: 1; background-color: transparent;"></div>
@@ -248,6 +251,7 @@
                     <p class="email">Liên hệ:<br>sepk24pm@vanlanguni.edu.vn</p>
                 </div>
             </div>
+        </div>
     </footer>
     <script type="text/javascript" src="@Url.Content("~/Content/Assets/dest/jsmain.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Content/Assets/dest/main.js")"></script>

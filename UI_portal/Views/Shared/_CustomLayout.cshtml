@@ -27,26 +27,26 @@
             <div class="container-fluid">
                 <div class="minimenu">
                     <ul>
-                        <li><a href="/market.html">Market</a></li>
+                        <li><a href="@Url.Action("Index", "Newsfeed")">Market</a></li>
                     </ul>
                 </div>
-                <a href="/index.html" class="logo">
+                <a href="@Url.Action("Index", "Home")" class="logo">
                     <img src="@Url.Content("~/Content/Assets/img/icons/9.svg")" alt="">
                 </a>
                 <div class="right-wrap">
                     <ul>
                         <li>
-                            <a href="/user/profile.html" class="profile">
-                                <div class="img">
+                            <a href="/user/profile.html" class="account"> Đăng bài
+                                @*<div class="img">
                                     <img src="@Url.Content("~/Content/Assets/img/rose-10.jpg")" alt="">
-                                </div>
+                                </div>*@
                             </a>
                         </li>
                         <li>
-                            <a href="/user/account/edit.html" class="account">
-                                <div class="img">
+                            <a href="/user/account/edit.html" class="account"> Tài khoản
+                                @*<div class="img">
                                     <img src="@Url.Content("~/Content/Assets/img/icons/four-squares.svg")" alt="">
-                                </div>
+                                </div>*@
                             </a>
                         </li>
                         <li>
