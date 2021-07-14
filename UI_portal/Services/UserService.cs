@@ -15,6 +15,9 @@ namespace UI_portal.Services
 
         }
         HttpClient _client = new HttpClient();
+
+
+       
         public async Task<UserAccount> getUserProfile(string userID)
         {
             var request = new HttpRequestMessage();
@@ -22,7 +25,7 @@ namespace UI_portal.Services
             request.RequestUri = new Uri(UserApiConstants.getProfile + userID);
 
             HttpResponseMessage response = await _client.SendAsync(request);
-
+        
             var profile = await response.Content.ReadAsAsync<UserAccount>();
             return profile;
         }

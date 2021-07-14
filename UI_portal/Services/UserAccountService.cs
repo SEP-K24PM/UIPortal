@@ -85,10 +85,5 @@ namespace UI_portal.Services
             string url = req + emailUser;
             return url;
         }
-
-
-
-
-
     }
 }
