@@ -1,4 +1,4 @@
-﻿
+﻿@using UI_portal.Constants;
 @model UI_portal.Models.Post
 @{
     ViewBag.Title = Model.thing.thing_name;
@@ -11,7 +11,7 @@
             <div class="detail__left">
                 <div class="detail__left-slider" itemscope data-pswp-uid="1">
                     <figure class="detail__left-slider-item">
-                        <div class="img"><img src="@Url.Content("~/Content/Assets/Images/Thing/"+Model.thing.image)" alt="@Model.thing.thing_name"></div>
+                        <div class="img"><img src="@Url.Content($"~{ImageConstants.Thing}{Model.thing.image}")" alt="@Model.thing.thing_name"></div>
                     </figure>
                 </div>
                 <div class="detail__left-button">
@@ -68,7 +68,7 @@
                     </div>
                     <div class="detail__right-options">
                         <p class="properties">Lựa chọn</p>
-                        <p class="val">Trao đổi</p>
+                        <p class="val">@Model.exchange_method</p>
                     </div>
                     <div class="detail__right-another">
                         <ul>
@@ -110,7 +110,7 @@
         </div>
         <div class="checkregist">
             <div class="container">
-                <button type="submit" class="button-del">
+               <button type="submit" class="button-del">
                     <div class="del"></div>
                 </button>
                 <div class="inventory">
@@ -129,13 +129,13 @@
                                     {
                                         <tr>
                                             <td class="name">
-                                                <div class="img"><img src="@Url.Content("~/Content/Images/")+@register.thing.image" alt="@register.thing.thing_name"></div>
+                                                <div class="img"><img src="@Url.Content($"~{ImageConstants.Thing}{register.thing.image}")" alt="@register.thing.thing_name"></div>
                                                 <div class="wrap-info">
                                                     <!--Tên món đồ-->
                                                     <a href="#" class="name-prod">@register.thing.thing_name</a>
                                                     <p>Đề xuất đổi bởi: </p>
                                                     <!--Tên và đường dẫn profile người dùng-->
-                                                    <a class="profile" href="@Url.Action("Index", "User", new { userId = register.thing.userAccount.id })">
+                                                    <a class="profile" href="@Url.Action("Index", "User", new { userId = register.userAccount.id })">
                                                         @register.userAccount.email
                                                     </a>
                                                 </div>
@@ -143,10 +143,6 @@
                                             <td class="info">
                                                 <div class="infotop">
                                                     <div class="infotop__left">
-                                                        <div class="infotop__left-item">
-                                                            <p class="properties">Thể loại:</p>
-                                                            <p class="val">@register.thing.category.category_name</p>
-                                                        </div>
                                                         <div class="infotop__left-item">
                                                             <p class="properties">Xuất xứ:</p>
                                                             <p class="val">@register.thing.origin</p>
@@ -178,9 +174,12 @@
                                                 }
                                             </td>
                                             <td class="option">
-                                                <button type="submit" class="button-check">
+                                                @*<button type="submit" class="button-check">
                                                     <div class="check"></div>
-                                                </button>
+                                                </button>*@
+                                                <form action="@Url.Action("AcceptRegister", "Trade", new { registerPostId = register.id })">
+                                                    <button>Đồng ý đổi</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     }

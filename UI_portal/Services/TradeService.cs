@@ -23,7 +23,7 @@ namespace UI_portal.Services
             request.Method = HttpMethod.Post;
             request.RequestUri = new Uri(TradeApiConstants.LIST_REGISTRATION + postId);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+            HttpResponseMessage response = await _client.GetAsync(TradeApiConstants.LIST_REGISTRATION + postId);
 
             var list = await response.Content.ReadAsAsync<List<PostRegistration>>();
             return list;

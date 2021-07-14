@@ -455,3 +455,5 @@ D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.dll
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.Mvc.dll
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.xml
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.Mvc.xml
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\AutoMapper.dll
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\AutoMapper.xml

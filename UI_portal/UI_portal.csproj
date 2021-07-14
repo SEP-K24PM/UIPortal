@@ -202,6 +202,7 @@
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Constants\AccountApiConstants.cs" />
     <Compile Include="Constants\AdminApiConstants.cs" />
+    <Compile Include="Constants\ImageConstants.cs" />
     <Compile Include="Constants\PostApiConstants.cs" />
     <Compile Include="Constants\RatingApiConstants.cs" />
     <Compile Include="Constants\ReportApiConstants.cs" />
