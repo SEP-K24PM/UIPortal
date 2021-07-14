@@ -3,8 +3,10 @@
     "",
     "\\UI_portal",
     "\\UI_portal\\Controllers",
-    "\\UI_portal\\Services"
+    "\\UI_portal\\Services",
+    "\\UI_portal\\Views",
+    "\\UI_portal\\Views\\Trade"
   ],
-  "SelectedNode": "\\UI_portal\\Controllers\\AccountController.cs",
+  "SelectedNode": "\\UI_portal.sln",
   "PreviewInSolutionExplorer": false
 }
