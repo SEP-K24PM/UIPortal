@@ -451,3 +451,7 @@ D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.cs
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.addstringid.resources
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.addblock.resources
 D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\obj\Debug\UI_portal.Migrations.dontknow.resources
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.dll
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.Mvc.dll
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.xml
+D:\Workspace\Van Lang Save\source code\UIPortal\UI_portal\bin\PagedList.Mvc.xml
