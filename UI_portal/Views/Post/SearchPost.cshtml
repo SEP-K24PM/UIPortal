@@ -1,0 +1,69 @@
+﻿@model IEnumerable<UI_portal.Models.PostElastic>
+
+@{
+    ViewBag.Title = "SearchPost";
+}
+
+<h2>SearchPost</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.exchange_methods)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.visible)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.thing_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.origin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.category_name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.exchange_methods)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.visible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.thing_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.origin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.category_name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
