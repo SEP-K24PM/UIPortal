@@ -40,7 +40,8 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> Create()
         {
             thingService = new ThingService();
-            var listThing = await thingService.GetListThings(userContextId);
+            var listThing = await thingService.GetListAvailableThings(userContextId);
+            
             return View(listThing);
         }
 
@@ -52,7 +53,7 @@ namespace UI_portal.Controllers
             if(ModelState.IsValid)
             {
                 Post savedPost = await postService.CreatePost(post);
-                return RedirectToAction("Details", new { postId = savedPost.id });
+                return RedirectToAction("DetailsAsync", new { postId = savedPost.id });
             }
             return View();
         }

@@ -3421,6 +3421,8 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Post\Update.cshtml" />
     <Content Include="Views\Post\SearchPost.cshtml" />
+    <Content Include="Views\Shared\_SidebarPartial.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

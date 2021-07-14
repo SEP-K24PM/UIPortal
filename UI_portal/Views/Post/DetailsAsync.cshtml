@@ -26,9 +26,9 @@
                 <div class="detail__left-userinfo">
                     <div class="right">
                         @*<a href="" class="avt">
-            <!--Ảnh đại diện-->
-            <img src="img/rose-10.jpg" alt="">
-        </a>*@
+                                <!--Ảnh đại diện-->
+                                <img src="img/rose-10.jpg" alt="">
+                            </a>*@
                         <div class="detail__left-userinfo name">
                             <div class="wrap-top">
                                 <!--Tên người dùng-->
@@ -110,7 +110,7 @@
         </div>
         <div class="checkregist">
             <div class="container">
-               <button type="submit" class="button-del">
+                <button type="submit" class="button-del">
                     <div class="del"></div>
                 </button>
                 <div class="inventory">
@@ -147,12 +147,12 @@
                                                             <p class="properties">Xuất xứ:</p>
                                                             <p class="val">@register.thing.origin</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="infotop__right">
                                                         <div class="infotop__right-item">
                                                             <p class="properties">Giá trị:</p>
                                                             <p class="val">@register.thing.price₫</p>
                                                         </div>
+                                                    </div>
+                                                    <div class="infotop__right">
                                                         <div class="infotop__right-item">
                                                             <p class="properties">TGSD:</p>
                                                             <p class="val">@register.thing.used_time</p>
@@ -161,22 +161,22 @@
                                                 </div>
                                                 @if (register.description != null)
                                                 {
-                                                <div class="infobot">
-                                                    <p class="properties">Lời nhắn:</p>
-                                                    <div class="cmt-box">
-                                                        <!--loi nhan-->
-                                                        <p class="cmt-content">
-                                                            @register.description
-                                                        </p>
-                                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
+                                                    <div class="infobot">
+                                                        <p class="properties">Lời nhắn:</p>
+                                                        <div class="cmt-box">
+                                                            <!--loi nhan-->
+                                                            <p class="cmt-content">
+                                                                @register.description
+                                                            </p>
+                                                            <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
+                                                        </div>
                                                     </div>
-                                                </div>
                                                 }
                                             </td>
                                             <td class="option">
                                                 @*<button type="submit" class="button-check">
-                                                    <div class="check"></div>
-                                                </button>*@
+                                                        <div class="check"></div>
+                                                    </button>*@
                                                 <form action="@Url.Action("AcceptRegister", "Trade", new { registerPostId = register.id })">
                                                     <button>Đồng ý đổi</button>
                                                 </form>

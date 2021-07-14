@@ -268,9 +268,9 @@ $(document).ready(function () {
         $(
             ".tableContent__wrap-content--qlkd .addProduct .data__item .btn-submit"
         ).on("click", function (e) {
-            e.preventDefault();
-            showNoti();
-            fadeOutNoti();
+            //e.preventDefault();
+            //showNoti();
+            //fadeOutNoti();
         });
         $(".noti .close-icon").on("click", function () {
             hideNoti();

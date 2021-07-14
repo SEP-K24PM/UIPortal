@@ -30,5 +30,17 @@ namespace UI_portal.Services
             return list;
         }
 
+        public async Task<List<Thing>> GetListAvailableThings(string userId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(ThingApiConstants.LIST_AVAILABLE + userId);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            var list = await response.Content.ReadAsAsync<List<Thing>>();
+            return list;
+        }
+
     }
 }
