@@ -18,8 +18,8 @@ namespace UI_portal.Controllers
         public ActionResult Register(string postId, string userId)
         {
             PostRegistration postRegistrationModel = new PostRegistration();
-            postRegistrationModel.post_id = "3f552bf8-0bb7-4d5d-b1e2-179844bcd338";
-            postRegistrationModel.user_id = "14551453-4e68-4e40-9aac-fda12a7b11bc";
+            postRegistrationModel.post_id = postId; // "3f552bf8-0bb7-4d5d-b1e2-179844bcd338";
+            postRegistrationModel.user_id = userId; //"14551453-4e68-4e40-9aac-fda12a7b11bc";
             return View(postRegistrationModel);
         }
 
