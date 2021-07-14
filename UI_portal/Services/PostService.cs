@@ -20,7 +20,7 @@ namespace UI_portal.Services
 
         HttpClient _client = new HttpClient();
 
-        public async Task<List<Post>> getNewsfeed()
+        public async Task<List<Post>> GetNewsfeed()
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
@@ -32,7 +32,7 @@ namespace UI_portal.Services
             return newsfeed;
         }
 
-        public async Task<Post> getDetails(string postId)
+        public async Task<Post> GetDetails(string postId)
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
@@ -42,6 +42,59 @@ namespace UI_portal.Services
 
             var post = await response.Content.ReadAsAsync<Post>();
             return post;
+        }
+
+        public async Task<Post> CreatePost(Post post)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.SAVE);
+
+            var convertedPost = JsonConvert.SerializeObject(post);
+            request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            Post savedPost = await response.Content.ReadAsAsync<Post>();
+            return savedPost;
+        }
+
+        public async Task<Post> UpdatePost(Post post)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.UPDATE + post.id);
+
+            var convertedPost = JsonConvert.SerializeObject(post);
+            request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            Post updatedPost = await response.Content.ReadAsAsync<Post>();
+            return updatedPost;
+        }
+
+        public async Task DeletePost(string postId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.DELETE + postId);
+            await _client.SendAsync(request);
+        }
+
+        public async Task<List<Post>> SearchPost(string search)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.SEARCH);
+
+            var convertedSearch = JsonConvert.SerializeObject(search);
+            request.Content = new StringContent(convertedSearch, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            List<Post> result = await response.Content.ReadAsAsync<List<Post>>();
+            return result;
         }
     }
 }
