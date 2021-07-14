@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using UI_portal.Models;
 using UI_portal.Services;
+using PagedList;
 
 namespace UI_portal.Controllers
 {
@@ -13,10 +14,12 @@ namespace UI_portal.Controllers
     {
         private PostService _postService = new PostService();
         // GET: Newsfeed
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page = 1)
         {
-            List<Post> model = await _postService.getNewsfeed();
-            return View(model);
+            List<Post> list = await _postService.getNewsfeed();
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(list.ToPagedList(pageNumber, pageSize));
         }
     }
 }
