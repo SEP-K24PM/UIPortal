@@ -29,7 +29,11 @@ namespace UI_portal.Services
             request.Content = new StringContent(convertedUser, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.SendAsync(request);
-
+            if(response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            {
+                UserAccount noUser = new UserAccount();
+                return noUser;
+            }
             UserAccount resultUser = await response.Content.ReadAsAsync<UserAccount>();
             return resultUser;
         }
