@@ -16,9 +16,10 @@ namespace UI_portal.Controllers
         // GET: Newsfeed
         public async Task<ActionResult> Index(int? page = 1)
         {
-            List<Post> list = await _postService.getNewsfeed();
-            int pageSize = 3;
+            List<Post> list = await _postService.GetNewsfeed();
+            int pageSize = 9;
             int pageNumber = (page ?? 1);
+            ViewBag.ReturnUrl = Request.Url.AbsoluteUri;
             return View(list.ToPagedList(pageNumber, pageSize));
         }
     }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,59 +14,112 @@ namespace UI_portal.Controllers
     public class PostController : Controller
     {
         private PostService postService;
+        private TradeService tradeService;
+        private ThingService thingService;
+        private string userContextId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
         public async Task<ActionResult> DetailsAsync(string postId)
         {
             postService = new PostService();
-            Post post = await postService.getDetails(postId);
+            tradeService = new TradeService();
+            List<PostRegistration> postRegistrations = await tradeService.GetListPostRegistrations(postId);
+            Post post = await postService.GetDetails(postId);
+            post.postRegistrationList = postRegistrations;
+            if (User.Identity.IsAuthenticated)
+            {
+                if (userContextId == post.thing.userAccount.id)
+                    ViewData["AbleToModifyPost"] = "true";
+                else
+                    ViewData["AbleToModifyPost"] = "false";
+            }
             return View(post);
         }
 
         [Authorize]
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            thingService = new ThingService();
+            var listThing = await thingService.GetListAvailableThings(userContextId);
+            return View(listThing);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Create(Post post)
+        public async Task<ActionResult> Create(Post post)
         {
-            return RedirectToAction("Details", new { postId = post.id });
+            postService = new PostService();
+            if(ModelState.IsValid)
+            {
+                Post savedPost = await postService.CreatePost(post);
+                return RedirectToAction("DetailsAsync", new { postId = savedPost.id });
+            }
+            thingService = new ThingService();
+            var listThing = await thingService.GetListAvailableThings(userContextId);
+            return View(listThing);
         }
 
         [Authorize]
         [HttpGet]
-        public ActionResult Update(string postId)
+        public async Task<ActionResult> Update(string postId)
         {
-            return View();
+            postService = new PostService();
+            Post post = await postService.GetDetails(postId);
+            if(post.status == "Mở")
+                return View(post);
+            return RedirectToAction("DetailsAsync", new { postId });
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult Update(string postId, Post post)
+        public async Task<ActionResult> Update(string postId, Post post)
         {
+            postService = new PostService();
+            if (ModelState.IsValid)
+            {
+                post.id = postId;
+                Post savedPost = await postService.UpdatePost(post);
+                return RedirectToAction("DetailsAsync", new { postId = postId });
+            }
             return View();
         }
 
         [Authorize]
-        [HttpPost]
-        public ActionResult Delete(string postId)
+        [HttpGet]
+        public async Task<ActionResult> Delete(string postId)
         {
-            return RedirectToAction("Index", "Newsfeed");
+            postService = new PostService();
+            Post post = await postService.GetDetails(postId);
+            if(post.status == "Mở")
+            {
+                await postService.DeletePost(postId);
+                return RedirectToAction("Index", "Newsfeed");
+            }
+            return RedirectToAction("DetailsAsync", new { postId });
         }
 
         [HttpPost]
-        public JsonResult Search(string search)
+        public async Task<JsonResult> Search(string search)
         {
-            return new JsonResult();
+            if(search != null)
+            {
+                List<PostElastic> result = await postService.SearchPost(search);
+                return Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
-        public ActionResult SearchPost(string search)
+        [HttpGet]
+        public async Task<ActionResult> SearchPost(string search, string returnUrl)
         {
-            return View();
+            postService = new PostService();
+            if (search != null)
+            {
+                List<PostElastic> result = await postService.SearchPost(search);
+                List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
+                return View(visibleResult);
+            }
+            return RedirectToRoute(returnUrl);
         }
     }
 }

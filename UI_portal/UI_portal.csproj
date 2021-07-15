@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin.Security.VanLang, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Capstone.Owin.Security.VanLang.2.0.0.1\lib\net452\Microsoft.Owin.Security.VanLang.dll</HintPath>
@@ -199,6 +202,7 @@
     <Compile Include="Areas\Manager\ManagerAreaRegistration.cs" />
     <Compile Include="Constants\AccountApiConstants.cs" />
     <Compile Include="Constants\AdminApiConstants.cs" />
+    <Compile Include="Constants\ImageConstants.cs" />
     <Compile Include="Constants\PostApiConstants.cs" />
     <Compile Include="Constants\RatingApiConstants.cs" />
     <Compile Include="Constants\ReportApiConstants.cs" />
@@ -2822,6 +2826,7 @@
     <Content Include="Content\Assets\img\icons\icons8-view-all-100.png" />
     <Content Include="Content\Assets\img\icons\logo.gif" />
     <Content Include="Content\Assets\img\icons\logo1.svg" />
+    <Content Include="Content\Assets\img\icons\messaging-action-error.svg" />
     <Content Include="Content\Assets\img\icons\next.svg" />
     <Content Include="Content\Assets\img\icons\post.svg" />
     <Content Include="Content\Assets\img\icons\prev.svg" />
@@ -3414,6 +3419,11 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Newsfeed\Index.cshtml" />
     <Content Include="Views\Post\DetailsAsync.cshtml" />
+    <Content Include="Views\Post\Create.cshtml" />
+    <Content Include="Views\Post\Update.cshtml" />
+    <Content Include="Views\Post\SearchPost.cshtml" />
+    <Content Include="Views\Shared\_SidebarPartial.cshtml" />
+    <Content Include="Views\Shared\_HeaderPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

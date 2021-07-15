@@ -1,0 +1,67 @@
+﻿@using UI_portal.Models;
+@model IEnumerable<Thing>
+@{
+    ViewBag.Title = "Đăng bài";
+}
+<main class="addProduct-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            @Html.Partial("_HeaderPartial")
+            <div class="tableContent__wrap">
+                @Html.Partial("_SidebarPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--qlkd">
+                        <div class="addProduct">
+                            @if (Model.Count() == 0)
+                            {
+                                <h1>
+                                    Bạn chưa có món đồ nào có sẵn, hãy
+                                    <a href="@Url.Action("Create", "Thing")">thêm món đồ</a>
+                                    rồi đăng bài nhé!
+                                </h1>
+                            }
+                            else
+                            {
+                                <form action="@Url.Action("Create", "Post")" method="post" autocomplete="off">
+                                    <div class="data__item">
+                                        <label for="category">Món đồ</label>
+                                        <select name="thing_id" id="category">
+                                            @foreach (var item in Model)
+                                            {
+                                                <option value="@item.id">@item.thing_name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="data__item">
+                                        <label for="">Đổi hoặc free</label>
+                                        <select name="exchange_method" id="category">
+                                            <option value="Free">Free</option>
+                                            <option value="Đổi">Đổi</option>
+                                        </select>
+                                    </div>
+                                    <div class="data__item">
+                                        <label for="short-desc">Phương thức liên lạc</label>
+                                        <input type="text" id="short-desc" name="contact" maxlength=100 required />
+                                    </div>
+                                    <div class="data__item">
+                                        <label for="short-desc">Mô tả ngắn</label>
+                                        <textarea rows="5" type="text" id="short-desc" name="description" maxlength=500></textarea>
+                                    </div>
+                                    <div class="data__item">
+                                        <label></label>
+                                        <button type="submit" class="btn-submit">Đăng bài</button>
+                                    </div>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @*<div class="noti">
+            <i class="bell-icon"><img src="/img/icons/alarm.svg" alt=""></i>
+            <p class="desc"><strong>Tạo bài đăng thành công</strong> - Bạn có thể cập nhật tại chi tiết bài đăng</p>
+            <i class="close-icon"><img src="/img/icons/closebtn.svg" alt=""></i>
+        </div>*@
+</main>

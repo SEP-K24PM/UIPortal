@@ -86,9 +86,12 @@ namespace UI_portal.Services
             return url;
         }
 
-
-
-
-
+        public UserAccount convertToUserAccount(ApplicationUser applicationUser)
+        {
+            UserAccount userAccount = new UserAccount();
+            userAccount.id = applicationUser.accountId;
+            userAccount.email = applicationUser.Email;
+            return userAccount;
+        }
     }
 }

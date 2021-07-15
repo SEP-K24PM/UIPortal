@@ -372,7 +372,7 @@ namespace UI_portal.Controllers
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
                     var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                    var user = new ApplicationUser { UserName = loginInfo.Email, Email = loginInfo.Email, accountId = userAccount.id, block = userAccount.block };
+                    var user = new ApplicationUser { Id = userAccount.id, UserName = loginInfo.Email, Email = loginInfo.Email, accountId = userAccount.id, block = userAccount.block };
                     var resultCreate = await UserManager.CreateAsync(user);
                     if (resultCreate.Succeeded)
                     {

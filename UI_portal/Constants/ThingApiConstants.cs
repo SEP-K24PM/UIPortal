@@ -11,6 +11,11 @@ namespace UI_portal.Constants
         /// @PathVariable("userId") String userId
         /// GET METHOD
         /// </summary>
+        public static string LIST_AVAILABLE = "http://localhost:8762/api/thing/list-available/";
+        /// <summary>
+        /// @PathVariable("userId") String userId
+        /// GET METHOD
+        /// </summary>
         public static string LIST_BY_USER = "http://localhost:8762/api/thing/list/";
         /// <summary>
         /// @PathVariable("thingId") String thingId
