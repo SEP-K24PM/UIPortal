@@ -4,7 +4,6 @@
 @model  PagedList.IPagedList<Post>
 @{
     ViewBag.Title = "Newsfeed";
-    Layout = "~/Views/Shared/_CustomLayout.cshtml";
 }
 <main class="market-page">
     <section class="bannermarket">
@@ -17,10 +16,11 @@
         <div class="search-input">
             <form action="@Url.Action("SearchPost", "Post")">
                 <a href="" target="_blank" hidden></a>
-                <input type="text" name="search" placeholder="Tìm kiếm..">
+                <input type="text" name="search" placeholder="Tìm kiếm.." id="auto-complete-search">
                 <div class="autocom-box">
                     <!-- here list are inserted from javascript -->
                 </div>
+                <input hidden name="returnUrl" value="@ViewBag.ReturnUrl" />
                 <button type="submit" class="searchMarket">
                     <i class="icon">
                         <img src="@Url.Content("~/Content/Assets/img/icons/icons8-search.svg")" />
@@ -73,7 +73,7 @@
                                 <div class="left">
                                     <img src="@Url.Content("~/Content/Assets//img/icons/icons8-mailbox-100.png")" alt="">
                                     <!--Số người đăng ký-->
-                                    <p>2</p>
+                                    @*<p>2</p>*@
                                 </div>
                             </div>
                             <div class="last__info">

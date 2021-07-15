@@ -82,7 +82,7 @@ namespace UI_portal.Services
             await _client.SendAsync(request);
         }
 
-        public async Task<List<Post>> SearchPost(string search)
+        public async Task<List<PostElastic>> SearchPost(string search)
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
@@ -93,7 +93,7 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<Post> result = await response.Content.ReadAsAsync<List<Post>>();
+            List<PostElastic> result = await response.Content.ReadAsAsync<List<PostElastic>>();
             return result;
         }
     }

@@ -1,95 +1,8 @@
 ﻿@using UI_portal.Models;
 @model IEnumerable<Thing>
-
 @{
     ViewBag.Title = "Đăng bài";
 }
-
-
-@*@using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-horizontal">
-            <h4>Post</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.created_time, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.created_time, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.created_time, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.visible, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.visible)
-                        @Html.ValidationMessageFor(model => model.visible, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.deletion, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.deletion)
-                        @Html.ValidationMessageFor(model => model.deletion, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.contact, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.exchange_method, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.exchange_method, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.exchange_method, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.thing_id, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.thing_id, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.thing_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }*@
-
 <main class="addProduct-page">
     <section class="tableContent">
         <div class="containerAccount">
@@ -109,7 +22,7 @@
                             }
                             else
                             {
-                                <form action="@Url.Action("Create", "Post")" method="post">
+                                <form action="@Url.Action("Create", "Post")" method="post" autocomplete="off">
                                     <div class="data__item">
                                         <label for="category">Món đồ</label>
                                         <select name="thing_id" id="category">
@@ -120,9 +33,7 @@
                                         </select>
                                     </div>
                                     <div class="data__item">
-                                        <label for="">Đổi hoặc cho</label>
-                                        @*<input type="radio" name="exchange_method" value="Free" />
-                                            <input type="radio" name="exchange_method" value="Đổi" />*@
+                                        <label for="">Đổi hoặc free</label>
                                         <select name="exchange_method" id="category">
                                             <option value="Free">Free</option>
                                             <option value="Đổi">Đổi</option>
@@ -130,11 +41,11 @@
                                     </div>
                                     <div class="data__item">
                                         <label for="short-desc">Phương thức liên lạc</label>
-                                        <input type="text" id="short-desc" name="contact" required maxlength="100"/>
+                                        <input type="text" id="short-desc" name="contact" maxlength=100 required />
                                     </div>
                                     <div class="data__item">
                                         <label for="short-desc">Mô tả ngắn</label>
-                                        <textarea rows="5" type="text" id="short-desc" name="description" maxlength="500"></textarea>
+                                        <textarea rows="5" type="text" id="short-desc" name="description" maxlength=500></textarea>
                                     </div>
                                     <div class="data__item">
                                         <label></label>

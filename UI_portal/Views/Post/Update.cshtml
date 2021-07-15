@@ -1,97 +1,91 @@
 ﻿@model UI_portal.Models.Post
-
 @{
-    ViewBag.Title = "Update";
+    ViewBag.Title = "Cập nhật bài đăng";
 }
 
-<h2>Update</h2>
+<main class="addProduct-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            @Html.Partial("_HeaderPartial")
+            <div class="tableContent__wrap">
+                @Html.Partial("_SidebarPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--qlkd">
+                        <div class="addProduct">
+                            <form action="@Url.Action("Update", "Post", new { postId = Model.id })" method="post" autocomplete="off">
+                                <div class="data__item">
+                                    <label for="category">Món đồ</label>
+                                    <select id="category" disabled>
+                                        <option value="@Model.thing.thing_name">@Model.thing.thing_name</option>
+                                    </select>
+                                </div>
+                                <div class="data__item">
+                                    <label for="category">Trạng thái</label>
+                                    <select name="status" id="category">
+                                        <option value="Huỷ">Huỷ</option>
+                                        <option value="Mở" selected>Mở</option>
+                                    </select>
+                                </div>
+                                <div class="data__item">
+                                    <label for="">Đổi hoặc free</label>
+                                    <select name="exchange_method" id="category">
+                                        @if (Model.exchange_method == "Free")
+                                        {
+                                            <option selected value="Free">Free</option>
+                                            <option value="Đổi">Đổi</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="Free">Free</option>
+                                            <option selected value="Đổi">Đổi</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="data__item">
+                                    <label for="short-desc">Phương thức liên lạc</label>
+                                    <input type="text" id="short-desc" name="contact" maxlength=100 required value="@Model.contact" />
+                                </div>
+                                <div class="data__item">
+                                    <label for="short-desc">Mô tả ngắn</label>
+                                    @if (Model.description != null)
+                                    {
+                                        <textarea rows="5" type="text" id="short-desc" name="description" maxlength=500>@Model.description</textarea>
+                                    }
+                                    else
+                                    {
+                                        <textarea rows="5" type="text" id="short-desc" name="description" maxlength=500>
+                                       
+                                        </textarea>
+                                    }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Post</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+                                </div>
+                                <div class="data__item">
+                                    <label></label>
+                                    <button onclick="cancel()" type="button" class="btn-submit"
+                                            style="background-color: #f9f4f2; color: #b49b3f">
+                                        Huỷ
+                                    </button>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.created_time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.created_time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.created_time, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.visible, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.visible)
-                    @Html.ValidationMessageFor(model => model.visible, "", new { @class = "text-danger" })
+                                    <button type="submit" class="btn-submit">Cập nhật</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+    @*<div class="noti">
+            <i class="bell-icon"><img src="/img/icons/alarm.svg" alt=""></i>
+            <p class="desc"><strong>Tạo bài đăng thành công</strong> - Bạn có thể cập nhật tại chi tiết bài đăng</p>
+            <i class="close-icon"><img src="/img/icons/closebtn.svg" alt=""></i>
+        </div>*@
+</main>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.deletion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.deletion)
-                    @Html.ValidationMessageFor(model => model.deletion, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.contact, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.contact, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.contact, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.exchange_method, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.exchange_method, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.exchange_method, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.thing_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.thing_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.thing_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+@section Scripts {
+    <script>
+        function cancel() {
+            window.location.href = "@Url.Action("DetailsAsync", new { postId = Model.id })";
+        }
+    </script>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

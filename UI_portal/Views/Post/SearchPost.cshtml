@@ -1,69 +1,69 @@
 ﻿@model IEnumerable<UI_portal.Models.PostElastic>
-
+@using UI_portal.Constants;
 @{
-    ViewBag.Title = "SearchPost";
+    ViewBag.Title = "Tìm kiếm";
 }
+<main class="market-page">
+    <section class="bannermarket">
+        <div class="textboxbanner">
+            <h2>Van Lang Save Newsfeed</h2>
+            <p class="desc"></p>
+        </div>
+    </section>
+    <div class="searchWrap">
+        <div class="search-input">
+            <form action="@Url.Action("SearchPost", "Post")">
+                <a href="" target="_blank" hidden></a>
+                <input type="text" name="search" placeholder="Tìm kiếm.." id="auto-complete-search">
+                <div class="autocom-box">
+                    <!-- here list are inserted from javascript -->
+                </div>
+                <input hidden name="returnUrl" value="@ViewBag.ReturnUrl" />
+                <button type="submit" class="searchMarket">
+                    <i class="icon">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/icons8-search.svg")" />
+                    </i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <section class="mainProduct">
+        <div class="container">
+            <h2 class="content__CTA"></h2>
+            <div class="mainProduct__list">
+                @foreach (var postelastic in Model)
+                {
+                    <div class="mainProduct__list-item">
+                        <a href="@Url.Action("DetailsAsync", "Post", new { postId = postelastic.id })">
+                            <!--Tên sản phẩm-->
+                            <h3 class="title">@postelastic.thing_name</h3>
+                            <!--Mô tả ngắn-->
+                            <p class="desc">@postelastic.description</p>
+                            <div class="user__info">
+                                <div class="right">
+                                    <div class="label">
+                                        <!--Thể loại sản phẩm-->
+                                        <p class="type">@postelastic.category_name</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="last__info">
+                                <div class="last__info-time">
+                                    <!--Thời gian đăng-->
+                                    <p class="value">@postelastic.created_time.ToShortDateString() </p>
+                                    @*<span>trước</span>*@
+                                </div>
+                                <div class="last__info-option">
+                                    <img src="@Url.Content("~/Content/Assets/img/icons/icons8-synchronize-100.png")" alt="">
+                                    <!--Lựa chọn đổi-->
+                                    <p class="option">@postelastic.exchange_methods</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
 
-<h2>SearchPost</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.exchange_methods)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.visible)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.thing_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.origin)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.category_name)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.exchange_methods)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.visible)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.thing_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.origin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.category_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
-</table>
+</main>

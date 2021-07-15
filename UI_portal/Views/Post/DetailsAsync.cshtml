@@ -1,4 +1,5 @@
-﻿@using UI_portal.Constants;
+﻿@using Microsoft.AspNet.Identity;
+@using UI_portal.Constants;
 @model UI_portal.Models.Post
 @{
     ViewBag.Title = Model.thing.thing_name;
@@ -11,7 +12,9 @@
             <div class="detail__left">
                 <div class="detail__left-slider" itemscope data-pswp-uid="1">
                     <figure class="detail__left-slider-item">
-                        <div class="img"><img src="@Url.Content($"~{ImageConstants.Thing}{Model.thing.image}")" alt="@Model.thing.thing_name"></div>
+                        <div class="img">
+                            <img src="@Url.Content($"~{ImageConstants.Thing}{Model.thing.image}")" alt="@Model.thing.thing_name">
+                        </div>
                     </figure>
                 </div>
                 <div class="detail__left-button">
@@ -19,20 +22,19 @@
                         <div class="btn prev"><img src="@Url.Content("~/Content/Assets/img/icons/prev.svg")" alt=""></div>
                         <div class="btn next "><img src="@Url.Content("~/Content/Assets/img/icons/next.svg")" alt=""></div>
                     </div>
-                    <a href="@Url.Action("Register", "Trade", new { postId = Model.id })" class="option tradebtn">
-                        @Model.exchange_method
-                    </a>
+                    @if (Model.status == "Mở")
+                    {
+                        <form action="@Url.Action("Register", "Trade", new { postId = Model.id })">
+                            <button type="submit" class="option freebtn">Đăng ký đổi</button>
+                        </form>
+                    }
                 </div>
                 <div class="detail__left-userinfo">
                     <div class="right">
-                        @*<a href="" class="avt">
-                                <!--Ảnh đại diện-->
-                                <img src="img/rose-10.jpg" alt="">
-                            </a>*@
                         <div class="detail__left-userinfo name">
                             <div class="wrap-top">
                                 <!--Tên người dùng-->
-                                <p class="name">@Model.thing.userAccount.email</p>
+                                <p class="name">Người đăng: @Model.thing.userAccount.email</p>
                             </div>
                             <a href="@Url.Action("Index", "User", new { userId = Model.thing.userAccount.id })" class="button-primary userlink"><p>Trang cá nhân</p></a>
                         </div>
@@ -40,79 +42,94 @@
                 </div>
             </div>
             <div class="detail__right">
-                <form action="">
+                @if (User.Identity.IsAuthenticated)
+                {
                     <button class="button-threedots">
-                        <div class="threedots"></div>
+                        <div class="threedots" style="background: url(@Url.Content("~/Content/Assets/img/icons/three-dots-svgrepo-com.svg")) center no-repeat;"></div>
                     </button>
                     <div class="navi-post">
                         <ul>
                             @if (isAbleModify == "true")
                             {
-                                <li>
-                                    <a href="@Url.Action("Update", "Post", new { postId = Model.id })">
-                                        <button class="edit">Cập nhật</button>
-                                    </a>
-                                </li>
-                                <li>
-                                    <button type="submit" class="del">Xóa</button>
-                                </li>
+                                if (Model.status == "Mở")
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Update", "Post", new { postId = Model.id })">
+                                            <button type="submit" class="edit">Cập nhật</button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <button type="submit" class="del">Xóa</button>
+                                    </li>
+                                }
                             }
                             else
                             {
-
+                                <li>
+                                    <button class="report">Báo cáo</button>
+                                </li>
                             }
                         </ul>
                     </div>
-                    <div class="detail__right-name">
-                        <h3>@Model.thing.thing_name</h3>
+                }
+                <div class="detail__right-name">
+                    <h3>@Model.thing.thing_name</h3>
+                </div>
+                <div class="detail__right-options">
+                    <p class="properties">Lựa chọn</p>
+                    <p class="val">@Model.exchange_method</p>
+                </div>
+                <div class="detail__right-another">
+                    <ul>
+                        <li>
+                            <p class="properties">Thể loại</p>
+                            <p class="val">@Model.thing.category.category_name</p>
+                        </li>
+                        <li>
+                            <p class="properties">Xuất xứ</p>
+                            <p class="val">@Model.thing.origin</p>
+                        </li>
+                        <li>
+                            <p class="properties">Giá trị</p>
+                            <p class="val">@Model.thing.price.ToString("N0")₫</p>
+                        </li>
+                        <li>
+                            <p class="properties">Thời gian sử dụng</p>
+                            <p class="val">@Model.thing.used_time</p>
+                        </li>
+                        <li>
+                            <p class="properties">Trạng thái</p>
+                            <div class="val">
+                                @switch (Model.status)
+                                {
+                                    case "Hoàn tất":
+                                        <p class="status status-done">@Model.status</p>
+                                        break;
+                                    case "Mở":
+                                        <p class="status status-open">@Model.status</p>
+                                        break;
+                                    case "Đóng":
+                                        <p class="status status-pending">@Model.status</p>
+                                        break;
+                                    case "Huỷ":
+                                        <p class="status status-cancel">@Model.status</p>
+                                        break;
+                                }
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                @if (Model.description != null)
+                                {
+                    <div class="detail__right-desc">
+                        <p class="title">Mô tả ngắn:</p>
+                        <p class="content edit">@Model.description</p>
                     </div>
-                    <div class="detail__right-options">
-                        <p class="properties">Lựa chọn</p>
-                        <p class="val">@Model.exchange_method</p>
-                    </div>
-                    <div class="detail__right-another">
-                        <ul>
-                            <li>
-                                <p class="properties">Thể loại</p>
-                                <p class="val">@Model.thing.category.category_name</p>
-                            </li>
-                            <li>
-                                <p class="properties">Xuất xứ</p>
-                                <p class="val">@Model.thing.origin</p>
-                            </li>
-                            <li>
-                                <p class="properties">Giá trị</p>
-                                <p class="val">@Model.thing.price.ToString("N0")₫</p>
-                            </li>
-                            <li>
-                                <p class="properties">Thời gian sử dụng</p>
-                                <p class="val">@Model.thing.used_time</p>
-                            </li>
-                            <li>
-                                <p class="properties">Trạng thái</p>
-                                <div class="val">
-                                    <p class="status status-done">@Model.status</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    @if (Model.description != null)
-                    {
-                        <div class="detail__right-desc">
-                            <p class="title">Mô tả ngắn:</p>
-                            <p class="content edit">
-                                @Model.description
-                            </p>
-                        </div>
-                    }
-                </form>
+                }
             </div>
         </div>
         <div class="checkregist">
             <div class="container">
-                <button type="submit" class="button-del">
-                    <div class="del"></div>
-                </button>
                 <div class="inventory">
                     <div class="inventory__wrap">
                         <div class="inventory__wrap-bottom">
@@ -132,7 +149,7 @@
                                                 <div class="img"><img src="@Url.Content($"~{ImageConstants.Thing}{register.thing.image}")" alt="@register.thing.thing_name"></div>
                                                 <div class="wrap-info">
                                                     <!--Tên món đồ-->
-                                                    <a href="#" class="name-prod">@register.thing.thing_name</a>
+                                                    <a href="" class="name-prod">@register.thing.thing_name</a>
                                                     <p>Đề xuất đổi bởi: </p>
                                                     <!--Tên và đường dẫn profile người dùng-->
                                                     <a class="profile" href="@Url.Action("Index", "User", new { userId = register.userAccount.id })">
@@ -147,12 +164,12 @@
                                                             <p class="properties">Xuất xứ:</p>
                                                             <p class="val">@register.thing.origin</p>
                                                         </div>
+                                                    </div>
+                                                    <div class="infotop__right">
                                                         <div class="infotop__right-item">
                                                             <p class="properties">Giá trị:</p>
                                                             <p class="val">@register.thing.price₫</p>
                                                         </div>
-                                                    </div>
-                                                    <div class="infotop__right">
                                                         <div class="infotop__right-item">
                                                             <p class="properties">TGSD:</p>
                                                             <p class="val">@register.thing.used_time</p>
@@ -174,12 +191,17 @@
                                                 }
                                             </td>
                                             <td class="option">
-                                                @*<button type="submit" class="button-check">
-                                                        <div class="check"></div>
-                                                    </button>*@
-                                                <form action="@Url.Action("AcceptRegister", "Trade", new { registerPostId = register.id })">
-                                                    <button>Đồng ý đổi</button>
-                                                </form>
+                                                @if (isAbleModify == "true")
+                                                {
+                                                    <form action="@Url.Action("AcceptRegister", "Trade", new { registerPostId = register.id })">
+                                                        <button class="button accept">
+                                                            <p>Chấp nhận</p>
+                                                            <div class="img">
+                                                                <img src="@Url.Content("~/Content/Assets/img/icons/hand-shake.svg")" alt="">
+                                                            </div>
+                                                        </button>
+                                                    </form>
+                                                }
                                             </td>
                                         </tr>
                                     }
@@ -191,4 +213,92 @@
             </div>
         </div>
     </section>
+    @*<section class="anotherProduct">
+        <div class="container">
+            <h3 class="titleAP">Các sản phẩm khác</h3>
+            <div class="mainProduct__list">
+                <div class="mainProduct__list-item">
+                    <a href="/postDetail.html">
+                        <div class="item-img">
+                            <!--Ảnh sản phẩm-->
+                            <img src="/img/detail/detail1.1.jpg" alt="">
+                            <div class="label">
+                                <!--Thể loại sản phẩm-->
+                                <p class="type">CD</p>
+                            </div>
+                        </div>
+                        <!--Tên sản phẩm-->
+                        <h3 class="title">Park Chaeyoung - FIRST SINGLE ALBUM</h3>
+                        <!--Mô tả ngắn-->
+                        <p class="desc">This is a small-scale producer still breaking into the market, so we were looking for a fresh approach that would boost their visibility and improve brand recognition.</p>
+                        <div class="user__info">
+                            <div class="right">
+                                <div class="user__info-name">
+                                    <div class="wrap-top">
+                                        <span>By</span>
+                                        <!--Tên người dùng-->
+                                        <p class="name">Park Chaeyoung</p>
+                                    </div>
+                                    <div class="vote-star">
+                                        <img src="img/icons/star.svg" alt="">
+                                        <!--TBC đánh giá-->
+                                        <p class="star-value">4.5</p>
+                                        <!--Tổng số đánh giá-->
+                                        <p class="total-vote">(365)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="left">
+                                <img src="/img/icons/icons8-mailbox-100.png" alt=""><p>2</p>
+                            </div>
+                        </div>
+                        <div class="last__info">
+                            <div class="last__info-time">
+                                <!--Thời gian đăng-->
+                                <p class="value">15 phút </p>
+                                <span>trước</span>
+                            </div>
+                            <div class="last__info-option">
+                                <img src="img/icons/icons8-synchronize-100.png" alt="">
+                                <!--Lựa chọn đổi-->
+                                <p class="option">Trao đổi</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="product__button">
+                <div class="btn prev"><img src="@Url.Content("~/Content/Assets/img/icons/prev.svg")" alt=""></div>
+                <div class="btn next"><img src="@Url.Content("~/Content/Assets/img/icons/next.svg")" alt=""></div>
+            </div>
+        </div>
+    </section>*@
+    <div class="black-layer"></div>
+    <div class="report-form">
+        <div class="button-close">
+            <img src="@Url.Content("~/Content/Assets/img/icons/closebtn.svg")" alt="">
+        </div>
+        <h3>Báo cáo</h3>
+        <div class="in-wrap">
+            <form action="@Url.Action("Create", "Report")">
+                <input value="@Model.id" name="post_id" hidden />
+                <input value="@User.Identity.GetUserId()" name="reporter_id" hidden />
+                <div class="data__item">
+                    <label for="short-desc">Điền lý do/mô tả:</label>
+                    <textarea name="description" rows="5" type="text" id="short-desc"></textarea>
+                </div>
+                <button type="submit">Đồng ý</button>
+            </form>
+        </div>
+    </div>
+    <div class="warning-delete-post-form">
+        <h3>Bạn muốn xóa bài đăng?</h3>
+        <img src="@Url.Content("~/Content/Assets/img/icons/messaging-action-error.svg")" alt="">
+        <div class="opt-wrap">
+            <a href="@Url.Action("Delete", "Post", new { postId = Model.id })">
+                <button type="submit" class="button delposty">Đồng ý</button>
+            </a>
+            <button class="button delpostn">Hủy</button>
+        </div>
+    </div>
 </main>

@@ -2826,6 +2826,7 @@
     <Content Include="Content\Assets\img\icons\icons8-view-all-100.png" />
     <Content Include="Content\Assets\img\icons\logo.gif" />
     <Content Include="Content\Assets\img\icons\logo1.svg" />
+    <Content Include="Content\Assets\img\icons\messaging-action-error.svg" />
     <Content Include="Content\Assets\img\icons\next.svg" />
     <Content Include="Content\Assets\img\icons\post.svg" />
     <Content Include="Content\Assets\img\icons\prev.svg" />

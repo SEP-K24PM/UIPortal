@@ -41,7 +41,6 @@ namespace UI_portal.Controllers
         {
             thingService = new ThingService();
             var listThing = await thingService.GetListAvailableThings(userContextId);
-            
             return View(listThing);
         }
 
@@ -55,7 +54,9 @@ namespace UI_portal.Controllers
                 Post savedPost = await postService.CreatePost(post);
                 return RedirectToAction("DetailsAsync", new { postId = savedPost.id });
             }
-            return View();
+            thingService = new ThingService();
+            var listThing = await thingService.GetListAvailableThings(userContextId);
+            return View(listThing);
         }
 
         [Authorize]
@@ -64,7 +65,9 @@ namespace UI_portal.Controllers
         {
             postService = new PostService();
             Post post = await postService.GetDetails(postId);
-            return View(post);
+            if(post.status == "Mở")
+                return View(post);
+            return RedirectToAction("DetailsAsync", new { postId });
         }
 
         [Authorize]
@@ -74,19 +77,25 @@ namespace UI_portal.Controllers
             postService = new PostService();
             if (ModelState.IsValid)
             {
+                post.id = postId;
                 Post savedPost = await postService.UpdatePost(post);
-                return RedirectToAction("Details", new { postId = savedPost.id });
+                return RedirectToAction("DetailsAsync", new { postId = postId });
             }
             return View();
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult> Delete(string postId)
         {
             postService = new PostService();
-            await postService.DeletePost(postId);
-            return RedirectToAction("Index", "Newsfeed");
+            Post post = await postService.GetDetails(postId);
+            if(post.status == "Mở")
+            {
+                await postService.DeletePost(postId);
+                return RedirectToAction("Index", "Newsfeed");
+            }
+            return RedirectToAction("DetailsAsync", new { postId });
         }
 
         [HttpPost]
@@ -94,20 +103,21 @@ namespace UI_portal.Controllers
         {
             if(search != null)
             {
-                List<Post> result = await postService.SearchPost(search);
+                List<PostElastic> result = await postService.SearchPost(search);
                 return Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult> SearchPost(string search, string returnUrl)
         {
             postService = new PostService();
             if (search != null)
             {
-                List<Post> result = await postService.SearchPost(search);
-                return View(result);
+                List<PostElastic> result = await postService.SearchPost(search);
+                List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
+                return View(visibleResult);
             }
             return RedirectToRoute(returnUrl);
         }
