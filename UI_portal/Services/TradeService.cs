@@ -46,6 +46,17 @@ namespace UI_portal.Services
             var PostRegistrationStatus = await response.Content.ReadAsAsync<PostRegistration>();
             return PostRegistrationStatus;
         }
+        public async Task<List<Thing>> listThingUser(string UserID)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(TradeApiConstants.SHOW_LIST_THING_USER + UserID);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+            List<Thing> list = await response.Content.ReadAsAsync<List<Thing>>();
+
+            return list;
+        }
 
     }
 }
