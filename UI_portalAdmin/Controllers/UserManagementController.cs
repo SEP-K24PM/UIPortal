@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace UI_portalAdmin.Controllers
 {
-    [Authorize(Roles = "Quản trị")]
+    [Authorize(Roles = "Quản trị viên")]
     public class UserManagementController : Controller
     {
         // GET: UserManagement

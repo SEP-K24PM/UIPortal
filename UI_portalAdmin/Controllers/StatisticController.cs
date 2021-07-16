@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace UI_portalAdmin.Controllers
 {
+    [Authorize(Roles = "Quản lý")]
     public class StatisticController : Controller
     {
         // GET: Statistic

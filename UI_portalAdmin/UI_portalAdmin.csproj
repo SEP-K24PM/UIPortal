@@ -197,6 +197,7 @@
     <Compile Include="Models\UserRating.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdminAccountService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -209,8 +210,9 @@
     <Content Include="Content\assets\css\bootstrap\bootstrap.css" />
     <Content Include="Content\assets\css\bootstrap\bootstrap.min.css" />
     <Content Include="Content\assets\fonts\nucleo\nucleo-icons.svg" />
-    <Content Include="Content\assets\img\brand\blue.png" />
+    <Content Include="Content\assets\img\brand\bluee.png" />
     <Content Include="Content\assets\img\brand\favicon.png" />
+    <Content Include="Content\assets\img\brand\blue.gif" />
     <Content Include="Content\assets\img\brand\white.png" />
     <Content Include="Content\assets\img\icons\common\github.svg" />
     <Content Include="Content\assets\img\icons\common\google.svg" />
@@ -3156,7 +3158,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Indexdefault.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -3178,8 +3180,10 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Home\Indexadmin.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\UserManagement\Index.cshtml" />
+    <Content Include="Views\Shared\_FooterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3206,7 +3210,6 @@
     <Folder Include="Content\assets\vendor\jekyll\site\news\releases\" />
     <Folder Include="Views\ReportManagement\" />
     <Folder Include="Views\Statistic\" />
-    <Folder Include="Views\UserManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
