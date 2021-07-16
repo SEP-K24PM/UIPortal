@@ -29,25 +29,19 @@ namespace UI_portal.Controllers
 
             return View(postRegistrationModel);
         }
-
-        public async Task SaveToDB(PostRegistration postRegistration)
+        [HttpPost]
+        public async Task<ActionResult> Register(string userId, string postId, string thingId, string comm)
         {
+            var model = new PostRegistration();
+            model.post_id = postId;
+            model.user_id = userId;
+            model.thing_id = thingId;
+            model.description = comm;
+
             tradeService = new TradeService();
-            var registed = await tradeService.getRegistration(postRegistration);
-
-        }
-        [HttpGet]
-        public async Task<ActionResult> makeSureAsync(string thingId, string userId,string postId)
-         {
-            PostRegistration passingPost = new PostRegistration();
-            passingPost.thing_id = thingId;
-            passingPost.user_id = userId;
-            passingPost.post_id = postId;
-
-            await SaveToDB(passingPost);
+            var registed = await tradeService.getRegistration(model);
             return View("Index");
         }
-
         public async Task<ActionResult> AcceptRegister(string registerPostId)
         {
             tradeService = new TradeService();

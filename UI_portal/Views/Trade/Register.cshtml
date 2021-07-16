@@ -4,90 +4,77 @@
     IEnumerable<Thing> userThingList = ViewData["listThing"] as IEnumerable<Thing>;
     PostRegistration PassPostRegis = ViewData["postRegis"] as PostRegistration;
 }
-    <main class="register-exchange-page">
-        <section class="tableIven">
-            <div class="containerAccount">
-                <div class="inventory">
-                    <div class="inventory__wrap">
-                        <div class="inventory__wrap-top">
-                            <div class="searchWrap">
-                                <div class="search-input">
-                                    <a href="" target="_blank" hidden></a>
-                                    <input type="text" placeholder="Tìm kiếm..">
-                                    <i class="icon"><img src="/img/icons/icons8-search.svg"></img></i>
+<main class="register-exchange-page">
+    <section class="tableIven">
+        <div class="containerAccount">
+            <div class="inventory">
+                <div class="inventory__wrap">
+                    @using (Html.BeginForm("Register", "Trade", FormMethod.Post))
+                    {
+                        <form action="">
+                            <div class="inventory__wrap-left">
+                                <div class="searchWrap">
+                                    <div class="search-input">
+                                        <a href="" target="_blank" hidden></a>
+                                        <input type="text" placeholder="Tìm kiếm..">
+                                        <i class="icon"><img src="/img/icons/icons8-search.svg"></img></i>
+                                    </div>
+                                </div>
+                                <div class="img"><img src="/img/sapiens.svg" alt=""></div>
+                            </div>
+                            <div class="inventory__wrap-bottom">
+                                <table class="table-scroll small-first-col">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Trạng thái</th>
+                                            <th>Lựa chọn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="body-half-screen">
+                                        @foreach (var item in userThingList)
+                                        {
+                                            <tr>
+                                                <td class="name">@item.thing_name</td>
+                                                <td>
+                                                    <p class="status status-available">Sẵn có</p>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="button-check" name="thingId" value="@item.id" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="register__form">
+                                    <div class="register__form-message">
+                                        <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text" name="comm"></textarea>
+                                        <input hidden value="@PassPostRegis.user_id" name="userId" />
+                                        <input hidden value="@PassPostRegis.post_id" name="postId" />
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="register__form-button" value="Đăng ký lựa chọn">
+                                            @*<img src="/img/icons/sendregist.svg" alt="">*@
+                                            <div class="around around-boarder">Đăng ký</div>
+                                        </button>
+                                        <button type="button" value="Cancel">
+                                            <a href="/postDetail.html" class="register__form-button cancel">
+                                                @*<img src="/img/icons/registcancel.svg" alt="">*@
+                                                <div class="around around-boarder">Hủy</div>
+                                            </a>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="btn">
-                                @*<a href="/user/addProduct.html" class="button addproduct">
-                                        <p>Lưu lựa chọn</p>
-                                        <div class="img">
-                                            <img src="/img/icons/closebtn.svg" alt="">
-                                        </div>
-                                    </a>*@
-                                @*<input type="submit" value="Lưu lựa chọn" style="display:inline-block; background-color:forestgreen ; color:white ; width:148px; height:39px; ; font: bold ; font-family: Lato" />*@
-                                @*<div class="button delproduct">
-                                        <p>Hủy lựa chọn</p>
-                                        <div class="img">
-                                            <img src="/img/icons/closebtn.svg" alt="">
-                                        </div>
-                                    </div>*@
-                            </div>
-                        </div>
-                        <div class="inventory__wrap-bottom">
-                            <table class="table-scroll small-first-col">
-                                <thead>
-                                    <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Trạng thái</th>
-                                        <th>Lựa chọn</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="body-half-screen">
-                                    @*
-                                        <tr>
-                                            <td class="name">Park Chaeyoung</td>
-                                            <td class="type">CD</td>
-                                            <td class="quantity">1</td>
-                                            <td><p class="status status-available">Sẵn có</p></td>
-                                            <td>
-                                                <button type="" class="button-check">
-                                                    <div class="check"></div>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    *@
-                                    @foreach (var item in userThingList)
-                                    {
-                                        <tr>
-                                            <td class="name"> @item.thing_name</td>
-                                            <td class="quantity"> @item.quantity </td>
-                                            <td>
-                                                <a href="
-                                                  @Html.Raw( @Url.Action("makeSureAsync", "Trade", new { @thingId = item.id, @userId = PassPostRegis.user_id, @postId = PassPostRegis.post_id, @comm = Model.description }))">
-                                                    Đăng ký ngay
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <div class="register-message">
-                                <p>VIẾT LỜI NHẮN:</p>
-                                @Html.TextAreaFor(model => model.description)
-                                @Html.HiddenFor(model => model.thing_id)
-                                @Html.HiddenFor(model => model.post_id)
-                                @Html.HiddenFor(model => model.user_id)
-                                @*
-                                    @Html.TextAreaFor(model => model.description)
-                                    @Html.HiddenFor(model => model.post_id)
-                                    @Html.HiddenFor(model => model.user_id)
-                                *@
-
-                            </div>
-                        </div>
-                    </div>
+                            
+                        </form>
+                    }
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
+
+
+
+
