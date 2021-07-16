@@ -29,6 +29,19 @@ namespace UI_portal.Services
             var profile = await response.Content.ReadAsAsync<UserAccount>();
             return profile;
         }
+        public async Task<List<Post>> getUserPosted()
+        {
+
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.NEWSFEED);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            List<Post> newsfeed = await response.Content.ReadAsAsync<List<Post>>();
+            return newsfeed;
+        }
+
 
     }
 }

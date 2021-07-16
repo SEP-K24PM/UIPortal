@@ -2,6 +2,9 @@
 @model UI_portal.Models.UserAccount
 @{
     UserAccount user = ViewData["user"] as UserAccount;
+    //List<Post> listPosted = ViewData["ListPost"] as List<Post>;
+    var listRating = user.userRatingList;
+
 }
 
 <main class="userProfile-page">
@@ -61,276 +64,68 @@
                     </a>
                 </div>
                 <div class="mainProfile__right-list">
-                    <div class="panel product active">
-                        <div class="mainProfile__right-list-item">
-                            <a href="/postDetail.html">
-                                <div class="item-img">
-                                    <!--Ảnh sản phẩm-->
-                                    <img src="/img/detail/detail1.1.jpg" alt="">
-                                    <div class="label">
-                                        <!--Thể loại sản phẩm-->
-                                        <p class="type">CD</p>
-                                    </div>
-                                    <div class="productcover-detail">
-                                        <p class="title">Park Chaeyoung - FIRST SINGLE ALBUM</p>
-                                        <div class="bottom-wrap">
-                                            <!--Lựa chọn đổi-->
-                                            <p class="option">Trao đổi</p>
-                                            <div class="left">
-                                                <div class="img">
-                                                    <img src="/img/icons/icons8-mailbox-100.png" alt="">
+                    <div class="panel product active">              
+                        @*@foreach (var item in listPosted)
+                        {
+                            <div class="mainProfile__right-list-item">
+                                <a href="/postDetail.html">
+                                    <div class="item-img">
+                                        <!--Ảnh sản phẩm-->
+                                        <img src="/img/detail/detail1.1.jpg" alt="">
+                                        <div class="label">
+                                            <!--Thể loại sản phẩm-->
+                                            <p class="type">@item.thing.thing_name</p>
+                                        </div>
+                                        <div class="productcover-detail">
+                                            <p class="title">Park Chaeyoung - FIRST SINGLE ALBUM</p>
+                                            <div class="bottom-wrap">
+                                                <!--Lựa chọn đổi-->
+                                                <p class="option">Trao đổi</p>
+                                                <div class="left">
+                                                    <div class="img">
+                                                        <img src="/img/icons/icons8-mailbox-100.png" alt="">
+                                                    </div>
+                                                    <!--Số người đăng ký-->
+                                                    <p>@item.contact</p>
                                                 </div>
-                                                <!--Số người đăng ký-->
-                                                <p>2</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }*@
+
+                        <div class="panel review">
+                            @*@foreach ( var rater in listRating)
+                            {
+                                <div class="mainProfile__right-list-review">
+                                    <div class="right">
+                                        <div class="right-top">
+                                            <!--Tên người đánh giá-->
+                                            <p class="name">@rater.rater.email</p>
+                                            <!--Số sao đánh giá-->
+                                            <span class="stars">@rater.rating</span>
+                                        </div>
+                                        <div class="right-bottom">
+                                            <div class="cmt-box">
+                                                <!--nhận xét-->
+                                                <p class="cmt-content">
+                                                 @rater.description
+                                                </p>
+                                                <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
+                                            </div>
+                                            <!--Thời gian đăng-->
+                                            <div class="time">
+                                                <p class="val">2 day</p>
+                                                <span>ago</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-                        <div class="mainProfile__right-list-item">
-                            <a href="/postDetail.html">
-                                <div class="item-img">
-                                    <!--Ảnh sản phẩm-->
-                                    <img src="/img/detail/detail1.1.jpg" alt="">
-                                    <div class="label">
-                                        <!--Thể loại sản phẩm-->
-                                        <p class="type">CD</p>
-                                    </div>
-                                    <div class="productcover-detail">
-                                        <p class="title">Park Chaeyoung - FIRST SINGLE ALBUM</p>
-                                        <div class="bottom-wrap">
-                                            <!--Lựa chọn đổi-->
-                                            <p class="option">Trao đổi</p>
-                                            <div class="left">
-                                                <div class="img">
-                                                    <img src="/img/icons/icons8-mailbox-100.png" alt="">
-                                                </div>
-                                                <!--Số người đăng ký-->
-                                                <p>2</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="mainProfile__right-list-item">
-                            <a href="/postDetail.html">
-                                <div class="item-img">
-                                    <!--Ảnh sản phẩm-->
-                                    <img src="/img/detail/detail1.1.jpg" alt="">
-                                    <div class="label">
-                                        <!--Thể loại sản phẩm-->
-                                        <p class="type">CD</p>
-                                    </div>
-                                    <div class="productcover-detail">
-                                        <p class="title">Park Chaeyoung - FIRST SINGLE ALBUM</p>
-                                        <div class="bottom-wrap">
-                                            <!--Lựa chọn đổi-->
-                                            <p class="option">Trao đổi</p>
-                                            <div class="left">
-                                                <div class="img">
-                                                    <img src="/img/icons/icons8-mailbox-100.png" alt="">
-                                                </div>
-                                                <!--Số người đăng ký-->
-                                                <p>2</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="mainProfile__right-list-item">
-                            <a href="/postDetail.html">
-                                <div class="item-img">
-                                    <!--Ảnh sản phẩm-->
-                                    <img src="/img/detail/detail1.1.jpg" alt="">
-                                    <div class="label">
-                                        <!--Thể loại sản phẩm-->
-                                        <p class="type">CD</p>
-                                    </div>
-                                    <div class="productcover-detail">
-                                        <p class="title">Park Chaeyoung - FIRST SINGLE ALBUM</p>
-                                        <div class="bottom-wrap">
-                                            <!--Lựa chọn đổi-->
-                                            <p class="option">Trao đổi</p>
-                                            <div class="left">
-                                                <div class="img">
-                                                    <img src="/img/icons/icons8-mailbox-100.png" alt="">
-                                                </div>
-                                                <!--Số người đăng ký-->
-                                                <p>2</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="panel review">
-                        <div class="mainProfile__right-list-review">
-                            <div class="right">
-                                <div class="right-top">
-                                    <!--Tên người đánh giá-->
-                                    <p class="name">Jennie Kim</p>
-                                    <!--Số sao đánh giá-->
-                                    <span class="stars">4</span>
-                                </div>
-                                <div class="right-bottom">
-                                    <div class="cmt-box">
-                                        <!--nhận xét-->
-                                        <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit. At similique repellendus iure placeat excepturi tempore enim
-                                            sapiente corrupti laborum alias a, dicta voluptas perferendis repellat
-                                            quod. Illum sapiente voluptate ut.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique
-                                            repellendus iure placeat excepturi tempore enim sapiente corrupti
-                                            laborum alias a, dicta voluptas perferendis repellat quod. Illum
-                                            sapiente voluptate ut.
-                                        </p>
-                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                    </div>
-                                    <!--Thời gian đăng-->
-                                    <div class="time">
-                                        <p class="val">1 days</p>
-                                        <span>ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mainProfile__right-list-review">
-                            <div class="right">
-                                <div class="right-top">
-                                    <!--Tên người đánh giá-->
-                                    <p class="name">Lalisa Manoban</p>
-                                    <!--Số sao đánh giá-->
-                                    <span class="stars">5</span>
-                                </div>
-                                <div class="right-bottom">
-                                    <div class="cmt-box">
-                                        <!--nhận xét-->
-                                        <p class="cmt-content">
-                                            Ngon quá chị ơi!
-                                        </p>
-                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                    </div>
-                                    <!--Thời gian đăng-->
-                                    <div class="time">
-                                        <p class="val">1 days</p>
-                                        <span>ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mainProfile__right-list-review">
-                            <div class="right">
-                                <div class="right-top">
-                                    <!--Tên người đánh giá-->
-                                    <p class="name">Jennie Kim</p>
-                                    <!--Số sao đánh giá-->
-                                    <span class="stars">4</span>
-                                </div>
-                                <div class="right-bottom">
-                                    <div class="cmt-box">
-                                        <!--nhận xét-->
-                                        <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                                            elit. Eligend
-                                        </p>
-                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                    </div>
-                                    <!--Thời gian đăng-->
-                                    <div class="time">
-                                        <p class="val">1 days</p>
-                                        <span>ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mainProfile__right-list-review">
-                            <div class="right">
-                                <div class="right-top">
-                                    <!--Tên người đánh giá-->
-                                    <p class="name">Jennie Kim</p>
-                                    <!--Số sao đánh giá-->
-                                    <span class="stars">4</span>
-                                </div>
-                                <div class="right-bottom">
-                                    <div class="cmt-box">
-                                        <!--nhận xét-->
-                                        <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing
-                                            elit. At similique repellendus iure placeat excepturi tempore enim
-                                            sapiente corrupti laborum alias a, dicta voluptas perferendis repellat
-                                            quod. Illum sapiente voluptate ut.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique
-                                            repellendus iure placeat excepturi tempore enim sapiente corrupti
-                                            laborum alias a, dicta voluptas perferendis repellat quod. Illum
-                                            sapiente voluptate ut.
-                                        </p>
-                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                    </div>
-                                    <!--Thời gian đăng-->
-                                    <div class="time">
-                                        <p class="val">1 days</p>
-                                        <span>ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mainProfile__right-list-review">
-                            <div class="right">
-                                <div class="right-top">
-                                    <!--Tên người đánh giá-->
-                                    <p class="name">Lalisa Manoban</p>
-                                    <!--Số sao đánh giá-->
-                                    <span class="stars">5</span>
-                                </div>
-                                <div class="right-bottom">
-                                    <div class="cmt-box">
-                                        <!--nhận xét-->
-                                        <p class="cmt-content">
-                                            Ngon quá chị ơi!
-                                        </p>
-                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                    </div>
-                                    <!--Thời gian đăng-->
-                                    <div class="time">
-                                        <p class="val">1 days</p>
-                                        <span>ago</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mainProfile__right-list-review">
-                            <div class="right">
-                                <div class="right-top">
-                                    <!--Tên người đánh giá-->
-                                    <p class="name">Jennie Kim</p>
-                                    <!--Số sao đánh giá-->
-                                    <span class="stars">4</span>
-                                </div>
-                                <div class="right-bottom">
-                                    <div class="cmt-box">
-                                        <!--nhận xét-->
-                                        <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing
-                                            elit. Eligend
-                                        </p>
-                                        <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                    </div>
-                                    <!--Thời gian đăng-->
-                                    <div class="time">
-                                        <p class="val">1 days</p>
-                                        <span>ago</span>
-                                    </div>
-                                </div>
-                            </div>
+                            }*@
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 </main>
