@@ -231,6 +231,7 @@
       <DependentUpon>202107092016374_dontknow.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AdminAccount.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\PostElastic.cs" />
     <Compile Include="Models\UserAccount.cs" />

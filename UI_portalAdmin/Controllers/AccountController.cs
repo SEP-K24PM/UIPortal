@@ -18,7 +18,7 @@ namespace UI_portalAdmin.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private AdminAccountService _adminService;
+        private AdminAccountService _adminService = new AdminAccountService();
 
         public AccountController()
         {
