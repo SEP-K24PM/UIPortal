@@ -1,4 +1,8 @@
-﻿@model UI_portal.Models.UserAccount
+﻿@using UI_portal.Models
+@model UI_portal.Models.UserAccount
+@{
+    UserAccount user = ViewData["user"] as UserAccount;
+}
 
 <main class="userProfile-page">
     <div class="banner"></div>
@@ -8,39 +12,53 @@
                 <div class="mainProfile__left-wrap">
                     <!--Avt người dùng-->
                     <div class="avt">
-                        <img src="/img/rose-10.jpg" alt="">
+                        <img src="/img/icons/user.svg" alt="">
                     </div>
                     <!--Tên người dùng-->
-                    <h3 class="name"> @Model.email</h3>
+                    <h3 class="name">@user.email</h3>
                     <!--Thông tin cơ bản-->
-                    <p class="basic-info">K24 - Khoa Kỹ thuật phần mềm</p>
+                    <p class="basic-info">
+                        Email outlock:
+                        <br />
+                        @user.email
+                    </p>
                     <!--TBC số sao-->
-                    @*
                     <div class="star-rating">
                         <span class="stars">4.35</span>
                         <span class="value">4.35</span>
                         <!--Tổng số người đánh giá-->
                         <p>(<span class="total-vote">346</span>)</p>
                     </div>
-                    *@
                     <a href="" class="button-primary contactuser">
+                        <p>
+                            @{
+                                if (user.block == true)
+                                {
+                                    <h2> Tài Khoản đã bị khóa </h2>
+                                }
+                                else
+                                {
+                                    <h2> Người dùng thân thiện </h2>
+                                }
 
-                        @{
-                            if (Model.block == true)
-                            {
-                                <p style=" background-color: red; color: white"> Tài khoản đã bị khóa </p>
                             }
-                            <p> Tài khoản an toàn </p>
-                        }
-
+                        </p>
                     </a>
-                    <div class="report">Báo cáo</div>
+                    <div class="dotted">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 </div>
             </div>
             <div class="mainProfile__right">
                 <div class="tag-list">
-                    <a href="" class="button-primary product active"><p>Bài đăng</p></a>
-                    <a href="" class="button-primary review"><p>Đánh giá</p></a>
+                    <a href="" class="button-primary product active">
+                        <p>Bài đăng</p>
+                    </a>
+                    <a href="" class="button-primary review">
+                        <p>Đánh giá</p>
+                    </a>
                 </div>
                 <div class="mainProfile__right-list">
                     <div class="panel product active">
@@ -151,9 +169,6 @@
                     </div>
                     <div class="panel review">
                         <div class="mainProfile__right-list-review">
-                            <div class="left">
-                                <img src="/img/jennie.jpg" alt="">
-                            </div>
                             <div class="right">
                                 <div class="right-top">
                                     <!--Tên người đánh giá-->
@@ -165,8 +180,14 @@
                                     <div class="cmt-box">
                                         <!--nhận xét-->
                                         <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique repellendus iure placeat excepturi tempore enim sapiente corrupti laborum alias a, dicta voluptas perferendis repellat quod. Illum sapiente voluptate ut.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique repellendus iure placeat excepturi tempore enim sapiente corrupti laborum alias a, dicta voluptas perferendis repellat quod. Illum sapiente voluptate ut.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing
+                                            elit. At similique repellendus iure placeat excepturi tempore enim
+                                            sapiente corrupti laborum alias a, dicta voluptas perferendis repellat
+                                            quod. Illum sapiente voluptate ut.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique
+                                            repellendus iure placeat excepturi tempore enim sapiente corrupti
+                                            laborum alias a, dicta voluptas perferendis repellat quod. Illum
+                                            sapiente voluptate ut.
                                         </p>
                                         <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
                                     </div>
@@ -179,9 +200,6 @@
                             </div>
                         </div>
                         <div class="mainProfile__right-list-review">
-                            <div class="left">
-                                <img src="/img/Lisa.jpg" alt="">
-                            </div>
                             <div class="right">
                                 <div class="right-top">
                                     <!--Tên người đánh giá-->
@@ -206,9 +224,6 @@
                             </div>
                         </div>
                         <div class="mainProfile__right-list-review">
-                            <div class="left">
-                                <img src="/img/jennie.jpg" alt="">
-                            </div>
                             <div class="right">
                                 <div class="right-top">
                                     <!--Tên người đánh giá-->
@@ -220,7 +235,8 @@
                                     <div class="cmt-box">
                                         <!--nhận xét-->
                                         <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligend
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Eligend
                                         </p>
                                         <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
                                     </div>
@@ -233,9 +249,6 @@
                             </div>
                         </div>
                         <div class="mainProfile__right-list-review">
-                            <div class="left">
-                                <img src="/img/jennie.jpg" alt="">
-                            </div>
                             <div class="right">
                                 <div class="right-top">
                                     <!--Tên người đánh giá-->
@@ -247,8 +260,14 @@
                                     <div class="cmt-box">
                                         <!--nhận xét-->
                                         <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique repellendus iure placeat excepturi tempore enim sapiente corrupti laborum alias a, dicta voluptas perferendis repellat quod. Illum sapiente voluptate ut.
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique repellendus iure placeat excepturi tempore enim sapiente corrupti laborum alias a, dicta voluptas perferendis repellat quod. Illum sapiente voluptate ut.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing
+                                            elit. At similique repellendus iure placeat excepturi tempore enim
+                                            sapiente corrupti laborum alias a, dicta voluptas perferendis repellat
+                                            quod. Illum sapiente voluptate ut.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At similique
+                                            repellendus iure placeat excepturi tempore enim sapiente corrupti
+                                            laborum alias a, dicta voluptas perferendis repellat quod. Illum
+                                            sapiente voluptate ut.
                                         </p>
                                         <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
                                     </div>
@@ -261,9 +280,6 @@
                             </div>
                         </div>
                         <div class="mainProfile__right-list-review">
-                            <div class="left">
-                                <img src="/img/Lisa.jpg" alt="">
-                            </div>
                             <div class="right">
                                 <div class="right-top">
                                     <!--Tên người đánh giá-->
@@ -288,9 +304,6 @@
                             </div>
                         </div>
                         <div class="mainProfile__right-list-review">
-                            <div class="left">
-                                <img src="/img/jennie.jpg" alt="">
-                            </div>
                             <div class="right">
                                 <div class="right-top">
                                     <!--Tên người đánh giá-->
@@ -302,7 +315,8 @@
                                     <div class="cmt-box">
                                         <!--nhận xét-->
                                         <p class="cmt-content">
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligend
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Eligend
                                         </p>
                                         <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
                                     </div>

@@ -17,8 +17,11 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(string userId)
         {
+            userId = "7e74f24b-2ac2-4867-b39a-644b55cd11ed";
             userService = new UserService();
             var user = await userService.getUserProfile(userId);
+
+            ViewData["user"] = user;
             return View(user);
         }
 
