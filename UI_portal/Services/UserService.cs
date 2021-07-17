@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Web;
 using UI_portal.Models;
 using UI_portal.Constants;
+using Newtonsoft.Json;
+
 namespace UI_portal.Services
 {
     public class UserService
@@ -29,17 +31,19 @@ namespace UI_portal.Services
             var profile = await response.Content.ReadAsAsync<UserAccount>();
             return profile;
         }
-        public async Task<List<Post>> getUserPosted()
+        public async Task<List<Post>> getUserPosted(string userID)
         {
 
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.NEWSFEED);
+            request.RequestUri = new Uri(UserApiConstants.getProfile + userID + "/post");
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<Post> newsfeed = await response.Content.ReadAsAsync<List<Post>>();
-            return newsfeed;
+            var newsfeed = response.Content.ReadAsStringAsync().Result;
+
+            List<Post> myList = JsonConvert.DeserializeObject<List<Post>>(newsfeed);
+            return myList;
         }
 
 

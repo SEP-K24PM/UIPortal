@@ -2,7 +2,7 @@
 @model UI_portal.Models.UserAccount
 @{
     UserAccount user = ViewData["user"] as UserAccount;
-    //List<Post> listPosted = ViewData["ListPost"] as List<Post>;
+    List<Post> listPosted = ViewData["ListPost"] as List<Post>;
     var listRating = user.userRatingList;
 
 }
@@ -18,11 +18,9 @@
                         <img src="/img/icons/user.svg" alt="">
                     </div>
                     <!--Tên người dùng-->
-                    <h3 class="name">@user.email</h3>
+                    <h3 class="name">Email outlock:</h3>
                     <!--Thông tin cơ bản-->
                     <p class="basic-info">
-                        Email outlock:
-                        <br />
                         @user.email
                     </p>
                     <!--TBC số sao-->
@@ -65,19 +63,19 @@
                 </div>
                 <div class="mainProfile__right-list">
                     <div class="panel product active">              
-                        @*@foreach (var item in listPosted)
+                        @foreach (var item in listPosted)
                         {
                             <div class="mainProfile__right-list-item">
                                 <a href="/postDetail.html">
                                     <div class="item-img">
                                         <!--Ảnh sản phẩm-->
-                                        <img src="/img/detail/detail1.1.jpg" alt="">
+                                        <img style="background-color: dodgerblue " src="/img/detail/detail1.1.jpg" alt="">
                                         <div class="label">
                                             <!--Thể loại sản phẩm-->
-                                            <p class="type">@item.thing.thing_name</p>
+                                            <p class="type">@item.status</p>
                                         </div>
                                         <div class="productcover-detail">
-                                            <p class="title">Park Chaeyoung - FIRST SINGLE ALBUM</p>
+                                            <p class="title">@item.description</p>
                                             <div class="bottom-wrap">
                                                 <!--Lựa chọn đổi-->
                                                 <p class="option">Trao đổi</p>
@@ -86,17 +84,17 @@
                                                         <img src="/img/icons/icons8-mailbox-100.png" alt="">
                                                     </div>
                                                     <!--Số người đăng ký-->
-                                                    <p>@item.contact</p>
+                                                    <p>@item.exchange_method</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
                             </div>
-                        }*@
+                        }
 
                         <div class="panel review">
-                            @*@foreach ( var rater in listRating)
+                           @*@foreach ( var rater in listRating)
                             {
                                 <div class="mainProfile__right-list-review">
                                     <div class="right">
