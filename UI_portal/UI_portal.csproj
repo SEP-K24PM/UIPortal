@@ -3409,6 +3409,7 @@
     <Content Include="Views\Post\DetailsAsync.cshtml" />
     <Content Include="Views\Trade\Register.cshtml" />
     <Content Include="Views\Trade\Index.cshtml" />
+    <Content Include="Views\Trade\RegisterFree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
