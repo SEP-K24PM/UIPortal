@@ -1,90 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using UI_portalAdmin.Models;
+using UI_portalAdmin.Services;
 
 namespace UI_portalAdmin.Controllers
 {
     [Authorize(Roles = "Quản trị viên")]
     public class UserManagementController : Controller
     {
-        // GET: UserManagement
-        public ActionResult Index()
+        private UserService _userService = new UserService();
+
+        // GET: userlist
+        public async Task<ActionResult> IndexAsync()
         {
-            return View();
+            List<UserAccount> users = await _userService.GetUsers();
+            return View(users);
         }
 
-        // GET: UserManagement/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UserManagement/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: UserManagement/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> BlockUser(UserAccount user)
         {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserManagement/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UserManagement/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: UserManagement/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: UserManagement/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            await _userService.BlockUser(user);
+            return RedirectToAction("Index");
         }
     }
 }
