@@ -3,6 +3,7 @@
 @{
     UserAccount user = ViewData["user"] as UserAccount;
     List<Post> listPosted = ViewData["ListPost"] as List<Post>;
+    List<UserRating> listRated = ViewData["ListRate"] as List<UserRating>;
     var listRating = user.userRatingList;
 
 }
@@ -94,7 +95,7 @@
                         }
 
                         <div class="panel review">
-                          @*@foreach ( var rater in listRating)
+                          @foreach ( var rater in listRated)
                             {
                                 <div class="mainProfile__right-list-review">
                                     <div class="right">
@@ -102,7 +103,7 @@
                                             <!--Tên người đánh giá-->
                                             <p class="name">@rater.rater.email</p>
                                             <!--Số sao đánh giá-->
-                                            <span class="stars">@rater.rating</span>
+                                            <span class="stars"></span>
                                         </div>
                                         <div class="right-bottom">
                                             <div class="cmt-box">
@@ -114,13 +115,13 @@
                                             </div>
                                             <!--Thời gian đăng-->
                                             <div class="time">
-                                                <p class="val">2 day</p>
-                                                <span>ago</span>
+                                                <p class="val"> @rater.rating </p>
+                                                <span> Sao </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            }*@
+                            }
                         </div>
                     </div>
                 </div>

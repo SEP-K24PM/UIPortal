@@ -40,11 +40,26 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            var newsfeed = response.Content.ReadAsStringAsync().Result;
+            var temp = response.Content.ReadAsStringAsync().Result;
 
-            List<Post> myList = JsonConvert.DeserializeObject<List<Post>>(newsfeed);
+            List<Post> myList = JsonConvert.DeserializeObject<List<Post>>(temp);
             return myList;
         }
+        public async Task<List<UserRating>> getUserRated(string userID)
+        {
+
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(UserApiConstants.getProfile + userID + "/rate");
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            var temp = response.Content.ReadAsStringAsync().Result;
+
+            List<UserRating> myList = JsonConvert.DeserializeObject<List<UserRating>>(temp);
+            return myList;
+        }
+
 
 
     }
