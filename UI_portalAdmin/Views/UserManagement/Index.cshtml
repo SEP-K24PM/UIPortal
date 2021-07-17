@@ -1,0 +1,162 @@
+﻿@using UI_portalAdmin.Models
+@using PagedList;
+@model  PagedList.IPagedList<UserAccount>
+
+@{
+    ViewBag.Title = "Danh sách người dùng";
+}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <h6 class="h2 text-white d-inline-block mb-0">Quản lý người dùng</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <!-- Card header -->
+                <div class="card-header border-0">
+                    <h3 class="mb-0">Danh sách người dùng</h3>
+                </div>
+                <!-- Light table -->
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="sort" data-sort="name">Email</th>
+                                <th scope="col" class="sort" data-sort="status">Trạng thái</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="list">
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">@user.email</span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td>
+                                        @if (user.block)
+                                        {
+                                            <span class="badge badge-dot mr-4">
+                                                <i class="bg-danger"></i>
+                                                <span class="status">Đã khoá</span>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-dot mr-4">
+                                                <i class="bg-success"></i>
+                                                <span class="status">Bình thường</span>
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="text-right">
+                                        @*<form action="@Url.Action("BlockUser", "UserManagement", new { isBlock = user.block })" method="post">*@
+                                        <input name="id" value="@user.id" hidden />
+                                        <input name="email" value="@user.email" hidden />
+                                        @*<input name="block" type="checkbox" value="@user.block" hidden/>*@
+                                        @if (user.block)
+                                        {
+                                            <button onclick="setValue('@user.id', '@user.email', true)" type="button" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                <span class="btn-inner--icon"><i class="fas fa-lock-open"></i></span>
+                                                <span class="btn-inner--text">Mở khoá</span>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button onclick="setValue('@user.id', '@user.email', false)" type="button" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                <span class="btn-inner--icon"><i class="fas fa-lock"></i></span>
+                                                <span class="btn-inner--text">Khoá</span>
+                                            </button>
+                                        }
+                                        @*</form>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Card footer -->
+                <div class="card-footer py-4">
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+
+                            @for (int i = 1; i <= Model.PageCount; i++)
+                            {
+                                if (Model.PageNumber == i)
+                                {
+                                    <li class="page-item active">
+                                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="page-item active">
+                                        <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xác nhận</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="py-3 text-center">
+                        <i class="ni ni-bell-55 ni-3x"></i>
+                        <h4 id="confirmMessage" class="heading mt-4"></h4>
+                        <h2 id="userInfo"></h2>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <form action="@Url.Action("BlockUser", "UserManagement")" method="post">
+                        <input id="userId" name="id" hidden />
+                        <input id="userEmail" name="email" hidden />
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    @Html.Partial("_FooterPartial")
+</div>
+
+@section Scripts {
+    <script>
+        function setValue(id, email, block) {
+            document.getElementById("userId").value = id;
+            document.getElementById("userEmail").value = email;
+            if (block === true) {
+                $("#confirmMessage").html("Bạn có chắc muốn mở khoá tài khoản người này?");
+            } else {
+                $("#confirmMessage").html("Bạn có chắc muốn khoá tài khoản người này?");
+            }
+            $("#userInfo").html(email);
+        }
+    </script>
+}

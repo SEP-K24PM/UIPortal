@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using UI_portal.Areas.Admin.Models;
 
 namespace UI_portal.Models
 {
