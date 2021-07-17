@@ -18,8 +18,8 @@ namespace UI_portalAdmin.Constants
         /// </summary>
         public static string REPORT_DETAILS = "http://localhost:8762/api/admin/report/details/";
 
-        public static string USER_LIST = "";
+        public static string USER_LIST = "http://localhost:8762/api/admin/list-user";
 
-        public static string BLOCK_USER = "";
+        public static string BLOCK_USER = "http://localhost:8762/api/admin/block-user";
     }
 }

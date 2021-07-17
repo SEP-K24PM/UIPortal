@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using UI_portalAdmin.Models;
 using UI_portalAdmin.Services;
+using PagedList;
 
 namespace UI_portalAdmin.Controllers
 {
@@ -15,15 +16,20 @@ namespace UI_portalAdmin.Controllers
         private UserService _userService = new UserService();
 
         // GET: userlist
-        public async Task<ActionResult> IndexAsync()
+        public async Task<ActionResult> Index(int? page = 1)
         {
             List<UserAccount> users = await _userService.GetUsers();
-            return View(users);
+            users = users.OrderBy(u => u.email).ToList();
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.ReturnUrl = Request.Url.AbsoluteUri;
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         [HttpPost]
         public async Task<ActionResult> BlockUser(UserAccount user)
         {
+            //user.block = isBlock;
             await _userService.BlockUser(user);
             return RedirectToAction("Index");
         }
