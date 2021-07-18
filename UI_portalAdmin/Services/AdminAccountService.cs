@@ -25,7 +25,7 @@ namespace UI_portalAdmin.Services
             var convertedAdmin = JsonConvert.SerializeObject(account);
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AccountApiConstants.ADMIN_ACCOUNT_SAVE);
+            request.RequestUri = new Uri(AccountApiConstants.ADMIN_ACCOUNT_LOGIN);
             request.Content = new StringContent(convertedAdmin, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.SendAsync(request);

@@ -12,5 +12,7 @@ namespace UI_portal.Constants
         /// POST METHOD
         /// </summary>
         public static string getProfile = Endpoint.BACKEND_ENDPOINT + "api/management/user/profile/";
+
+        public static string getNotifications = Endpoint.BACKEND_ENDPOINT + "api/management/notification/list/";
     }
 }
