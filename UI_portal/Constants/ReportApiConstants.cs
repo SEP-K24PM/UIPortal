@@ -11,6 +11,6 @@ namespace UI_portal.Constants
         /// @RequestBody PostReport postReport
         /// POST METHOD
         /// </summary>
-        public static string REPORT = "http://localhost:8762/api/report/create";
+        public static string REPORT = Endpoint.BACKEND_ENDPOINT + "api/report/create";
     }
 }

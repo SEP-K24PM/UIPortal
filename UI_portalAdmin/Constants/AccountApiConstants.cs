@@ -8,12 +8,8 @@ namespace UI_portalAdmin.Constants
     public static class AccountApiConstants
     {
         /// <summary>
-        /// require body String email
+        /// @RequestBody AdminAccount adminAccount
         /// </summary>
-        public static string USER_ACCOUNT_SAVE = "http://localhost:8762/api/user-account/login";
-        /// <summary>
-        /// 
-        /// </summary>
-        public static string ADMIN_ACCOUNT_SAVE = "http://localhost:8762/api/admin/login";
+        public static string ADMIN_ACCOUNT_LOGIN = Endpoint.BACKEND_ENDPOINT + "api/management/admin/login";
     }
 }

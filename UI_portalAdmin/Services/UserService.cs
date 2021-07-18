@@ -37,7 +37,7 @@ namespace UI_portalAdmin.Services
             var convertedUser = JsonConvert.SerializeObject(user);
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AdminApiConstants.BLOCK_USER);
+            request.RequestUri = new Uri(AdminApiConstants.USER_BLOCK);
             request.Content = new StringContent(convertedUser, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.SendAsync(request);

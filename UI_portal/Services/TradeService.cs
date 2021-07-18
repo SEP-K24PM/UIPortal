@@ -48,7 +48,7 @@ namespace UI_portal.Services
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(TradeApiConstants.SHOW_LIST_THING_USER + UserID);
+            request.RequestUri = new Uri(ThingApiConstants.LIST_AVAILABLE + UserID);
 
             HttpResponseMessage response = await _client.SendAsync(request);
             List<Thing> list = await response.Content.ReadAsAsync<List<Thing>>();

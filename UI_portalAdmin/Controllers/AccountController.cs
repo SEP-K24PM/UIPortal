@@ -80,8 +80,9 @@ namespace UI_portalAdmin.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             var adminToSend = new AdminAccount();
             adminToSend.email = model.Email;
+            adminToSend.pwd = model.Password;
             var response = await _adminService.SendEmailData(adminToSend);
-            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            if (response.StatusCode != System.Net.HttpStatusCode.Accepted)
             {
                 result = SignInStatus.Failure;
             }

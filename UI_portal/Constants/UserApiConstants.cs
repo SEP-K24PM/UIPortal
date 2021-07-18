@@ -11,6 +11,6 @@ namespace UI_portal.Constants
         /// @PathVariable("userID") UUID userID
         /// POST METHOD
         /// </summary>
-        public static string getProfile = "http://localhost:8762/api/user-account/profile/";
+        public static string getProfile = Endpoint.BACKEND_ENDPOINT + "api/management/user/profile/";
     }
 }

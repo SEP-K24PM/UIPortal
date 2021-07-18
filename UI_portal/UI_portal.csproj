@@ -192,8 +192,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Constants\AccountApiConstants.cs" />
-    <Compile Include="Constants\AdminApiConstants.cs" />
+    <Compile Include="Constants\UserAccountApiConstants.cs" />
+    <Compile Include="Constants\Endpoint.cs" />
     <Compile Include="Constants\ImageConstants.cs" />
     <Compile Include="Constants\PostApiConstants.cs" />
     <Compile Include="Constants\RatingApiConstants.cs" />
