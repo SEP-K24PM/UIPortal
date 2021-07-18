@@ -22,5 +22,10 @@ namespace UI_portal.Constants
         /// POST METHOD
         /// </summary>
         public static string ACCEPT_REGISTRATION = "http://localhost:8762/api/trade/accept-register/";
+        /// <summary>
+        /// @PathVariable("userID") UUID userID
+        /// POST METHOD
+        /// </summary>
+        public static string SHOW_LIST_THING_USER = "http://localhost:8762/api/thing/list-available/";
     }
 }

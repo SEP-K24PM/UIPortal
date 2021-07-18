@@ -1,0 +1,80 @@
+﻿@using UI_portal.Models
+@model UI_portal.Models.PostRegistration
+@{
+    IEnumerable<Thing> userThingList = ViewData["listThing"] as IEnumerable<Thing>;
+    PostRegistration PassPostRegis = ViewData["postRegis"] as PostRegistration;
+}
+<main class="register-exchange-page">
+    <section class="tableIven">
+        <div class="containerAccount">
+            <div class="inventory">
+                <div class="inventory__wrap">
+                    @using (Html.BeginForm("Register", "Trade", FormMethod.Post))
+                    {
+                        <form action="">
+                            <div class="inventory__wrap-left">
+                                <div class="searchWrap">
+                                    <div class="search-input">
+                                        <a href="" target="_blank" hidden></a>
+                                        <input type="text" placeholder="Tìm kiếm..">
+                                        <i class="icon"><img src="/img/icons/icons8-search.svg"></img></i>
+                                    </div>
+                                </div>
+                                <div class="img"><img src="/img/sapiens.svg" alt=""></div>
+                            </div>
+                            <div class="inventory__wrap-bottom">
+                                <table class="table-scroll small-first-col">
+                                    <thead>
+                                        <tr>
+                                            <th>Sản phẩm</th>
+                                            <th>Trạng thái</th>
+                                            <th>Lựa chọn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="body-half-screen">
+                                        @foreach (var item in userThingList)
+                                        {
+                                            <tr>
+                                                <td class="name">@item.thing_name</td>
+                                                <td>
+                                                    <p class="status status-available">Sẵn có</p>
+                                                </td>
+                                                <td>
+                                                    <input type="radio" class="button-check" name="thingId" value="@item.id" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="register__form">
+                                    <div class="register__form-message">
+                                        <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text" name="comm"></textarea>
+                                        <input hidden value="@PassPostRegis.user_id" name="userId" />
+                                        <input hidden value="@PassPostRegis.post_id" name="postId" />
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="register__form-button" value="Đăng ký lựa chọn">
+                                            @*<img src="/img/icons/sendregist.svg" alt="">*@
+                                            <div class="around around-boarder">Đăng ký</div>
+                                        </button>
+                                        <button type="button" value="Cancel">
+                                            <a href="/postDetail.html" class="register__form-button cancel">
+                                                @*<img src="/img/icons/registcancel.svg" alt="">*@
+                                                <div class="around around-boarder">Hủy</div>
+                                            </a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+
+

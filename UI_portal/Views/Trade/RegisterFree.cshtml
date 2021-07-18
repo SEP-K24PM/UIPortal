@@ -1,0 +1,30 @@
+﻿@using UI_portal.Models
+@model UI_portal.Models.PostRegistration
+@{
+    PostRegistration PassPostRegis = ViewData["postRegis"] as PostRegistration;
+}
+
+<main class="register-exchange-page">
+    <section class="tableIven">
+        <div class="containerAccount">
+            <div class="inventory">
+                <div class="inventory__wrap">
+                    @using (Html.BeginForm("RegisterFree", "Trade", FormMethod.Post))
+                    {
+                        <form method="post">
+                            <div class="inventory__wrap-bottom">
+                                <div class="register-message free">
+                                    <p>VIẾT LỜI NHẮN:</p>
+                                    <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text" name="comm"></textarea>
+                                    <input hidden value="@PassPostRegis.user_id" name="userId" />
+                                    <input hidden value="@PassPostRegis.post_id" name="postId" />
+                                </div>
+                            </div>
+                            <button type="submit"> Gửi </button>
+                        </form>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
