@@ -14,5 +14,6 @@ namespace UI_portal.Models
         public List<UserRating> userRatingList { get; set; }
         public List<Thing> thingList { get; set; }
         public List<Notification> notificationList { get; set; }
+        public List<Post> postList { get; set; }
     }
 }

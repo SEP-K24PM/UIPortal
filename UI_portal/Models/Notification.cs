@@ -8,8 +8,8 @@ namespace UI_portal.Models
     public class Notification
     {
         public string id { get; set; }
-        public String description { get; set; }
-        public String url { get; set; }
+        public string description { get; set; }
+        public string url { get; set; }
         public string user_id { get; set; }
         public UserAccount userAccount { get; set; }
     }

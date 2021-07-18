@@ -29,7 +29,6 @@ namespace UI_portal.Models
         public string post_id { get; set; }
 
         public Thing thing { get; set; }
-        public Post post { get; set; }
         public UserAccount userAccount { get; set; }
     }
 }
