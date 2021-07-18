@@ -1,0 +1,130 @@
+﻿@using UI_portal.Models
+@model UI_portal.Models.UserAccount
+@{
+    UserAccount user = ViewData["user"] as UserAccount;
+    List<Post> listPosted = ViewData["ListPost"] as List<Post>;
+    List<UserRating> listRated = ViewData["ListRate"] as List<UserRating>;
+    var listRating = user.userRatingList;
+
+}
+
+<main class="userProfile-page">
+    <div class="banner"></div>
+    <section class="mainProfile">
+        <div class="container">
+            <div class="mainProfile__left">
+                <div class="mainProfile__left-wrap">
+                    <!--Avt người dùng-->
+                    <div class="avt">
+                        <img src="/img/icons/user.svg" alt="">
+                    </div>
+                    <!--Tên người dùng-->
+                    <h3 class="name">Email outlock:</h3>
+                    <!--Thông tin cơ bản-->
+                    <p class="basic-info">
+                        @user.email
+                    </p>
+                    <!--TBC số sao-->
+                    <div class="star-rating">
+                        <span class="stars">4.35</span>
+                        <span class="value">4.35</span>
+                        <!--Tổng số người đánh giá-->
+                        <p>(<span class="total-vote">346</span>)</p>
+                    </div>
+                    <a href="" class="button-primary contactuser">
+                        <p>
+                            @{
+                                if (user.block == true)
+                                {
+                                    <h2> Tài Khoản đã bị khóa </h2>
+                                }
+                                else
+                                {
+                                    <h2> Người dùng thân thiện </h2>
+                                }
+
+                            }
+                        </p>
+                    </a>
+                    <div class="dotted">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="mainProfile__right">
+                <div class="tag-list">
+                    <a href="" class="button-primary product active">
+                        <p>Bài đăng</p>
+                    </a>
+                    <a href="" class="button-primary review">
+                        <p>Đánh giá</p>
+                    </a>
+                </div>
+                <div class="mainProfile__right-list">
+                    <div class="panel product active">              
+                        @foreach (var item in listPosted)
+                        {
+                            <div class="mainProfile__right-list-item">
+                                <a href="/postDetail.html">
+                                    <div class="item-img">
+                                        <!--Ảnh sản phẩm-->
+                                        <img style="background-color: dodgerblue " src="/img/detail/detail1.1.jpg" alt="">
+                                        <div class="label">
+                                            <!--Thể loại sản phẩm-->
+                                            <p class="type">@item.status</p>
+                                        </div>
+                                        <div class="productcover-detail">
+                                            <p class="title">@item.description</p>
+                                            <div class="bottom-wrap">
+                                                <!--Lựa chọn đổi-->
+                                                <p class="option">Trao đổi</p>
+                                                <div class="left">
+                                                    <div class="img">
+                                                        <img src="/img/icons/icons8-mailbox-100.png" alt="">
+                                                    </div>
+                                                    <!--Số người đăng ký-->
+                                                    <p>@item.exchange_method</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+
+                        <div class="panel review">
+                          @foreach ( var rater in listRated)
+                            {
+                                <div class="mainProfile__right-list-review">
+                                    <div class="right">
+                                        <div class="right-top">
+                                            <!--Tên người đánh giá-->
+                                            <p class="name">@rater.rater.email</p>
+                                            <!--Số sao đánh giá-->
+                                            <span class="stars"></span>
+                                        </div>
+                                        <div class="right-bottom">
+                                            <div class="cmt-box">
+                                                <!--nhận xét-->
+                                                <p class="cmt-content">
+                                                 @rater.description
+                                                </p>
+                                                <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
+                                            </div>
+                                            <!--Thời gian đăng-->
+                                            <div class="time">
+                                                <p class="val"> @rater.rating </p>
+                                                <span> Sao </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+</main>
