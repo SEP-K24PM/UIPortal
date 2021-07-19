@@ -1,0 +1,109 @@
+﻿@model UI_portal.ViewModels.ThingDetailsVM
+@using UI_portal.Constants;
+@{
+    ViewBag.Title = Model.Thing.thing_name;
+}
+
+<main class="addProduct-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            <div class="tableContent__title">
+                <div class="tableContent__title-user">
+                    <div class="avt">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/user.svg")" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Tài khoản của</p>
+                        <!--tên user-->
+                        <p class="val">@User.Identity.Name</p>
+                    </div>
+                </div>
+                <div class="tableContent__title-current">
+                    <a href="@Url.Action("Index", "Thing")">
+                        <h3 class="blur">Quản lý kho đồ</h3>
+                    </a>
+                    <!-- Nếu làm trang addproduct thì chọn cái addproductserive, còn update thì lấy cái dưới nha-->
+                    <p class="current__child addproductservice">@Model.Thing.thing_name</p>
+                </div>
+            </div>
+            <div class="tableContent__wrap">
+                @Html.Partial("_SideTabPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--qlkd">
+                        <div class="inventory">
+                            <div class="inventory__wrap">
+                                <div class="inventory__wrap-top">
+                                    <div class="btn">
+                                        <a href="@Url.Action("Update", "Post", new { thingId = Model.Thing.id })" class="button creatpost">
+                                            <p>Cập nhật</p>
+                                            <div class="img">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addProduct">
+                            <form action="">
+                                <div class="data__item">
+                                    <label for="name">Tên sản phẩm</label>
+                                    @Model.Thing.thing_name
+                                </div>
+                                <div class="data__item">
+                                    <label for="quantity">Số lượng</label>
+                                    @Model.Thing.quantity
+                                </div>
+                                <div class="data__item">
+                                    <label for="category">Thể loại</label>
+                                    @Model.Thing.category.category_name
+                                </div>
+                                <div class="data__item">
+                                    <label for="origin">Xuất xứ</label>
+                                    @Model.Thing.origin
+                                </div>
+                                <div class="data__item">
+                                    <label for="timeused">Thời gian sử dụng</label>
+                                    @Model.Thing.used_time
+                                </div>
+                                <div class="data__item">
+                                    <label for="price">Giá trị</label>
+                                    @Model.Thing.price
+                                </div>
+                                <div class="data__item">
+                                    <label for="img">Hình ảnh</label>
+                                    <img src="@Url.Content($"~{ImageConstants.Thing}{Model.Thing.image}")" width="200px" />
+                                </div>
+                                @if (Model.Post != null)
+                                {
+                                    <br />
+                                    <h4>Bài đăng</h4>
+                                    <div class="data__item">
+                                        <label>Mô tả</label>
+                                        @Model.Post.description
+                                    </div>
+                                    <div class="data__item">
+                                        <label>Ngày đăng</label>
+                                        @Model.Post.created_time
+                                    </div>
+                                    <div class="data__item">
+                                        <label>Thông tin liên hệ</label>
+                                        @Model.Post.contact
+                                    </div>
+                                    <div class="data__item">
+                                        <label>Phương thức</label>
+                                        @Model.Post.exchange_method
+                                    </div>
+                                    <div class="data__item">
+                                        <label>Trạng thái</label>
+                                        @Model.Post.status
+                                    </div>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

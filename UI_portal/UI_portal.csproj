@@ -358,6 +358,7 @@
     <Compile Include="Services\UserAccountService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ThingDetailsVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Assets\dest\fonts.css" />
@@ -515,6 +516,7 @@
     <Content Include="Views\Shared\_SideTabPartial.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\User\History.cshtml" />
+    <Content Include="Views\Thing\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using UI_portal.Models;
 using UI_portal.Services;
+using UI_portal.ViewModels;
 
 namespace UI_portal.Controllers
 {
@@ -24,6 +25,19 @@ namespace UI_portal.Controllers
             return View(list);
         }
         
+        public async Task<ActionResult> Details(string thingId)
+        {
+            thingService = new ThingService();
+            Thing thing = await thingService.GetThingDetails(thingId);
+            Post post = await thingService.GetPostByThingId(thingId);
+            ThingDetailsVM thingDetailsVM = new ThingDetailsVM
+            {
+                Thing = thing,
+                Post = post
+            };
+            return View(thingDetailsVM);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {

@@ -23,6 +23,10 @@ namespace UI_portal.Constants
         /// </summary>
         public static string DETAILS = Endpoint.BACKEND_ENDPOINT + "api/thing/details/";
         /// <summary>
+        /// @PathVariable("thingId") String thingId
+        /// </summary>
+        public static string POST = Endpoint.BACKEND_ENDPOINT + "api/thing/get-post/";
+        /// <summary>
         /// @RequestBody Thing thing
         /// POST METHOD
         /// </summary>

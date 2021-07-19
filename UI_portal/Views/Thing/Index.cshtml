@@ -71,7 +71,11 @@
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td class="name">@item.thing_name</td>
+                                                    <td class="name">
+                                                        <a href="@Url.Action("Details", "Thing", new { thingId = item.id })">
+                                                            @item.thing_name
+                                                        </a>
+                                                    </td>
                                                     <td class="type">@item.category.category_name</td>
                                                     <td class="origin">@item.origin</td>
                                                     <td class="value">@item.price</td>
