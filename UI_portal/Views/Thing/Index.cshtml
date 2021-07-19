@@ -82,7 +82,7 @@
                                                     <td class="used-time">@item.used_time</td>
                                                     <td class="quantity">@item.quantity</td>
                                                     <td>
-                                                        <form action="@Url.Action("Delete", "Thing", new { thingId = item.id })">
+                                                        <form action="@Url.Action("Delete", "Thing", new { thingId = item.id })" method="post">
                                                             <button type="submit" class="buttonsubmit del">
                                                                 <span class="del"></span>
                                                             </button>
