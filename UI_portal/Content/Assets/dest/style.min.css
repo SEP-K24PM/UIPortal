@@ -828,7 +828,7 @@ svg {
 
 span.stars, span.stars span {
     display: block;
-    background: url(/img/icons/star-o-white.svg) 0 0 repeat-x;
+    background: url(/Content/Assets/img/icons/star-o-white.svg) 0 0 repeat-x;
     width: 75px;
     height: 15px;
     background-size: 15px 15px
@@ -836,7 +836,7 @@ span.stars, span.stars span {
 
     span.stars span {
         background-position: 0 0;
-        background-image: url(/img/icons/star.svg)
+        background-image: url(/Content/Assets/img/icons/star.svg)
     }
 
 .onOffpost {
@@ -2103,12 +2103,12 @@ header .mainHeader {
                 height: 100%;
                 width: 100%;
                 transform: scale(0.8);
-                background: url(/img/icons/accountw.svg) center no-repeat
+                background: url(/Content/Assets/img/icons/accountw.svg) center no-repeat
             }
 
             header .mainHeader .buttonnav.account:hover .account {
                 transition: 0.4s;
-                background: url(/img/icons/account.svg) center no-repeat
+                background: url(/Content/Assets/img/icons/account.svg) center no-repeat
             }
 
         header .mainHeader .buttonnav.setting {
@@ -2120,12 +2120,12 @@ header .mainHeader {
                 height: 100%;
                 width: 100%;
                 transform: scale(0.6);
-                background: url(/img/icons/settingsw.svg) center no-repeat
+                background: url(/Content/Assets/img/icons/settingsw.svg) center no-repeat
             }
 
             header .mainHeader .buttonnav.setting:hover .setting {
                 transition: 0.4s;
-                background: url(/img/icons/settings.svg) center no-repeat
+                background: url(/Content/Assets/img/icons/settings.svg) center no-repeat
             }
 
         header .mainHeader .buttonnav.open {

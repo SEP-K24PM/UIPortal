@@ -20,6 +20,8 @@ namespace UI_portal.Controllers
 
         public async Task<ActionResult> DetailsAsync(string postId)
         {
+            if (User.Identity.IsAuthenticated)
+                await getNotificationsAsync();
             postService = new PostService();
             tradeService = new TradeService();
             List<PostRegistration> postRegistrations = await tradeService.GetListPostRegistrations(postId);
@@ -32,8 +34,6 @@ namespace UI_portal.Controllers
                 else
                     ViewData["AbleToModifyPost"] = "false";
             }
-            if (User.Identity.IsAuthenticated)
-                await getNotificationsAsync();
             return View(post);
         }
 
@@ -41,10 +41,10 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            thingService = new ThingService();
-            var listThing = await thingService.GetListAvailableThings(userContextId);
             if (User.Identity.IsAuthenticated)
                 await getNotificationsAsync();
+            thingService = new ThingService();
+            var listThing = await thingService.GetListAvailableThings(userContextId);
             return View(listThing);
         }
 

@@ -18,6 +18,5 @@ namespace UI_portal.Models
         public string category_id { get; set; }
         public UserAccount userAccount { get; set; }
         public Category category { get; set; }
-        public Post post { get; set; }
-}
+    }
 }

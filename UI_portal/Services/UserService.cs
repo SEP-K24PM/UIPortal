@@ -23,11 +23,11 @@ namespace UI_portal.Services
         public async Task<UserAccount> getUserProfile(string userID)
         {
             var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
+            request.Method = HttpMethod.Get;
             request.RequestUri = new Uri(UserApiConstants.getProfile + userID);
 
             HttpResponseMessage response = await _client.SendAsync(request);
-        
+
             var profile = await response.Content.ReadAsAsync<UserAccount>();
             return profile;
         }

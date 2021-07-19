@@ -416,6 +416,7 @@
     <Content Include="Content\Assets\img\icons\three-dots-svgrepo-com.svg" />
     <Content Include="Content\Assets\img\icons\twitch-brands.svg" />
     <Content Include="Content\Assets\img\icons\twitter-brands.svg" />
+    <Content Include="Content\Assets\img\icons\user.svg" />
     <Content Include="Content\Assets\img\jennie.jpg" />
     <Content Include="Content\Assets\img\Lisa.jpg" />
     <Content Include="Content\Assets\img\rose-10.jpg" />
