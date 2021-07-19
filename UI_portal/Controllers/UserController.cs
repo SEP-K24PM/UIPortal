@@ -14,6 +14,8 @@ namespace UI_portal.Controllers
     public class UserController : Controller
     {
         private UserService userService;
+        private string userContextId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
         // GET: Profile
         [HttpGet]
         public async Task<ActionResult> Index(string userId)
@@ -30,6 +32,13 @@ namespace UI_portal.Controllers
             star = star / user.userRatingList.Count;
             ViewBag.Star = star.ToString("0.00");
             return View(user);
+        }
+
+        public async Task<ActionResult> History()
+        {
+            var userService = new UserService();
+            var user = await userService.getUserProfile(userContextId);
+            return View(user.postList);
         }
 
         public async Task getNotificationsAsync()

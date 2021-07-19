@@ -303,6 +303,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsfeedController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
@@ -388,6 +389,7 @@
     <Content Include="Content\Assets\img\icons\closebtnw.svg" />
     <Content Include="Content\Assets\img\icons\delete.svg" />
     <Content Include="Content\Assets\img\icons\delete1.svg" />
+    <Content Include="Content\Assets\img\icons\drop-down-arrow.svg" />
     <Content Include="Content\Assets\img\icons\edit-button.svg" />
     <Content Include="Content\Assets\img\icons\eye-pw.svg" />
     <Content Include="Content\Assets\img\icons\facebook-f-brands.svg" />
@@ -509,12 +511,15 @@
     <Content Include="Views\Trade\Index.cshtml" />
     <Content Include="Views\Trade\RegisterFree.cshtml" />
     <Content Include="Views\Shared\_NotificationPartial.cshtml" />
+    <Content Include="Views\Thing\Index.cshtml" />
+    <Content Include="Views\Shared\_SideTabPartial.cshtml" />
+    <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\User\History.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Rate\" />
     <Folder Include="Views\Report\" />
-    <Folder Include="Views\Thing\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

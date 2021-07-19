@@ -10,9 +10,9 @@ using UI_portal.Services;
 
 namespace UI_portal.Controllers
 {
+    [Authorize]
     public class RateController : Controller
     {
-        [Authorize]
         [HttpPost]
         public ActionResult Create(UserRating userRating)
         {

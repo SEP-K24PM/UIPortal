@@ -1,0 +1,99 @@
+﻿@model IEnumerable<UI_portal.Models.Thing>
+
+@{
+    ViewBag.Title = "Quản lý kho đồ";
+}
+<main class="userAccount-inventory-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            <div class="tableContent__title">
+                <div class="tableContent__title-user">
+                    <div class="avt">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/user.svg")" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Tài khoản của</p>
+                        <!--tên user-->
+                        <p class="val">@User.Identity.Name</p>
+                    </div>
+                </div>
+                <div class="tableContent__title-current">
+                    <a href="@Url.Action("Index", "Thing")">
+                        <h3>Quản lý kho đồ</h3>
+                    </a>
+                </div>
+            </div>
+            <div class="tableContent__wrap">
+                @Html.Partial("_SideTabPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--qlkd">
+                        <div class="inventory">
+                            <div class="inventory__wrap">
+                                <div class="inventory__wrap-top">
+                                    <div class="searchWrap">
+                                        <div class="search-input">
+                                            <a href="" target="_blank" hidden></a>
+                                            <input type="text" placeholder="Tìm kiếm..">
+                                            <i class="icon">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/icons8-search.svg")" />
+                                            </i>
+                                        </div>
+                                    </div>
+                                    <div class="btn">
+                                        <a href="@Url.Action("Create", "Thing")" class="button addproduct">
+                                            <p>Thêm món đồ</p>
+                                            <div class="img">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/closebtn.svg")" alt="">
+                                            </div>
+                                        </a>
+                                        <a href="@Url.Action("Create", "Post")" class="button creatpost">
+                                            <p>Đăng bài</p>
+                                            <div class="img">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="inventory__wrap-bottom">
+                                    <table class="table-scroll small-first-col">
+                                        <thead>
+                                            <tr>
+                                                <th>Món đồ</th>
+                                                <th>Thể loại</th>
+                                                <th>Xuất xứ</th>
+                                                <th>Giá trị</th>
+                                                <th>TGSD</th>
+                                                <th>Số lượng</th>
+                                                <th>Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="body-half-screen">
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="name">@item.thing_name</td>
+                                                    <td class="type">@item.category.category_name</td>
+                                                    <td class="origin">@item.origin</td>
+                                                    <td class="value">@item.price</td>
+                                                    <td class="used-time">@item.used_time</td>
+                                                    <td class="quantity">@item.quantity</td>
+                                                    <td>
+                                                        <form action="@Url.Action("Delete", "Thing", new { thingId = item.id })">
+                                                            <button type="submit" class="buttonsubmit del">
+                                                                <span class="del"></span>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
