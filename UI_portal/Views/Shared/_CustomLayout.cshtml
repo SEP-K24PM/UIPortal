@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -35,11 +36,14 @@
                 </a>
                 <div class="right-wrap">
                     <ul>
-                        <li>
-                            <a href="/user/profile.html" class="account">
-                                Trang cá nhân
-                            </a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "User")" class="account">
+                                    Trang cá nhân
+                                </a>
+                            </li>
+                        }
                         <li>
                             <a href="@Url.Action("Create", "Post")" class="account">
                                 Đăng bài
@@ -53,6 +57,17 @@
                                 @*<span class="number">10</span>*@
                             </a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "User", new { userId = System.Web.HttpContext.Current.User.Identity.GetUserId() })">
+                                    <div class="img">
+                                        <img src="@Url.Content("~/Content/Assets/img/icons/bell.svg")" alt="">
+                                    </div>
+                                    @*<span class="number">10</span>*@
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -75,7 +90,7 @@
                         <a href="">Press</a>
                     </li>
                 </ul>
-                <div class="logoimg"><img src="img/icons/10.svg" alt=""></div>
+                <div class="logoimg"><img src="@Url.Content("~/Content/Assets/img/icons/10.svg")" alt=""></div>
             </div>
             <div class="bottomWrap">
                 <p class="textWrap">

@@ -32,6 +32,8 @@ namespace UI_portal.Controllers
                 else
                     ViewData["AbleToModifyPost"] = "false";
             }
+            if (User.Identity.IsAuthenticated)
+                await getNotificationsAsync();
             return View(post);
         }
 
@@ -41,6 +43,8 @@ namespace UI_portal.Controllers
         {
             thingService = new ThingService();
             var listThing = await thingService.GetListAvailableThings(userContextId);
+            if (User.Identity.IsAuthenticated)
+                await getNotificationsAsync();
             return View(listThing);
         }
 
@@ -49,7 +53,7 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> Create(Post post)
         {
             postService = new PostService();
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 Post savedPost = await postService.CreatePost(post);
                 return RedirectToAction("DetailsAsync", new { postId = savedPost.id });
@@ -63,9 +67,11 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> Update(string postId)
         {
+            if (User.Identity.IsAuthenticated)
+                await getNotificationsAsync();
             postService = new PostService();
             Post post = await postService.GetDetails(postId);
-            if(post.status == "Mở")
+            if (post.status == "Mở")
                 return View(post);
             return RedirectToAction("DetailsAsync", new { postId });
         }
@@ -90,7 +96,7 @@ namespace UI_portal.Controllers
         {
             postService = new PostService();
             Post post = await postService.GetDetails(postId);
-            if(post.status == "Mở")
+            if (post.status == "Mở")
             {
                 await postService.DeletePost(postId);
                 return RedirectToAction("Index", "Newsfeed");
@@ -101,10 +107,12 @@ namespace UI_portal.Controllers
         [HttpPost]
         public async Task<JsonResult> Search(string search)
         {
-            if(search != null)
+            if (search != null)
             {
+                postService = new PostService();
                 List<PostElastic> result = await postService.SearchPost(search);
-                return Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
+                List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
+                return  Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
@@ -112,14 +120,24 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> SearchPost(string search, string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+                await getNotificationsAsync();
             postService = new PostService();
             if (search != null)
             {
                 List<PostElastic> result = await postService.SearchPost(search);
                 List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
-                return View(visibleResult);
+                 return View(visibleResult);
             }
             return RedirectToRoute(returnUrl);
+        }
+
+        public async Task getNotificationsAsync()
+        {
+            NotificationService notificationService = new NotificationService();
+            List<Notification> listNoti = await notificationService
+                    .GetNotificationsAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewData["notification"] = listNoti.OrderByDescending(n => n.time).ToList();
         }
     }
 }

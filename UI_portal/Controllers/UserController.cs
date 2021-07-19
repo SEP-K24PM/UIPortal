@@ -19,13 +19,7 @@ namespace UI_portal.Controllers
         {
             userService = new UserService();
             var user = await userService.getUserProfile(userId);
-            var userListPosted = await userService.getUserPosted(userId);
-            var userListRated = await userService.getUserRated(userId);
-
-            ViewData["ListRate"] = userListRated;
-            ViewData["ListPost"] = userListPosted;
-            ViewData["user"] = user;
-            return View();
+            return View(user);
         }
 
         public ActionResult Notification(string userId)

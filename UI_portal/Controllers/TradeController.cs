@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -74,6 +75,14 @@ namespace UI_portal.Controllers
             var acceptRegister = await tradeService.acceptRegister(registerPostId);
 
             return View();
+        }
+
+        public async Task getNotificationsAsync()
+        {
+            NotificationService notificationService = new NotificationService();
+            List<Notification> listNoti = await notificationService
+                    .GetNotificationsAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewData["notification"] = listNoti.OrderByDescending(n => n.time).ToList();
         }
     }
 }
