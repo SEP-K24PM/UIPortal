@@ -517,6 +517,7 @@
     <Content Include="Views\Notification\Index.cshtml" />
     <Content Include="Views\User\History.cshtml" />
     <Content Include="Views\Thing\Details.cshtml" />
+    <Content Include="Views\User\Registration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -37,5 +37,14 @@ namespace UI_portal.Constants
         /// POST METHOD
         /// </summary>
         public static string DELETE = Endpoint.BACKEND_ENDPOINT + "api/post/delete/";
+        /// <summary>
+        /// @PathVariable("postId") UUID postId
+        /// GET METHOD
+        /// </summary>
+        public static string CANCEL = Endpoint.BACKEND_ENDPOINT + "api/post/cancel/";
+        /// <summary>
+        /// 
+        /// </summary>
+        public static string COMPLETE = Endpoint.BACKEND_ENDPOINT + "api/post/complete";
     }
 }

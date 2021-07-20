@@ -20,7 +20,6 @@ namespace UI_portal.Models
             this.post_id = postID;
         }
         
-
         public string id { get; set; }
         public string description { get; set; }
         public bool chosen { get; set; }
@@ -30,5 +29,6 @@ namespace UI_portal.Models
 
         public Thing thing { get; set; }
         public UserAccount userAccount { get; set; }
+        public Post post { get; set; }
     }
 }

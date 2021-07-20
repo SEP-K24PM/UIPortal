@@ -20,8 +20,7 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> Index(string userId)
         {
-            if (User.Identity.IsAuthenticated)
-                await getNotificationsAsync();
+            await getNotificationsAsync();
             userService = new UserService();
             var user = await userService.getUserProfile(userId);
             double star = 0;
@@ -36,9 +35,21 @@ namespace UI_portal.Controllers
 
         public async Task<ActionResult> History()
         {
+            await getNotificationsAsync();
             var userService = new UserService();
             var user = await userService.getUserProfile(userContextId);
-            return View(user.postList);
+            var list = user.postList
+                .Where(p => p.deletion == false && p.visible == true)
+                .OrderByDescending(p => p.created_time)
+                .ToList();
+            return View(list);
+        }
+
+        public async Task<ActionResult> Registration()
+        {
+            var userService = new UserService();
+            var regist = await userService.getUserRegist(userContextId);
+            return View(regist);
         }
 
         public async Task getNotificationsAsync()

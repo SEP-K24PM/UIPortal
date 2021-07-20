@@ -20,6 +20,7 @@ namespace UI_portal.Controllers
         // GET: List Thing
         public async Task<ActionResult> Index()
         {
+            await getNotificationsAsync();
             thingService = new ThingService();
             List<Thing> list = await thingService.GetListThings(userContextId);
             return View(list);
@@ -27,6 +28,7 @@ namespace UI_portal.Controllers
         
         public async Task<ActionResult> Details(string thingId)
         {
+            await getNotificationsAsync();
             thingService = new ThingService();
             Thing thing = await thingService.GetThingDetails(thingId);
             Post post = await thingService.GetPostByThingId(thingId);
@@ -39,8 +41,9 @@ namespace UI_portal.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            await getNotificationsAsync();
             return View();
         }
         
@@ -51,8 +54,9 @@ namespace UI_portal.Controllers
         }
         
         [HttpGet]
-        public ActionResult Update(string thingId)
+        public async Task<ActionResult> UpdateAsync(string thingId)
         {
+            await getNotificationsAsync();
             return View();
         }
         
@@ -66,6 +70,14 @@ namespace UI_portal.Controllers
         public ActionResult Delete(string thingId)
         {
             return RedirectToAction("Index");
+        }
+
+        public async Task getNotificationsAsync()
+        {
+            NotificationService notificationService = new NotificationService();
+            List<Notification> listNoti = await notificationService
+                    .GetNotificationsAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewData["notification"] = listNoti.OrderByDescending(n => n.time).ToList();
         }
     }
 }

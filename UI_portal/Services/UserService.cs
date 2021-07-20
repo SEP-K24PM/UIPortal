@@ -17,9 +17,7 @@ namespace UI_portal.Services
 
         }
         HttpClient _client = new HttpClient();
-
-
-       
+        
         public async Task<UserAccount> getUserProfile(string userID)
         {
             var request = new HttpRequestMessage();
@@ -47,7 +45,6 @@ namespace UI_portal.Services
         }
         public async Task<List<UserRating>> getUserRated(string userID)
         {
-
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
             request.RequestUri = new Uri(UserApiConstants.getProfile + userID + "/rate");
@@ -60,7 +57,17 @@ namespace UI_portal.Services
             return myList;
         }
 
+        public async Task<List<PostRegistration>> getUserRegist(string userId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(UserApiConstants.REGISTRATION + userId);
 
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            List<PostRegistration> list = await response.Content.ReadAsAsync<List<PostRegistration>>();
+            return list;
+        }
 
     }
 }

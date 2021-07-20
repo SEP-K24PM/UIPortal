@@ -41,8 +41,7 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> Create()
         {
-            if (User.Identity.IsAuthenticated)
-                await getNotificationsAsync();
+            await getNotificationsAsync();
             thingService = new ThingService();
             var listThing = await thingService.GetListAvailableThings(userContextId);
             return View(listThing);
@@ -67,8 +66,7 @@ namespace UI_portal.Controllers
         [HttpGet]
         public async Task<ActionResult> Update(string postId)
         {
-            if (User.Identity.IsAuthenticated)
-                await getNotificationsAsync();
+            await getNotificationsAsync();
             postService = new PostService();
             Post post = await postService.GetDetails(postId);
             if (post.status == "Mở")
@@ -112,7 +110,7 @@ namespace UI_portal.Controllers
                 postService = new PostService();
                 List<PostElastic> result = await postService.SearchPost(search);
                 List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
-                return  Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
@@ -138,6 +136,28 @@ namespace UI_portal.Controllers
             List<Notification> listNoti = await notificationService
                     .GetNotificationsAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
             ViewData["notification"] = listNoti.OrderByDescending(n => n.time).ToList();
+        }
+
+        public async Task<JsonResult> CancelPost(string postId)
+        {
+            postService = new PostService();
+            Post post = await postService.CancelPost(postId);
+            if(post != null)
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<JsonResult> CompletePost(string postId)
+        {
+            postService = new PostService();
+            Post post = await postService.CompletePost(postId, userContextId);
+            if (post != null)
+            {
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }
