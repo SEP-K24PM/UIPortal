@@ -16,7 +16,7 @@ namespace UI_portal.Services
         {
         }
 
-        public async Task<PostRegistration> getRegistration(PostRegistration postRegistration)
+        public async Task<PostRegistration> registerPots(PostRegistration postRegistration)
         {
             var convertedPost = JsonConvert.SerializeObject(postRegistration);
 

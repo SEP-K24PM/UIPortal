@@ -19,12 +19,13 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> Index(int? page = 1)
         {
             List<Post> list = await _postService.GetNewsfeed();
+            List<Post> filderList = list.Where(p => p.deletion == false && p.visible == true).ToList();
             int pageSize = 21;
             int pageNumber = (page ?? 1);
             ViewBag.ReturnUrl = Request.Url.AbsoluteUri;
             if (User.Identity.IsAuthenticated)
                 await getNotificationsAsync();
-            return View(list.ToPagedList(pageNumber, pageSize));
+            return View(filderList.ToPagedList(pageNumber, pageSize));
         }
 
         public async Task getNotificationsAsync()

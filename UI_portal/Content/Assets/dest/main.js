@@ -111,11 +111,11 @@ $(document).ready(function () {
             e.preventDefault();
             $(".navi-post").toggleClass("active");
         });
-        $("button.edit").on("click", function (e) {
-            e.preventDefault();
-            $(".navi-post").toggleClass("active");
-            $(".detail__right form").addClass("edit");
-        });
+        //$("button.edit").on("click", function (e) {
+        //    e.preventDefault();
+        //    $(".navi-post").toggleClass("active");
+        //    $(".detail__right form").addClass("edit");
+        //});
         $(".cmt-box .cmt-content").each(function (index, element) {
             if ($(element).height() < 40) {
                 $(element).closest(".cmt-box").find(".read-more").addClass("disable");

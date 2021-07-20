@@ -1,11 +1,43 @@
-﻿@using UI_portal.Models
-@model UI_portal.Models.PostRegistration
+﻿@model UI_portal.Models.PostRegistration
+
 @{
-    PostRegistration PassPostRegis = ViewData["postRegis"] as PostRegistration;
+    ViewBag.Title = "Đăng ký bài đăng";
 }
 
 <main class="register-exchange-page">
     <section class="tableIven">
+        <div class="containerAccount">
+            <div class="inventory">
+                <div class="inventory__wrap">
+                    <h3 class="freeh3">Đổi free</h3>
+                    <form action="@Url.Action("RegisterFree", "Trade")" method="post" class="free">
+                        <div class="inventory__wrap-left">
+                            <div class="img"><img src="@Url.Content("~/Content/Assets/img/sapiens.svg")" alt=""></div>
+                        </div>
+                        <div class="inventory__wrap-bottom">
+                            <div class="register__form">
+                                <div class="register__form-message">
+                                    <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text"
+                                              name="comm" id="message"></textarea>
+                                </div>
+                                <input hidden value="@Model.user_id" name="userId" />
+                                <input hidden value="@Model.post_id" name="postId" />
+                                <button type="submit" class="register__form-button">
+                                    <div class="img"><img src="@Url.Content("~/Content/Assets/img/icons/sendregist.svg")" alt=""></div>
+                                    <div class="around"></div>
+                                </button>
+                                <a href="@Url.Action("DetailsAsync", "Post", new { postId = Model.post_id })" class="register__form-button cancel">
+                                    <div class="img"><img src="@Url.Content("~/Content/Assets/img/icons/registcancel.svg")" alt=""></div>
+                                    <div class="around"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    @*<section class="tableIven">
         <div class="containerAccount">
             <div class="inventory">
                 <div class="inventory__wrap">
@@ -15,9 +47,9 @@
                             <div class="inventory__wrap-bottom">
                                 <div class="register-message free">
                                     <p>VIẾT LỜI NHẮN:</p>
-                                    <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text" name="comm"></textarea>
-                                    <input hidden value="@PassPostRegis.user_id" name="userId" />
-                                    <input hidden value="@PassPostRegis.post_id" name="postId" />
+                                    <textarea placeholder="Viết lời nhắn.." required rows="8" cols="50" type="text" name="comm"></textarea>
+                                    <input hidden value="@Model.user_id" name="userId" />
+                                    <input hidden value="@Model.post_id" name="postId" />
                                 </div>
                             </div>
                             <button type="submit"> Gửi </button>
@@ -26,5 +58,5 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>*@
 </main>

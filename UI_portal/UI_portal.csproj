@@ -396,6 +396,7 @@
     <Content Include="Content\Assets\img\icons\facebook-f-brands.svg" />
     <Content Include="Content\Assets\img\icons\four-squares.svg" />
     <Content Include="Content\Assets\img\icons\github-alt-brands.svg" />
+    <Content Include="Content\Assets\img\icons\hand-shake.svg" />
     <Content Include="Content\Assets\img\icons\icons8-check-100.png" />
     <Content Include="Content\Assets\img\icons\icons8-mailbox-100.png" />
     <Content Include="Content\Assets\img\icons\icons8-search.svg" />
@@ -407,7 +408,9 @@
     <Content Include="Content\Assets\img\icons\next.svg" />
     <Content Include="Content\Assets\img\icons\post.svg" />
     <Content Include="Content\Assets\img\icons\prev.svg" />
+    <Content Include="Content\Assets\img\icons\registcancel.svg" />
     <Content Include="Content\Assets\img\icons\save.png" />
+    <Content Include="Content\Assets\img\icons\sendregist.svg" />
     <Content Include="Content\Assets\img\icons\settings.svg" />
     <Content Include="Content\Assets\img\icons\settingsw.svg" />
     <Content Include="Content\Assets\img\icons\star-o-white.svg" />
@@ -423,6 +426,7 @@
     <Content Include="Content\Assets\img\jennie.jpg" />
     <Content Include="Content\Assets\img\Lisa.jpg" />
     <Content Include="Content\Assets\img\rose-10.jpg" />
+    <Content Include="Content\Assets\img\sapiens.svg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -510,7 +514,6 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Trade\Register.cshtml" />
     <Content Include="Views\Trade\Index.cshtml" />
-    <Content Include="Views\Trade\RegisterFree.cshtml" />
     <Content Include="Views\Shared\_NotificationPartial.cshtml" />
     <Content Include="Views\Thing\Index.cshtml" />
     <Content Include="Views\Shared\_SideTabPartial.cshtml" />
@@ -518,6 +521,7 @@
     <Content Include="Views\User\History.cshtml" />
     <Content Include="Views\Thing\Details.cshtml" />
     <Content Include="Views\User\Registration.cshtml" />
+    <Content Include="Views\Trade\RegisterFree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
