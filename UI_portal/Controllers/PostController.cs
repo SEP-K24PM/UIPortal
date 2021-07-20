@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -116,7 +117,7 @@ namespace UI_portal.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> SearchPost(string search, string returnUrl)
+        public async Task<ActionResult> SearchPost(string search, string returnUrl, int? page = 1)
         {
             if (User.Identity.IsAuthenticated)
                 await getNotificationsAsync();
@@ -125,7 +126,9 @@ namespace UI_portal.Controllers
             {
                 List<PostElastic> result = await postService.SearchPost(search);
                 List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
-                 return View(visibleResult);
+                int pageSize = 10;
+                int pageNumber = (page ?? 1);
+                return View(visibleResult.ToPagedList(pageNumber, pageSize));
             }
             return RedirectToRoute(returnUrl);
         }

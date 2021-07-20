@@ -1,4 +1,6 @@
-﻿@model IEnumerable<UI_portal.Models.PostElastic>
+﻿@using PagedList.Mvc;
+@using UI_portal.Models
+@model PagedList.IPagedList<PostElastic>
 @using UI_portal.Constants;
 @{
     ViewBag.Title = "Tìm kiếm";
@@ -47,7 +49,7 @@
                             <h3 class="title">@postelastic.thing_name</h3>
                             <!--Mô tả ngắn-->
                             <p class="desc">@postelastic.description</p>
-                            
+
                             <div class="last__info">
                                 <div class="last__info-time">
                                     <!--Thời gian đăng-->
@@ -62,6 +64,20 @@
                             </div>
                         </a>
                     </div>
+                }
+            </div>
+            <div class="paging-btn">
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    if (Model.PageNumber == i)
+                    {
+                        <span class="active">@i</span>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Index", new { page = i })"><span class="">@i</span></a>
+                    }
+
                 }
             </div>
         </div>
