@@ -52,15 +52,19 @@ namespace UI_portal.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Post post)
         {
-            postService = new PostService();
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                Post savedPost = await postService.CreatePost(post);
-                return RedirectToAction("DetailsAsync", new { postId = savedPost.id });
+                postService = new PostService();
+                if (ModelState.IsValid)
+                {
+                    Post savedPost = await postService.CreatePost(post);
+                    return RedirectToAction("DetailsAsync", new { postId = savedPost.id });
+                }
+                thingService = new ThingService();
+                var listThing = await thingService.GetListAvailableThings(userContextId);
+                return View(listThing);
             }
-            thingService = new ThingService();
-            var listThing = await thingService.GetListAvailableThings(userContextId);
-            return View(listThing);
+            return RedirectToAction("Create");
         }
 
         [Authorize]
@@ -86,7 +90,7 @@ namespace UI_portal.Controllers
                 Post savedPost = await postService.UpdatePost(post);
                 return RedirectToAction("DetailsAsync", new { postId = postId });
             }
-            return View();
+            return RedirectToAction("Update", new { postId = postId });
         }
 
         [Authorize]

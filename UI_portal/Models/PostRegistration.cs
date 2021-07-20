@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +22,7 @@ namespace UI_portal.Models
         }
         
         public string id { get; set; }
+        [StringLength(500)]
         public string description { get; set; }
         public bool chosen { get; set; }
         public string thing_id { get; set; }
