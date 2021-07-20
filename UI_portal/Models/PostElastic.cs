@@ -15,5 +15,6 @@ namespace UI_portal.Models
         public string thing_name { get; set; }
         public string origin { get; set; }
         public string category_name { get; set; }
+        public string image { get; set; }
     }
 }

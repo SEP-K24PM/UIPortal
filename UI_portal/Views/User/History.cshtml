@@ -1,0 +1,136 @@
+﻿@model IEnumerable<UI_portal.Models.Post>
+@using UI_portal.Constants;
+@{
+    ViewBag.Title = "Tất cả giao dịch";
+}
+
+<main class="userAccount-history-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            <div class="tableContent__title">
+                <div class="tableContent__title-user">
+                    <div class="avt">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/user.svg")" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Tài khoản của</p>
+                        <!--tên user-->
+                        <p class="val">@User.Identity.Name</p>
+                    </div>
+                </div>
+                <div class="tableContent__title-current">
+                    <a href="@Url.Action("History", "User")">
+                        <h3>Tất cả giao dịch</h3>
+                    </a>
+                </div>
+            </div>
+
+            <div class="tableContent__wrap">
+                @Html.Partial("_SideTabPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--lsgd">
+                        <div class="inventory">
+                            <div class="inventory__wrap">
+                                <div class="inventory__wrap-top">
+                                    <div class="searchWrap">
+                                        <div class="search-input">
+                                            <a href="" target="_blank" hidden></a>
+                                            <input type="text" placeholder="Tìm kiếm..">
+                                            <i class="icon">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/icons8-search.svg")" />
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inventory__wrap-bottom">
+                                    <table class="table-scroll small-first-col">
+                                        <thead>
+                                            <tr>
+                                                <th>Sản phẩm</th>
+                                                <th>Thể loại</th>
+                                                <th>Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="body-half-screen">
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td class="name">
+                                                        <div class="img">
+                                                            <img src="@Url.Content($"~{ImageConstants.Thing}{item.thing.image}")" alt="">
+                                                        </div>
+                                                        <div class="wrap-info">
+                                                            <!--Tên món đồ-->
+                                                            <a href="" class="name-prod">
+                                                                @item.thing.thing_name
+                                                            </a>
+
+                                                            <div class="comment-wrap">
+                                                                <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.id })" class="button-primary comment">
+                                                                    <p>Đánh giá</p>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="type">@item.thing.category.category_name</td>
+                                                    <td>
+                                                        @switch (item.status)
+                                                        {
+                                                            case "Hoàn tất":
+                                                                {
+                                                                    <p class="status status-done">Hoàn tất</p>
+                                                                    break;
+                                                                }
+                                                            case "Huỷ":
+                                                                {
+                                                                    <p class="status status-cancel">Hủy</p>
+                                                                    break;
+                                                                }
+                                                            case "Đóng":
+                                                                {
+                                                                    <label class="onOffpost">
+                                                                        <input type="checkbox" disabled>
+                                                                        <span>
+                                                                            <em></em>
+                                                                            <strong></strong>
+                                                                            <button onclick="completepost(@item.id)" id="completepost" type="submit" class="btncheckbox done">
+                                                                                Hoàn
+                                                                                tất
+                                                                            </button>
+                                                                        </span>
+                                                                    </label>
+                                                                    break;
+                                                                }
+                                                            case "Mở":
+                                                                {
+                                                                    <label class="onOffpost">
+                                                                        <input type="checkbox" disabled checked>
+                                                                        <span>
+                                                                            <em></em>
+                                                                            <strong></strong>
+                                                                            <button onclick="cancelpost(@item.id)" type="submit" class="btncheckbox cancel">
+                                                                                Huỷ
+                                                                            </button>
+                                                                        </span>
+                                                                    </label>
+                                                                    break;
+                                                                }
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+
+}

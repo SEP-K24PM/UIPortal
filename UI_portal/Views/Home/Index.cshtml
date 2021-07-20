@@ -7,7 +7,6 @@
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,7 +35,7 @@
             <div id="burgerMenuIcon">
                 <div id="webapp_cover">
                     <div id="menu_button">
-                        <input type="checkbox" id="menu_checkbox" />
+                        <input type="checkbox" id="menu_checkbox">
                         <label for="menu_checkbox" id="menu_label">
                             <div id="menu_text_bar"></div>
                         </label>
@@ -49,7 +48,7 @@
                 <div class="signin-check">
                     @if (Request.IsAuthenticated)
                     {
-                        <p class="signed">Xin chào! @User.Identity.GetUserName()</p> <!--Thêm tên user vào sau chữ Hi -->
+                        <p class="signed">Xin chào! @User.Identity.GetUserName()</p>
                     }
                     else
                     {
@@ -61,7 +60,7 @@
                     <a href="@Url.Action("Index", "User", new { userId = User.Identity.GetUserId() })" class="buttonnav account">
                         <div class="account"></div>
                     </a>
-                    <a href="/user/account/edit.html" class="buttonnav setting">
+                    <a href="@Url.Action("Index", "Thing")" class="buttonnav setting">
                         <div class="setting"></div>
                     </a>
                 }
@@ -70,8 +69,6 @@
                         <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
                         <li><a href="@Url.Action("Index", "Newsfeed")">Newsfeed</a></li>
                         <li><a href="@Url.Action("Create", "Post")">Đăng bài</a></li>
-                        @*<li><a href="">Service</a></li>
-                        <li><a href="">Contact</a></li>*@
                     </ul>
                 </nav>
                 <div class="colorbar" style="height: 100%; top: 0%; opacity: 1; background-color: transparent;"></div>
@@ -84,12 +81,11 @@
             <div class="text-wrap">
                 <p>
                     <b>Van Lang Save</b> - Team 9 K24PM
-                    <br />
+                    <br>
                     <i>Barter Transaction Website - SEP</i>
                 </p>
                 <h2>
-                    The first-class homes for<br />
-                    The second-hand items
+                    The first-class homes for<br> The second-hand items
                 </h2>
             </div>
             <div class="gif">

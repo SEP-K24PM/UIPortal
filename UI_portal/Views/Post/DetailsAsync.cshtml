@@ -22,11 +22,22 @@
                         <div class="btn prev"><img src="@Url.Content("~/Content/Assets/img/icons/prev.svg")" alt=""></div>
                         <div class="btn next "><img src="@Url.Content("~/Content/Assets/img/icons/next.svg")" alt=""></div>
                     </div>
-                    @if (Model.status == "Mở")
+                    @if (Model.status == "Mở" && isAbleModify == "false")
                     {
-                        <form action="@Url.Action("Register", "Trade", new { postId = Model.id })">
-                            <button type="submit" class="option freebtn">Đăng ký đổi</button>
-                        </form>
+                        if (Model.exchange_method == "Free")
+                        {
+                            <form action="@Url.Action("RegisterFree", "Trade")">
+                                <input hidden value="@Model.id" name="postId" />
+                                <button type="submit" class="option freebtn">Đăng ký đổi</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form action="@Url.Action("Register", "Trade")">
+                                <input hidden value="@Model.id" name="postId" />
+                                <button type="submit" class="option freebtn">Đăng ký đổi</button>
+                            </form>
+                        }
                     }
                 </div>
                 <div class="detail__left-userinfo">
@@ -120,7 +131,7 @@
                     </ul>
                 </div>
                 @if (Model.description != null)
-                                {
+                {
                     <div class="detail__right-desc">
                         <p class="title">Mô tả ngắn:</p>
                         <p class="content edit">@Model.description</p>
@@ -146,35 +157,46 @@
                                     {
                                         <tr>
                                             <td class="name">
-                                                <div class="img"><img src="@Url.Content($"~{ImageConstants.Thing}{register.thing.image}")" alt="@register.thing.thing_name"></div>
-                                                <div class="wrap-info">
-                                                    <!--Tên món đồ-->
-                                                    <a href="" class="name-prod">@register.thing.thing_name</a>
-                                                    <p>Đề xuất đổi bởi: </p>
-                                                    <!--Tên và đường dẫn profile người dùng-->
-                                                    <a class="profile" href="@Url.Action("Index", "User", new { userId = register.userAccount.id })">
-                                                        @register.userAccount.email
-                                                    </a>
-                                                </div>
+                                                @if (register.thing != null)
+                                                {
+                                                    <div class="img">
+                                                        <img src="@Url.Content($"~{ImageConstants.Thing}{register.thing.image}")" alt="@register.thing.thing_name">
+                                                    </div>
+                                                }
+                                                    <div class="wrap-info">
+                                                        <!--Tên món đồ-->
+                                                        @if (register.thing != null)
+                                                        {
+                                                            <a href="" class="name-prod">@register.thing.thing_name</a>
+                                                        }
+                                                        <p>Đề xuất đổi bởi: </p>
+                                                        <!--Tên và đường dẫn profile người dùng-->
+                                                        <a class="profile" href="@Url.Action("Index", "User", new { userId = register.userAccount.id })">
+                                                            @register.userAccount.email
+                                                        </a>
+                                                    </div>
                                             </td>
                                             <td class="info">
                                                 <div class="infotop">
-                                                    <div class="infotop__left">
-                                                        <div class="infotop__left-item">
-                                                            <p class="properties">Xuất xứ:</p>
-                                                            <p class="val">@register.thing.origin</p>
+                                                    @if (register.thing != null)
+                                                    {
+                                                        <div class="infotop__left">
+                                                            <div class="infotop__left-item">
+                                                                <p class="properties">Xuất xứ:</p>
+                                                                <p class="val">@register.thing.origin</p>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="infotop__right">
-                                                        <div class="infotop__right-item">
-                                                            <p class="properties">Giá trị:</p>
-                                                            <p class="val">@register.thing.price₫</p>
+                                                        <div class="infotop__right">
+                                                            <div class="infotop__right-item">
+                                                                <p class="properties">Giá trị:</p>
+                                                                <p class="val">@register.thing.price₫</p>
+                                                            </div>
+                                                            <div class="infotop__right-item">
+                                                                <p class="properties">TGSD:</p>
+                                                                <p class="val">@register.thing.used_time</p>
+                                                            </div>
                                                         </div>
-                                                        <div class="infotop__right-item">
-                                                            <p class="properties">TGSD:</p>
-                                                            <p class="val">@register.thing.used_time</p>
-                                                        </div>
-                                                    </div>
+                                                    }
                                                 </div>
                                                 @if (register.description != null)
                                                 {
@@ -213,66 +235,6 @@
             </div>
         </div>
     </section>
-    @*<section class="anotherProduct">
-        <div class="container">
-            <h3 class="titleAP">Các sản phẩm khác</h3>
-            <div class="mainProduct__list">
-                <div class="mainProduct__list-item">
-                    <a href="/postDetail.html">
-                        <div class="item-img">
-                            <!--Ảnh sản phẩm-->
-                            <img src="/img/detail/detail1.1.jpg" alt="">
-                            <div class="label">
-                                <!--Thể loại sản phẩm-->
-                                <p class="type">CD</p>
-                            </div>
-                        </div>
-                        <!--Tên sản phẩm-->
-                        <h3 class="title">Park Chaeyoung - FIRST SINGLE ALBUM</h3>
-                        <!--Mô tả ngắn-->
-                        <p class="desc">This is a small-scale producer still breaking into the market, so we were looking for a fresh approach that would boost their visibility and improve brand recognition.</p>
-                        <div class="user__info">
-                            <div class="right">
-                                <div class="user__info-name">
-                                    <div class="wrap-top">
-                                        <span>By</span>
-                                        <!--Tên người dùng-->
-                                        <p class="name">Park Chaeyoung</p>
-                                    </div>
-                                    <div class="vote-star">
-                                        <img src="img/icons/star.svg" alt="">
-                                        <!--TBC đánh giá-->
-                                        <p class="star-value">4.5</p>
-                                        <!--Tổng số đánh giá-->
-                                        <p class="total-vote">(365)</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="left">
-                                <img src="/img/icons/icons8-mailbox-100.png" alt=""><p>2</p>
-                            </div>
-                        </div>
-                        <div class="last__info">
-                            <div class="last__info-time">
-                                <!--Thời gian đăng-->
-                                <p class="value">15 phút </p>
-                                <span>trước</span>
-                            </div>
-                            <div class="last__info-option">
-                                <img src="img/icons/icons8-synchronize-100.png" alt="">
-                                <!--Lựa chọn đổi-->
-                                <p class="option">Trao đổi</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="product__button">
-                <div class="btn prev"><img src="@Url.Content("~/Content/Assets/img/icons/prev.svg")" alt=""></div>
-                <div class="btn next"><img src="@Url.Content("~/Content/Assets/img/icons/next.svg")" alt=""></div>
-            </div>
-        </div>
-    </section>*@
     <div class="black-layer"></div>
     <div class="report-form">
         <div class="button-close">

@@ -15,17 +15,5 @@ namespace UI_portal.Controllers
         {
             return View();
         }
-
-        public async Task<ActionResult> About()
-        {
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

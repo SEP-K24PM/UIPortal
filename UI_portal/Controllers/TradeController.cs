@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -14,18 +15,19 @@ namespace UI_portal.Controllers
     public class TradeController : Controller
     {
         private TradeService tradeService;
+        private string userContextId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
         [HttpGet]
-        public async Task<ActionResult> Register(string postId, string userId)
+        public async Task<ActionResult> Register(string postId)
         {
             tradeService = new TradeService();
             PostRegistration postRegistrationModel = new PostRegistration();
             postRegistrationModel.post_id = postId; // "3f552bf8-0bb7-4d5d-b1e2-179844bcd338";
-            postRegistrationModel.user_id = userId; //"14551453-4e68-4e40-9aac-fda12a7b11bc";
-            var userIDforList = userId;
+            postRegistrationModel.user_id = userContextId; //"14551453-4e68-4e40-9aac-fda12a7b11bc";
+            var userIDforList = userContextId;
             var list = await tradeService.listThingUser(userIDforList);
 
             ViewData["listThing"] = list;
-            ViewData["postRegis"] = postRegistrationModel;
 
             return View(postRegistrationModel);
         }
@@ -40,18 +42,17 @@ namespace UI_portal.Controllers
             model.description = comm;
 
             tradeService = new TradeService();
-            var registed = await tradeService.getRegistration(model);
-            return View("Index");
+            var registed = await tradeService.registerPots(model);
+            return RedirectToAction("DetailsAsync", "Post", new { postId });
         }
         //trade với free
         [HttpGet]
-        public ActionResult RegisterFree(string postId, string userId)
+        public ActionResult RegisterFree(string postId)
         {
             tradeService = new TradeService();
             PostRegistration postRegistrationModel = new PostRegistration();
-            postRegistrationModel.post_id = postId; // "3f552bf8-0bb7-4d5d-b1e2-179844bcd338";
-            postRegistrationModel.user_id = userId; //"14551453-4e68-4e40-9aac-fda12a7b11bc";
-            ViewData["postRegis"] = postRegistrationModel;
+            postRegistrationModel.post_id = postId;
+            postRegistrationModel.user_id = userContextId;
 
             return View(postRegistrationModel);
         }
@@ -62,10 +63,9 @@ namespace UI_portal.Controllers
             model.post_id = postId;
             model.user_id = userId;
             model.description = comm;
-
             tradeService = new TradeService();
-            var registed = await tradeService.getRegistration(model);
-            return View("Index");
+            var registed = await tradeService.registerPots(model);
+            return RedirectToAction("DetailsAsync", "Post", new { postId });
         }
 
         public async Task<ActionResult> AcceptRegister(string registerPostId)
@@ -74,6 +74,14 @@ namespace UI_portal.Controllers
             var acceptRegister = await tradeService.acceptRegister(registerPostId);
 
             return View();
+        }
+
+        public async Task getNotificationsAsync()
+        {
+            NotificationService notificationService = new NotificationService();
+            List<Notification> listNoti = await notificationService
+                    .GetNotificationsAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewData["notification"] = listNoti.OrderByDescending(n => n.time).ToList();
         }
     }
 }

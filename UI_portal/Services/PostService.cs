@@ -96,5 +96,40 @@ namespace UI_portal.Services
             List<PostElastic> result = await response.Content.ReadAsAsync<List<PostElastic>>();
             return result;
         }
+
+        public async Task<Post> CancelPost(string postId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.CANCEL + postId);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            Post post = new Post();
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                post = await response.Content.ReadAsAsync<Post>();
+            return post;
+        }
+
+        public async Task<Post> CompletePost(string postId, string userId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(PostApiConstants.COMPLETE);
+
+            Post post = new Post
+            {
+                id = postId,
+                given = userId
+            };
+            var convertedPost = JsonConvert.SerializeObject(post);
+            request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            Post updatedPost = new Post();
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                updatedPost = await response.Content.ReadAsAsync<Post>();
+            return updatedPost;
+        }
     }
 }

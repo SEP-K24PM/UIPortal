@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using UI_portal.Models;
 using UI_portal.Constants;
 using Newtonsoft.Json;
@@ -18,7 +16,7 @@ namespace UI_portal.Services
         {
         }
 
-        public async Task<PostRegistration> getRegistration(PostRegistration postRegistration)
+        public async Task<PostRegistration> registerPots(PostRegistration postRegistration)
         {
             var convertedPost = JsonConvert.SerializeObject(postRegistration);
 
@@ -50,7 +48,7 @@ namespace UI_portal.Services
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(TradeApiConstants.SHOW_LIST_THING_USER + UserID);
+            request.RequestUri = new Uri(ThingApiConstants.LIST_AVAILABLE + UserID);
 
             HttpResponseMessage response = await _client.SendAsync(request);
             List<Thing> list = await response.Content.ReadAsAsync<List<Thing>>();

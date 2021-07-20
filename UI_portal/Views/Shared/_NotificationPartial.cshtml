@@ -1,0 +1,31 @@
+﻿@using UI_portal.Models;
+@{
+    var notifications = ViewData["notification"] as List<Notification>;
+}
+
+<div class="notitable">
+    <h3>Thông báo</h3>
+    <div class="notitable__list">
+        @if (notifications != null)
+        {
+            foreach (var noti in notifications)
+            {
+                <a href="@noti.url" class="notitable__list-item">
+                    <div class="avt">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
+                    </div>
+                    <div class="content">
+
+                        <div class="content-noti">
+                            <p class="predicate">@noti.description</p>
+                        </div>
+                        <div class="send-time">
+                            <p class="value">@noti.time</p>
+                        </div>
+
+                    </div>
+                </a>
+            }
+        }
+    </div>
+</div>

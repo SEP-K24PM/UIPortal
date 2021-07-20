@@ -7,20 +7,32 @@ using System.Web.Mvc;
 using UI_portal.Models;
 using UI_portal.Services;
 using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace UI_portal.Controllers
 {
     public class NewsfeedController : Controller
     {
         private PostService _postService = new PostService();
+        private NotificationService notificationService = new NotificationService();
         // GET: Newsfeed
         public async Task<ActionResult> Index(int? page = 1)
         {
             List<Post> list = await _postService.GetNewsfeed();
+            List<Post> filderList = list.Where(p => p.deletion == false && p.visible == true).ToList();
             int pageSize = 21;
             int pageNumber = (page ?? 1);
             ViewBag.ReturnUrl = Request.Url.AbsoluteUri;
-            return View(list.ToPagedList(pageNumber, pageSize));
+            if (User.Identity.IsAuthenticated)
+                await getNotificationsAsync();
+            return View(filderList.ToPagedList(pageNumber, pageSize));
+        }
+
+        public async Task getNotificationsAsync()
+        {
+            List<Notification> listNoti = await notificationService
+                .GetNotificationsAsync(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            ViewData["notification"] = listNoti.OrderByDescending(n => n.time).ToList();
         }
     }
 }

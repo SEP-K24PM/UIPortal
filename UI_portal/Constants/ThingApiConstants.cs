@@ -11,31 +11,35 @@ namespace UI_portal.Constants
         /// @PathVariable("userId") String userId
         /// GET METHOD
         /// </summary>
-        public static string LIST_AVAILABLE = "http://localhost:8762/api/thing/list-available/";
+        public static string LIST_AVAILABLE = Endpoint.BACKEND_ENDPOINT + "api/thing/list-available/";
         /// <summary>
         /// @PathVariable("userId") String userId
         /// GET METHOD
         /// </summary>
-        public static string LIST_BY_USER = "http://localhost:8762/api/thing/list/";
+        public static string LIST_BY_USER = Endpoint.BACKEND_ENDPOINT + "api/thing/list/";
         /// <summary>
         /// @PathVariable("thingId") String thingId
         /// GET METHOD
         /// </summary>
-        public static string DETAILS = "http://localhost:8762/api/thing/details/";
+        public static string DETAILS = Endpoint.BACKEND_ENDPOINT + "api/thing/details/";
+        /// <summary>
+        /// @PathVariable("thingId") String thingId
+        /// </summary>
+        public static string POST = Endpoint.BACKEND_ENDPOINT + "api/thing/get-post/";
         /// <summary>
         /// @RequestBody Thing thing
         /// POST METHOD
         /// </summary>
-        public static string ADD = "http://localhost:8762/api/thing/add";
+        public static string ADD = Endpoint.BACKEND_ENDPOINT + "api/thing/add";
         /// <summary>
         /// @PathVariable String thingId, @RequestBody Thing thing
         /// POST METHOD
         /// </summary>
-        public static string UPDATE = "http://localhost:8762/api/thing/";
+        public static string UPDATE = Endpoint.BACKEND_ENDPOINT + "api/thing/update/";
         /// <summary>
         /// @PathVariable("thingId") String thingId
         /// POST METHOD
         /// </summary>
-        public static string DELETE = "http://localhost:8762/api/thing/delete/";
+        public static string DELETE = Endpoint.BACKEND_ENDPOINT + "api/thing/delete/";
     }
 }

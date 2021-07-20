@@ -42,5 +42,31 @@ namespace UI_portal.Services
             return list;
         }
 
+        public async Task<Thing> GetThingDetails(string thingId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri(ThingApiConstants.DETAILS + thingId);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            var thing = await response.Content.ReadAsAsync<Thing>();
+            return thing;
+        }
+        public async Task<Post> GetPostByThingId(string thingId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Get;
+            request.RequestUri = new Uri(ThingApiConstants.POST + thingId);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+            var post = new Post();
+            if(response.Content != null)
+            {
+                post = await response.Content.ReadAsAsync<Post>();
+            }
+            return post;
+        }
+
     }
 }

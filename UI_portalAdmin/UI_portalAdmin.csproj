@@ -190,6 +190,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Constants\AccountApiConstants.cs" />
     <Compile Include="Constants\AdminApiConstants.cs" />
+    <Compile Include="Constants\Endpoint.cs" />
+    <Compile Include="Constants\ManagerApiConstants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
