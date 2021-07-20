@@ -32,7 +32,7 @@ namespace UI_portal.Services
             return PostRegistrationStatus;
         }
 
-        public async Task<PostRegistration> acceptRegister(string postRegisID)
+        public async Task<Post> acceptRegister(string postRegisID)
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
@@ -40,8 +40,8 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            var PostRegistrationStatus = await response.Content.ReadAsAsync<PostRegistration>();
-            return PostRegistrationStatus;
+            var post = await response.Content.ReadAsAsync<Post>();
+            return post;
         }
         
         public async Task<List<Thing>> listThingUser(string UserID)

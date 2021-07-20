@@ -71,9 +71,8 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> AcceptRegister(string registerPostId)
         {
             tradeService = new TradeService();
-            var acceptRegister = await tradeService.acceptRegister(registerPostId);
-
-            return View();
+            var post = await tradeService.acceptRegister(registerPostId);
+            return RedirectToAction("DetailsAsync", "Post", new { postId = post.id });
         }
 
         public async Task getNotificationsAsync()

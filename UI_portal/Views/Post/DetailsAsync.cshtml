@@ -215,14 +215,25 @@
                                             <td class="option">
                                                 @if (isAbleModify == "true")
                                                 {
-                                                    <form action="@Url.Action("AcceptRegister", "Trade", new { registerPostId = register.id })">
-                                                        <button class="button accept">
-                                                            <p>Chấp nhận</p>
-                                                            <div class="img">
-                                                                <img src="@Url.Content("~/Content/Assets/img/icons/hand-shake.svg")" alt="">
-                                                            </div>
-                                                        </button>
-                                                    </form>
+                                                    if (Model.status == "Mở")
+                                                    {
+                                                        <form action="@Url.Action("AcceptRegister", "Trade")">
+                                                            <input hidden value="@register.id" name="registerPostId" />
+                                                            <button type="submit" class="button accept">
+                                                                <p>Chấp nhận</p>
+                                                                <div class="img">
+                                                                    <img src="@Url.Content("~/Content/Assets/img/icons/hand-shake.svg")" alt="">
+                                                                </div>
+                                                            </button>
+                                                        </form>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (register.chosen)
+                                                        {
+                                                            <p>Được duyệt</p>
+                                                        }
+                                                    }
                                                 }
                                             </td>
                                         </tr>
