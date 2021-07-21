@@ -1,0 +1,109 @@
+﻿@model UI_portal.Models.Thing
+@using UI_portal.Models;
+@{
+    ViewBag.Title = "Thêm món đồ";
+    var categories = ViewData["Categories"] as List<Category>;
+}
+
+<main class="addProduct-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            <div class="tableContent__title">
+                <div class="tableContent__title-user">
+                    <div class="avt">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/user.svg")" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Tài khoản của</p>
+                        <!--tên user-->
+                        <p class="val">@User.Identity.Name</p>
+                    </div>
+                </div>
+                <div class="tableContent__title-current">
+                    <a href="@Url.Action("Index", "Thing")">
+                        <h3 class="blur">Quản lý kho đồ</h3>
+                    </a>
+                    <p class="current__child addproductservice">Thêm món đồ</p>
+                </div>
+            </div>
+            <div class="tableContent__wrap">
+                @Html.Partial("_SideTabPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--qlkd">
+                        <div class="addProduct">
+                            <form action="@Url.Action("Create", "Thing")" method="post" enctype="multipart/form-data" autocomplete="off">
+                                <div class="data__item">
+                                    <label for="name">Tên sản phẩm</label>
+                                    <input type="text" id="name" name="thing_name" required />
+                                    @Html.ValidationMessageFor(model => model.thing_name, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="data__item">
+                                    <label for="quantity">Số lượng</label>
+                                    <input type="number" id="quantity" name="quantity" required />
+                                    @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="data__item">
+                                    <label for="category">Thể loại</label>
+                                    <select id="category" name="category_id">
+                                        @foreach (var cate in categories)
+                                        {
+                                            <option value="@cate.id">@cate.category_name</option>
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="data__item">
+                                    <label for="origin">Xuất xứ</label>
+                                    <input type="text" id="origin" name="origin" required />
+                                    @Html.ValidationMessageFor(model => model.origin, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="data__item">
+                                    <label for="timeused">Thời gian sử dụng</label>
+                                    <input type="text" id="timeused" name="used_time" required />
+                                    @Html.ValidationMessageFor(model => model.used_time, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="data__item">
+                                    <label for="price">Giá trị</label>
+                                    <input type="number" id="price" name="price" required />
+                                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="data__item">
+                                    <label for="img">Hình ảnh</label>
+                                    <!-- <label class="custom-file-upload"> -->
+                                    <input onchange="readPicture(this);" type="file" id="img" name="picture"
+                                           accept="image/x-png,image/jpg,image/jpeg" required />
+                                    @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+
+                                    <!-- Tải ảnh lên -->
+                                    <!-- </label> -->
+                                </div>
+                                <div class="data__item">
+                                    <label></label>
+                                    <img id="img-thing" src="" width="200px" />
+                                </div>
+                                <div class="data__item">
+                                    <label></label>
+                                    <button type="submit" class="btn-submit">Hoàn tất</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script>
+        function readPicture(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('img#img-thing').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

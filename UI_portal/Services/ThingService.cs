@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using UI_portal.Constants;
@@ -68,5 +70,48 @@ namespace UI_portal.Services
             return post;
         }
 
+        public async Task<Thing> CreateThing(Thing thing)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(ThingApiConstants.ADD);
+
+            var convertedThing = JsonConvert.SerializeObject(thing);
+            request.Content = new StringContent(convertedThing, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            Thing savedThing = await response.Content.ReadAsAsync<Thing>();
+            return savedThing;
+        }
+
+        public async Task<Thing> Update(string thingId, Thing thing)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(ThingApiConstants.UPDATE + thingId);
+
+            var convertedThing = JsonConvert.SerializeObject(thing);
+            request.Content = new StringContent(convertedThing, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            Thing savedThing = await response.Content.ReadAsAsync<Thing>();
+            return savedThing;
+        }
+
+        public async Task<bool> Delete(string thingId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(ThingApiConstants.DELETE + thingId);
+            
+            HttpResponseMessage response = await _client.SendAsync(request);
+            if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

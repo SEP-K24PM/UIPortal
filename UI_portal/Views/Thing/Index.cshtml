@@ -64,31 +64,31 @@
                                                 <th>Giá trị</th>
                                                 <th>TGSD</th>
                                                 <th>Số lượng</th>
-                                                <th>Xóa</th>
+                                                @*<th></th>*@
                                             </tr>
                                         </thead>
                                         <tbody class="body-half-screen">
                                             @foreach (var item in Model)
                                             {
-                                                <tr>
-                                                    <td class="name">
-                                                        <a href="@Url.Action("Details", "Thing", new { thingId = item.id })">
-                                                            @item.thing_name
-                                                        </a>
-                                                    </td>
-                                                    <td class="type">@item.category.category_name</td>
-                                                    <td class="origin">@item.origin</td>
-                                                    <td class="value">@item.price</td>
-                                                    <td class="used-time">@item.used_time</td>
-                                                    <td class="quantity">@item.quantity</td>
-                                                    <td>
-                                                        <form action="@Url.Action("Delete", "Thing", new { thingId = item.id })" method="post">
-                                                            <button type="submit" class="buttonsubmit del">
-                                                                <span class="del"></span>
-                                                            </button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
+                                            <tr>
+                                                <td class="name">
+                                                    <a href="@Url.Action("Details", "Thing", new { thingId = item.id })">
+                                                        @item.thing_name
+                                                    </a>
+                                                </td>
+                                                <td class="type">@item.category.category_name</td>
+                                                <td class="origin">@item.origin</td>
+                                                <td class="value">@item.price</td>
+                                                <td class="used-time">@item.used_time</td>
+                                                <td class="quantity">@item.quantity</td>
+                                                @*<td>
+                                                    <form action="@Url.Action("Delete", "Thing", new { thingId = item.id })" method="post">
+                                                        <button type="submit" class="buttonsubmit del">
+                                                            <span class="del"></span>
+                                                        </button>
+                                                    </form>
+                                                </td>*@
+                                            </tr>
                                             }
                                         </tbody>
                                     </table>
