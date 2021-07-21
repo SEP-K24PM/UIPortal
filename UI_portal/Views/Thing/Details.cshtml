@@ -33,14 +33,26 @@
                             <div class="inventory__wrap">
                                 <div class="inventory__wrap-top">
                                     <div class="btn">
-                                        <a href="@Url.Action("Update", "Thing", new { thingId = Model.Thing.id })" class="button addproduct">
-                                            <p>Cập nhật</p>
-                                            <div class="img">
-                                                <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
-                                            </div>
-                                        </a>
-                                        @if (Model.Post == null)
+                                        @if (Model.Post != null)
                                         {
+                                            if (Model.Post.status == "Mở")
+                                            {
+                                                <a href="@Url.Action("Update", "Thing", new { thingId = Model.Thing.id })" class="button addproduct">
+                                                    <p>Cập nhật</p>
+                                                    <div class="img">
+                                                        <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
+                                                    </div>
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Update", "Thing", new { thingId = Model.Thing.id })" class="button addproduct">
+                                                <p>Cập nhật</p>
+                                                <div class="img">
+                                                    <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
+                                                </div>
+                                            </a>
                                             <a class="button creatpost" id="delete-thing" onclick="deleteThing()">
                                                 <p>Xoá</p>
                                                 <div class="img">
