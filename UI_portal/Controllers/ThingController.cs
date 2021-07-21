@@ -111,7 +111,12 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> Delete(string thingId)
         {
             thingService = new ThingService();
-            await thingService.Delete(thingId);
+            bool result = await thingService.Delete(thingId);
+            if(result)
+            {
+                var path = Server.MapPath($"~/{ImageConstants.Thing}");
+                System.IO.File.Delete(path + thingId + ".png");
+            }
             return RedirectToAction("Index");
         }
 
