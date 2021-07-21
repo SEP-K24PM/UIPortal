@@ -47,7 +47,7 @@
                                     <select id="category" name="category_id">
                                         @foreach (var cate in categories)
                                         {
-                                            <option value="@cate.category_name">@cate.category_name</option>
+                                            <option value="@cate.id">@cate.category_name</option>
                                         }
                                     </select>
                                     @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
@@ -70,11 +70,16 @@
                                 <div class="data__item">
                                     <label for="img">Hình ảnh</label>
                                     <!-- <label class="custom-file-upload"> -->
-                                    <input type="file" id="img" name="picture"
+                                    <input onchange="readPicture(this);" type="file" id="img" name="picture"
                                            accept="image/x-png,image/jpg,image/jpeg" required />
                                     @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+
                                     <!-- Tải ảnh lên -->
                                     <!-- </label> -->
+                                </div>
+                                <div class="data__item">
+                                    <label></label>
+                                    <img id="img-thing" src="" width="200px" />
                                 </div>
                                 <div class="data__item">
                                     <label></label>
@@ -88,3 +93,17 @@
         </div>
     </section>
 </main>
+
+@section Scripts {
+    <script>
+        function readPicture(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('img#img-thing').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

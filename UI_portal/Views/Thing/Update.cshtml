@@ -1,99 +1,10 @@
 ﻿@model UI_portal.Models.Thing
-
+@using UI_portal.Models;
+@using UI_portal.Constants;
 @{
     ViewBag.Title = "Cập nhật món đồ";
+    var categories = ViewData["Categories"] as List<Category>;
 }
-
-<h2>Update</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Thing</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.thing_name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.thing_name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.thing_name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.origin, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.origin, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.origin, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.price, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.quantity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.used_time, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.used_time, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.used_time, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.user_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.user_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.user_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.category_id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.category_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-
-
 <main class="addProduct-page">
     <section class="tableContent">
         <div class="containerAccount">
@@ -120,58 +31,68 @@
                 <div class="tableContent__wrap-content">
                     <div class="tableContent__wrap-content--qlkd">
                         <div class="addProduct">
-                            <form action="">
+                            <form action="@Url.Action("Create", "Thing")" method="post" enctype="multipart/form-data" autocomplete="off">
                                 <div class="data__item">
                                     <label for="name">Tên sản phẩm</label>
-
-                                    <input type="text" id="name" />
+                                    <input type="text" id="name" name="thing_name" value="@Model.thing_name" required />
+                                    @Html.ValidationMessageFor(model => model.thing_name, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="quantity">Số lượng</label>
-
-                                    <input type="number" id="quantity" min="1" max="50" />
+                                    <input type="number" id="quantity" name="quantity" value="@Model.quantity" required />
+                                    @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="category">Thể loại</label>
-
-                                    <select id="category">
-                                        <option selected disabled>Chọn thể loại.. </option>
-                                        <option value="1">Quần áo</option>
-                                        <option value="2">Trang sức</option>
-                                        <option value="3">Đồ dùng cá nhân</option>
-                                        <option value="4">Tài liệu học</option>
-                                        <option value="5">Sách</option>
-                                        <option value="6">Vé</option>
-                                        <option value="7">Dụng cụ thể thao</option>
-                                        <option value="8">Đồ điện tử</option>
-                                        <option value="9">Đồ lưu niệm</option>
-                                        <option value="10">Thể loại khác</option>
+                                    <select id="category" name="category_id">
+                                        @foreach (var cate in categories)
+                                        {
+                                            if (Model.category.id == cate.id)
+                                            {
+                                                <option value="@cate.id" selected>@cate.category_name</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@cate.id">@cate.category_name</option>
+                                            }
+                                        }
                                     </select>
+                                    @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="origin">Xuất xứ</label>
-
-                                    <input type="text" id="origin" />
+                                    <input type="text" id="origin" name="origin" value="@Model.origin" required />
+                                    @Html.ValidationMessageFor(model => model.origin, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="timeused">Thời gian sử dụng</label>
-
-                                    <input type="text" id="timeused" />
+                                    <input type="text" id="timeused" name="used_time" value="@Model.used_time" required />
+                                    @Html.ValidationMessageFor(model => model.used_time, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="price">Giá trị</label>
-                                    <input type="text" id="price" />
+                                    <input type="number" id="price" name="price" value="@Model.price" required />
+                                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="img">Hình ảnh</label>
                                     <!-- <label class="custom-file-upload"> -->
-                                    <input type="file" id="img" multiple="multiple"
-                                           accept="image/x-png,image/jpg,image/jpeg">
+                                    <input onchange="readPicture(this);" type="file" id="img" name="picture"
+                                           accept="image/x-png,image/jpg,image/jpeg" required />
+                                    @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
                                     <!-- Tải ảnh lên -->
                                     <!-- </label> -->
                                 </div>
                                 <div class="data__item">
                                     <label></label>
+                                    <img id="img-thing" width="200px" src="@Url.Content($"~{ImageConstants.Thing}{Model.image}")" />
+                                </div>
+                                <div class="data__item">
+                                    <label></label>
+                                    <button onclick="cancel()" type="button" class="btn-submit"
+                                                           style="background-color: #f9f4f2; color: #b49b3f">
+                                        Huỷ
+                                    </button>
                                     <button type="submit" class="btn-submit">Hoàn tất</button>
                                 </div>
                             </form>
@@ -182,3 +103,21 @@
         </div>
     </section>
 </main>
+
+@section Scripts {
+    <script>
+        function readPicture(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('img#img-thing').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function cancel() {
+            window.location.href = "@Url.Action("Details", "Thing", new { thingId = Model.id })";
+        }
+    </script>
+}

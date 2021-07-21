@@ -58,12 +58,7 @@ namespace UI_portal.Controllers
             if(ModelState.IsValid)
             {
                 thingService = new ThingService();
-                thing.category = new Category
-                {
-                    category_name = thing.category_id
-                };
                 thing.user_id = userContextId;
-                thing.category_id = null;
                 Thing savedThing = await thingService.CreateThing(thing);
                 if (picture != null)
                 {
@@ -82,18 +77,41 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> Update(string thingId)
         {
             await getNotificationsAsync();
-            return View();
+            categoryService = new CategoryService();
+            List<Category> categories = await categoryService.GetCategories();
+            ViewData["Categories"] = categories;
+            thingService = new ThingService();
+            Thing thing = await thingService.GetThingDetails(thingId);
+            return View(thing);
         }
         
         [HttpPost]
-        public ActionResult Update(string thingId, Thing thing)
+        public async Task<ActionResult> Update(string thingId, Thing thing, HttpPostedFileBase picture)
         {
-            return View();
+            if(ModelState.IsValid)
+            {
+                thingService = new ThingService();
+                thing.user_id = userContextId;
+                Thing savedThing = await thingService.Update(thingId, thing);
+                if (picture != null)
+                {
+                    var path = Server.MapPath($"~/{ImageConstants.Thing}");
+                    System.IO.File.Delete(path + thingId + ".png");
+                    picture.SaveAs(path + savedThing.id + ".png");
+                }
+                return RedirectToAction("Details", new { thingId = thingId });
+            }
+            categoryService = new CategoryService();
+            List<Category> categories = await categoryService.GetCategories();
+            ViewData["Categories"] = categories;
+            return View(thing);
         }
         
         [HttpPost]
-        public ActionResult Delete(string thingId)
+        public async Task<ActionResult> Delete(string thingId)
         {
+            thingService = new ThingService();
+            await thingService.Delete(thingId);
             return RedirectToAction("Index");
         }
 

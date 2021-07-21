@@ -4,7 +4,7 @@
     ViewBag.Title = Model.Thing.thing_name;
 }
 
-<main class="addProduct-page">
+<main class="addProduct-page postdetail-page">
     <section class="tableContent">
         <div class="containerAccount">
             <div class="tableContent__title">
@@ -22,7 +22,6 @@
                     <a href="@Url.Action("Index", "Thing")">
                         <h3 class="blur">Quản lý kho đồ</h3>
                     </a>
-                    <!-- Nếu làm trang addproduct thì chọn cái addproductserive, còn update thì lấy cái dưới nha-->
                     <p class="current__child addproductservice">@Model.Thing.thing_name</p>
                 </div>
             </div>
@@ -34,12 +33,21 @@
                             <div class="inventory__wrap">
                                 <div class="inventory__wrap-top">
                                     <div class="btn">
-                                        <a href="@Url.Action("Update", "Post", new { thingId = Model.Thing.id })" class="button creatpost">
+                                        <a href="@Url.Action("Update", "Thing", new { thingId = Model.Thing.id })" class="button addproduct">
                                             <p>Cập nhật</p>
                                             <div class="img">
                                                 <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
                                             </div>
                                         </a>
+                                        @if (Model.Post == null)
+                                        {
+                                            <a class="button creatpost" id="delete-thing" onclick="deleteThing()">
+                                                <p>Xoá</p>
+                                                <div class="img">
+                                                    <img src="@Url.Content("~/Content/Assets/img/icons/post.svg")" alt="">
+                                                </div>
+                                            </a>
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -106,4 +114,32 @@
             </div>
         </div>
     </section>
+    <div class="black-layer"></div>
+    <div class="warning-delete-post-form">
+        <h3>Bạn muốn xóa món đồ này?</h3>
+        <img src="@Url.Content("~/Content/Assets/img/icons/messaging-action-error.svg")" alt="">
+        <div class="opt-wrap">
+            <form action="@Url.Action("Delete", "Thing")" method="post">
+                <input hidden name="thingId" value="@Model.Thing.id" />
+                <button type="submit" class="button delposty">Đồng ý</button>
+                <button type="button" class="button delpostn">Hủy</button>
+            </form>
+        </div>
+    </div>
 </main>
+
+@section Scripts {
+    <script>
+        function deleteThing() {
+            $(".black-layer").addClass("open");
+            $(".warning-delete-post-form").addClass("open");
+        }
+        $(".warning-delete-post-form .opt-wrap .button.delpostn").on(
+            "click",
+            function () {
+                $(".black-layer").removeClass("open");
+                $(".warning-delete-post-form").removeClass("open");
+            }
+        );
+    </script>
+}
