@@ -23,7 +23,12 @@
                         <span class="stars">@ViewBag.Star</span>
                         <span class="value">@ViewBag.Star</span>
                         <!--Tổng số người đánh giá-->
-                        <p>(<span class="total-vote">@Model.userRatingList.Count</span>)</p>
+                        <p>
+                            @if (Model.userRatingList != null)
+                            {
+                                <span class="total-vote">@Model.userRatingList.Count</span>
+                            }
+                        </p>
                     </div>
                     @*<a href="" class="button-primary contactuser">
                             <p>LIÊN HỆ</p>
@@ -46,65 +51,71 @@
                 </div>
                 <div class="mainProfile__right-list">
                     <div class="panel product active">
-                        @foreach (var post in Model.postList)
+                        @if (Model.postList != null)
                         {
-                            <div class="mainProfile__right-list-item">
-                                <a href="@Url.Action("DetailsAsync", "Post", new { postId = post.id })">
-                                    <div class="item-img">
-                                        <!--Ảnh sản phẩm-->
-                                        <img src="@Url.Content($"~{ImageConstants.Thing}{post.thing.image}")" alt="">
-                                        <div class="label">
-                                            <!--Thể loại sản phẩm-->
-                                            <p class="type">@post.thing.category.category_name</p>
-                                        </div>
-                                        <div class="productcover-detail">
-                                            <p class="title">@post.thing.thing_name</p>
-                                            <div class="bottom-wrap">
-                                                <!--Lựa chọn đổi-->
-                                                <p class="option">@post.exchange_method</p>
-                                                <div class="left">
-                                                    <div class="img">
-                                                        <img src="@Url.Content("~/Content/Assets/img/icons/icons8-mailbox-100.png")" alt="">
+                            foreach (var post in Model.postList)
+                            {
+                                <div class="mainProfile__right-list-item">
+                                    <a href="@Url.Action("DetailsAsync", "Post", new { postId = post.id })">
+                                        <div class="item-img">
+                                            <!--Ảnh sản phẩm-->
+                                            <img src="@Url.Content($"~{ImageConstants.Thing}{post.thing.image}")" alt="">
+                                            <div class="label">
+                                                <!--Thể loại sản phẩm-->
+                                                <p class="type">@post.thing.category.category_name</p>
+                                            </div>
+                                            <div class="productcover-detail">
+                                                <p class="title">@post.thing.thing_name</p>
+                                                <div class="bottom-wrap">
+                                                    <!--Lựa chọn đổi-->
+                                                    <p class="option">@post.exchange_method</p>
+                                                    <div class="left">
+                                                        <div class="img">
+                                                            <img src="@Url.Content("~/Content/Assets/img/icons/icons8-mailbox-100.png")" alt="">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
+                                    </a>
+                                </div>
+                            }
                         }
                     </div>
                     <div class="panel review">
-                        @foreach (var item in Model.userRatingList)
+                        @if (Model.userRatingList != null)
                         {
-                            <div class="mainProfile__right-list-review">
-                                <div class="right">
-                                    <div class="right-top">
-                                        <!--Tên người đánh giá-->
-                                        <p class="name">@item.rater.email</p>
-                                        <!--Số sao đánh giá-->
-                                        <span class="stars">@item.rating</span>
-                                    </div>
-                                    <div class="right-bottom">
-                                        @if (item.description != null)
-                                        {
-                                            <div class="cmt-box">
-                                                <!--nhận xét-->
-                                                <p class="cmt-content">
-                                                    @item.description
-                                                </p>
-                                                <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
-                                            </div>
-                                        }
-                                        <!--Thời gian đăng-->
-                                        <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.post_id })">
-                                            <div class="time">
-                                                <p class="val">Xem bài đăng</p>
-                                            </div>
-                                        </a>
+                            foreach (var item in Model.userRatingList)
+                            {
+                                <div class="mainProfile__right-list-review">
+                                    <div class="right">
+                                        <div class="right-top">
+                                            <!--Tên người đánh giá-->
+                                            <p class="name">@item.rater.email</p>
+                                            <!--Số sao đánh giá-->
+                                            <span class="stars">@item.rating</span>
+                                        </div>
+                                        <div class="right-bottom">
+                                            @if (item.description != null)
+                                            {
+                                                <div class="cmt-box">
+                                                    <!--nhận xét-->
+                                                    <p class="cmt-content">
+                                                        @item.description
+                                                    </p>
+                                                    <p class="read-more"><a href="#" class="button">Đọc tiếp</a></p>
+                                                </div>
+                                            }
+                                            <!--Thời gian đăng-->
+                                            <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.post_id })">
+                                                <div class="time">
+                                                    <p class="val">Xem bài đăng</p>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

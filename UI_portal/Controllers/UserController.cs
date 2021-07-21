@@ -24,11 +24,14 @@ namespace UI_portal.Controllers
             userService = new UserService();
             var user = await userService.getUserProfile(userId);
             double star = 0;
-            foreach (var item in user.userRatingList)
+            if(user.userRatingList != null)
             {
-                star += item.rating;
+                foreach (var item in user.userRatingList)
+                {
+                    star += item.rating;
+                }
+                star = star / user.userRatingList.Count;
             }
-            star = star / user.userRatingList.Count;
             ViewBag.Star = star.ToString("0.00");
             return View(user);
         }
@@ -38,10 +41,14 @@ namespace UI_portal.Controllers
             await getNotificationsAsync();
             var userService = new UserService();
             var user = await userService.getUserProfile(userContextId);
-            var list = user.postList
+            var list = new List<Post>();
+            if(user.postList != null)
+            {
+                list = user.postList
                 .Where(p => p.deletion == false && p.visible == true)
                 .OrderByDescending(p => p.created_time)
                 .ToList();
+            }
             return View(list);
         }
 
