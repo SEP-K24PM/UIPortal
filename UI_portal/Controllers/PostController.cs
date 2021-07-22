@@ -104,7 +104,7 @@ namespace UI_portal.Controllers
                 await postService.DeletePost(postId);
                 return RedirectToAction("Index", "Newsfeed");
             }
-            return RedirectToAction("DetailsAsync", new { postId });
+            return RedirectToAction("DetailsAsync", new { postId = postId });
         }
 
         [HttpPost]
@@ -114,8 +114,12 @@ namespace UI_portal.Controllers
             {
                 postService = new PostService();
                 List<PostElastic> result = await postService.SearchPost(search);
-                List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
-                return Json(new { success = true, list = result }, JsonRequestBehavior.AllowGet);
+                List<PostElastic> visibleResult = new List<PostElastic>();
+                if(result != null)
+                {
+                    visibleResult = result.Where(p => p.visible == true).ToList();
+                }
+                return Json(new { success = true, list = visibleResult }, JsonRequestBehavior.AllowGet);
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
@@ -129,7 +133,11 @@ namespace UI_portal.Controllers
             if (search != null)
             {
                 List<PostElastic> result = await postService.SearchPost(search);
-                List<PostElastic> visibleResult = result.Where(p => p.visible == true).ToList();
+                List<PostElastic> visibleResult = new List<PostElastic>();
+                if(result != null)
+                {
+                    visibleResult = result.Where(p => p.visible == true).ToList();
+                }
                 int pageSize = 10;
                 int pageNumber = (page ?? 1);
                 return View(visibleResult.ToPagedList(pageNumber, pageSize));
@@ -156,15 +164,11 @@ namespace UI_portal.Controllers
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> CompletePost(string postId)
+        public async Task<ActionResult> CompletePost(string postId)
         {
             postService = new PostService();
             Post post = await postService.CompletePost(postId, userContextId);
-            if (post != null)
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("History", "User");
         }
     }
 }

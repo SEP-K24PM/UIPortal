@@ -1,0 +1,97 @@
+﻿@model UI_portal.ViewModels.UserRatingVM
+@using UI_portal.Models;
+@using UI_portal.Constants;
+@{
+    ViewBag.Title = "Đánh giá";
+    var postRegis = ViewBag.PostRegistration as PostRegistration;
+}
+<main class="userAccount-rating-page">
+    <section class="tableContent">
+        <div class="containerAccount">
+            <div class="tableContent__title">
+                <div class="tableContent__title-user">
+                    <div class="avt">
+                        <img src="@Url.Content("~/Content/Assets/img/icons/user.svg")" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Tài khoản của</p>
+                        <!--tên user-->
+                        <p class="val">@User.Identity.Name</p>
+                    </div>
+                </div>
+                <div class="tableContent__title-current">
+                    <a href="@Url.Action("History", "User")">
+                        <h3>Tất cả giao dịch</h3>
+                    </a>
+                    <p class="current__child addproductservice">Đánh giá</p>
+                </div>
+            </div>
+            <div class="tableContent__wrap">
+                @Html.Partial("_SideTabPartial")
+                <div class="tableContent__wrap-content">
+                    <div class="tableContent__wrap-content--dg">
+                        <div class="productRating">
+                            <div class="productRating__img">
+                                <img src="@Url.Content("~" + ImageConstants.Thing + postRegis.thing.image)" alt="">
+                            </div>
+                            <div class="productRating__wrapInfo">
+                                <p class="productRating__wrapInfo-nameProd">@postRegis.thing.thing_name</p>
+                                <p>Trao đổi với</p>
+                                <a class="productRating__wrapInfo-linkprofile" href="@Url.Action("Index", "User", new { userId = postRegis.userAccount.id })">
+                                    @postRegis.userAccount.email
+                                </a>
+                            </div>
+                            <div class="productRating__ratingbox">
+                                @if (ViewBag.Message != null)
+                                {
+                                    <h3>@ViewBag.Message</h3>
+                                }
+                                else
+                                {
+                                    <form action="@Url.Action("Create", "Rate")" method="post">
+                                        <input hidden name="Post_id" value="@Model.Post_id" />
+                                        <input hidden name="Rater" value="@Model.Rater" />
+                                        <input hidden name="Rated" value="@Model.Rated" />
+                                        <div class="productRating__ratingbox-case">
+                                            <input class="star star-5" id="star-5" type="radio" name="Rating" value="5" />
+                                            <label class="star star-5" for="star-5">
+                                                <span class="star-empty"></span>
+                                            </label>
+                                            <input class="star star-4" id="star-4" type="radio" name="Rating" value="4" />
+                                            <label class="star star-4" for="star-4">
+                                                <span class="star-empty"></span>
+                                            </label>
+                                            <input class="star star-3" id="star-3" type="radio" name="Rating" value="3" />
+                                            <label class="star star-3" for="star-3">
+                                                <span class="star-empty"></span>
+                                            </label>
+                                            <input class="star star-2" id="star-2" type="radio" name="Rating" value="2" />
+                                            <label class="star star-2" for="star-2">
+                                                <span class="star-empty"></span>
+                                            </label>
+                                            <input class="star star-1" id="star-1" type="radio" name="Rating" value="1" />
+                                            <label class="star star-1" for="star-1">
+                                                <span class="star-empty"></span>
+                                            </label>
+                                            <div class="rev-box">
+                                                <textarea class="review" col="30" name="Description"></textarea>
+                                                <label class="review" for="review">
+                                                    Viết
+                                                    đánh
+                                                    giá
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="button-primary sendComment">
+                                            <p>Gửi</p>
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

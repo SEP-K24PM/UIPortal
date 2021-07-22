@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Tất cả đăng ký";
 }
-<main class="userAccount-history-page">
+<main class="userAccount-history-page postdetail-page">
     <section class="tableContent">
         <div class="containerAccount">
             <div class="tableContent__title">
@@ -70,11 +70,14 @@
                                                                     @item.thing.thing_name
                                                                 </a>
                                                             }
-                                                            <div class="comment-wrap">
-                                                                <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.id })" class="button-primary comment">
-                                                                    <p>Đánh giá</p>
-                                                                </a>
-                                                            </div>
+                                                                <div class="comment-wrap">
+                                                                    @if (item.post.status == "Hoàn tất")
+                                                                    {
+                                                                        <a href="@Url.Action("CreateFromRegistration", "Rate", new { postId = item.post.id })" class="button-primary comment">
+                                                                            <p>Đánh giá</p>
+                                                                        </a>
+                                                                    }
+                                                                </div>
                                                         </div>
                                                     </td>
                                                     <td class="type">
@@ -82,17 +85,27 @@
                                                         {
                                                             case true:
                                                                 {
-                                                                    <label class="onOffpost">
-                                                                        <input type="checkbox" disabled>
-                                                                        <span>
-                                                                            <em></em>
-                                                                            <strong></strong>
-                                                                            <button onclick="completepost(@item.id)" id="completepost" type="submit" class="btncheckbox done">
-                                                                                Hoàn
-                                                                                tất
-                                                                            </button>
-                                                                        </span>
-                                                                    </label>
+                                                                    if (item.post.status == "Hoàn tất")
+                                                                    {
+                                                                        <p class="status status-done">Hoàn tất</p>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <label class="onOffpost">
+                                                                            <input type="checkbox" disabled>
+                                                                            <span>
+                                                                                <em></em>
+                                                                                <strong></strong>
+                                                                                @if (item.post.given == null)
+                                                                                {
+                                                                                    <button onclick="completepost('@item.post.id')" id="completepost" type="submit" class="btncheckbox done">
+                                                                                        Hoàn
+                                                                                        tất
+                                                                                    </button>
+                                                                                }
+                                                                            </span>
+                                                                        </label>
+                                                                    }
                                                                     break;
                                                                 }
                                                             case false:
@@ -124,8 +137,33 @@
             </div>
         </div>
     </section>
+    <div class="black-layer"></div>
+    <div class="warning-delete-post-form">
+        <h3>Bạn muốn xác nhận hoàn tất?</h3>
+        <img src="@Url.Content("~/Content/Assets/img/icons/messaging-action-error.svg")" alt="">
+        <div class="opt-wrap">
+            <form action="@Url.Action("CompletePost", "Post")" method="post">
+                <input hidden name="postId" value="" id="postIdValue" />
+                <button type="submit" class="button delposty">Đồng ý</button>
+                <button type="button" class="button delpostn">Hủy</button>
+            </form>
+        </div>
+    </div>
 </main>
 
 @section Scripts {
-
+    <script>
+        function completepost(id) {
+            $(".black-layer").addClass("open");
+            $(".warning-delete-post-form").addClass("open");
+            document.getElementById('postIdValue').value = id;
+        }
+        $(".warning-delete-post-form .opt-wrap .button.delpostn").on(
+            "click",
+            function () {
+                $(".black-layer").removeClass("open");
+                $(".warning-delete-post-form").removeClass("open");
+            }
+        );
+    </script>
 }

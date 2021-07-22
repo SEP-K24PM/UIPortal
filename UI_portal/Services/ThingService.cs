@@ -28,7 +28,11 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            var list = await response.Content.ReadAsAsync<List<Thing>>();
+            var list = new List<Thing>();
+            if(response.Content != null)
+            {
+                list = await response.Content.ReadAsAsync<List<Thing>>();
+            }
             return list;
         }
 
@@ -40,7 +44,11 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            var list = await response.Content.ReadAsAsync<List<Thing>>();
+            var list = new List<Thing>();
+            if (response.Content != null)
+            {
+                list = await response.Content.ReadAsAsync<List<Thing>>();
+            }
             return list;
         }
 

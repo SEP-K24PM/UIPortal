@@ -26,7 +26,11 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<Category> list = await response.Content.ReadAsAsync<List<Category>>();
+            List<Category> list = new List<Category>();
+            if(response.Content != null)
+            {
+                list = await response.Content.ReadAsAsync<List<Category>>();
+            }
             return list;
         }
     }
