@@ -11,11 +11,15 @@ namespace UI_portal.Constants
         /// @PathVariable("userId") UUID userId
         /// POST METHOD
         /// </summary>
-        public static string LIST_BY_USER = Endpoint.BACKEND_ENDPOINT + "/api/rating/list/";
+        public static string LIST_BY_USER = Endpoint.BACKEND_ENDPOINT + "api/rating/list/";
         /// <summary>
         /// @RequestBody UserRating userRating
         /// POST METHOD
         /// </summary>
         public static string CREATE = Endpoint.BACKEND_ENDPOINT + "api/rating/create";
+        /// <summary>
+        /// @PathVariable("postId") UUID postId
+        /// </summary>
+        public static string LIST_BY_POST = Endpoint.BACKEND_ENDPOINT + "api/rating/list-by-post/";
     }
 }

@@ -70,7 +70,7 @@
                                                             @if (item.status == "Hoàn tất")
                                                             {
                                                                 <div class="comment-wrap">
-                                                                    <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.id })" class="button-primary comment">
+                                                                    <a href="@Url.Action("Create", "Rate", new { postId = item.id })" class="button-primary comment">
                                                                         <p>Đánh giá</p>
                                                                     </a>
                                                                 </div>

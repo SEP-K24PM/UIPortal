@@ -361,6 +361,7 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\ThingDetailsVM.cs" />
+    <Compile Include="ViewModels\UserRatingVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Assets\dest\fonts.css" />
@@ -531,6 +532,7 @@
     <Content Include="Views\Thing\Create.cshtml" />
     <Content Include="Views\Thing\Update.cshtml" />
     <Content Include="Views\Rate\Create.cshtml" />
+    <Content Include="Views\Rate\CreateFromRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

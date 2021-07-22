@@ -3,8 +3,9 @@
 @using UI_portal.Constants;
 @{
     ViewBag.Title = "Đánh giá";
-    var postRegis = ViewBag.PostRegistration as PostRegistration;
+    var post = ViewBag.Post as Post;
 }
+
 <main class="userAccount-rating-page">
     <section class="tableContent">
         <div class="containerAccount">
@@ -32,13 +33,13 @@
                     <div class="tableContent__wrap-content--dg">
                         <div class="productRating">
                             <div class="productRating__img">
-                                <img src="@Url.Content("~" + ImageConstants.Thing + postRegis.thing.image)" alt="">
+                                <img src="@Url.Content("~" + ImageConstants.Thing + post.thing.image)" alt="">
                             </div>
                             <div class="productRating__wrapInfo">
-                                <p class="productRating__wrapInfo-nameProd">@postRegis.thing.thing_name</p>
+                                <p class="productRating__wrapInfo-nameProd"><a href="@Url.Action("DetailsAsync", "Post", new { postId = post.id })">@post.thing.thing_name</a></p>
                                 <p>Trao đổi với</p>
-                                <a class="productRating__wrapInfo-linkprofile" href="@Url.Action("Index", "User", new { userId = postRegis.userAccount.id })">
-                                    @postRegis.userAccount.email
+                                <a class="productRating__wrapInfo-linkprofile" href="@Url.Action("Index", "User", new { userId = post.thing.userAccount.id })">
+                                    @post.thing.userAccount.email
                                 </a>
                             </div>
                             <div class="productRating__ratingbox">

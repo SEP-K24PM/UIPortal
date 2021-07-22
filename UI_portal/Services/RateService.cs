@@ -38,5 +38,21 @@ namespace UI_portal.Services
             }
             return savedRating;
         }
+
+        public async Task<List<UserRating>> getRatingsByPost(string postId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(RatingApiConstants.LIST_BY_POST + postId);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            List<UserRating> userRatings = new List<UserRating>();
+            if(response.Content != null)
+            {
+                userRatings = await response.Content.ReadAsAsync<List<UserRating>>();
+            }
+            return userRatings;
+        }
     }
 }

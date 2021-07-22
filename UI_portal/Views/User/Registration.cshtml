@@ -73,7 +73,7 @@
                                                                 <div class="comment-wrap">
                                                                     @if (item.post.status == "Hoàn tất")
                                                                     {
-                                                                        <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.id })" class="button-primary comment">
+                                                                        <a href="@Url.Action("CreateFromRegistration", "Rate", new { postId = item.post.id })" class="button-primary comment">
                                                                             <p>Đánh giá</p>
                                                                         </a>
                                                                     }
