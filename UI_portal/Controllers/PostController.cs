@@ -164,15 +164,11 @@ namespace UI_portal.Controllers
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
 
-        public async Task<JsonResult> CompletePost(string postId)
+        public async Task<ActionResult> CompletePost(string postId)
         {
             postService = new PostService();
             Post post = await postService.CompletePost(postId, userContextId);
-            if (post != null)
-            {
-                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("History", "User");
         }
     }
 }

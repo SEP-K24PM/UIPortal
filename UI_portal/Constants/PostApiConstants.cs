@@ -45,6 +45,6 @@ namespace UI_portal.Constants
         /// <summary>
         /// 
         /// </summary>
-        public static string COMPLETE = Endpoint.BACKEND_ENDPOINT + "api/post/complete";
+        public static string COMPLETE = Endpoint.BACKEND_ENDPOINT + "api/post/complete/";
     }
 }

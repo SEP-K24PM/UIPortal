@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<UI_portal.Models.Post>
 @using UI_portal.Constants;
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "Tất cả giao dịch";
+    var userContextId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 }
 
-<main class="userAccount-history-page">
+<main class="userAccount-history-page postdetail-page">
     <section class="tableContent">
         <div class="containerAccount">
             <div class="tableContent__title">
@@ -46,7 +48,7 @@
                                     <table class="table-scroll small-first-col">
                                         <thead>
                                             <tr>
-                                                <th>Sản phẩm</th>
+                                                <th>Món đồ</th>
                                                 <th>Thể loại</th>
                                                 <th>Trạng thái</th>
                                             </tr>
@@ -61,7 +63,7 @@
                                                         </div>
                                                         <div class="wrap-info">
                                                             <!--Tên món đồ-->
-                                                            <a href="" class="name-prod">
+                                                            <a href="@Url.Action("DetailsAsync", "Post", new { postId = item.id })" class="name-prod">
                                                                 @item.thing.thing_name
                                                             </a>
 
@@ -96,10 +98,14 @@
                                                                         <span>
                                                                             <em></em>
                                                                             <strong></strong>
-                                                                            <button onclick="completepost(@item.id)" id="completepost" type="submit" class="btncheckbox done">
-                                                                                Hoàn
-                                                                                tất
-                                                                            </button>
+
+                                                                            @if (item.giver == null)
+                                                                            {
+                                                                                <button onclick="completepost('@item.id')" id="completepost" type="button" class="btncheckbox done">
+                                                                                    Hoàn
+                                                                                    tất
+                                                                                </button>
+                                                                            }
                                                                         </span>
                                                                     </label>
                                                                     break;
@@ -132,8 +138,33 @@
             </div>
         </div>
     </section>
+    <div class="black-layer"></div>
+    <div class="warning-delete-post-form">
+        <h3>Bạn muốn xác nhận hoàn tất?</h3>
+        <img src="@Url.Content("~/Content/Assets/img/icons/messaging-action-error.svg")" alt="">
+        <div class="opt-wrap">
+            <form action="@Url.Action("CompletePost", "Post")" method="post">
+                <input hidden name="postId" value="" id="postIdValue" />
+                <button type="submit" class="button delposty">Đồng ý</button>
+                <button type="button" class="button delpostn">Hủy</button>
+            </form>
+        </div>
+    </div>
 </main>
 
 @section Scripts {
-
+    <script>
+        function completepost(id) {
+            $(".black-layer").addClass("open");
+            $(".warning-delete-post-form").addClass("open");
+            document.getElementById('postIdValue').value = id;
+        }
+        $(".warning-delete-post-form .opt-wrap .button.delpostn").on(
+            "click",
+            function () {
+                $(".black-layer").removeClass("open");
+                $(".warning-delete-post-form").removeClass("open");
+            }
+        );
+    </script>
 }

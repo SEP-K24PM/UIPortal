@@ -119,15 +119,15 @@ namespace UI_portal.Services
         {
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.COMPLETE);
+            request.RequestUri = new Uri(PostApiConstants.COMPLETE + postId + "/" + userId);
 
-            Post post = new Post
-            {
-                id = postId,
-                given = userId
-            };
-            var convertedPost = JsonConvert.SerializeObject(post);
-            request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
+            //Post post = new Post
+            //{
+            //    id = postId,
+            //    given = userId
+            //};
+            //var convertedPost = JsonConvert.SerializeObject(post);
+            //request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.SendAsync(request);
 
             Post updatedPost = new Post();
