@@ -253,12 +253,12 @@
         </div>
         <h3>Báo cáo</h3>
         <div class="in-wrap">
-            <form action="@Url.Action("Create", "Report")">
+            <form action="@Url.Action("Create", "Report")" method="post">
                 <input value="@Model.id" name="post_id" hidden />
                 <input value="@User.Identity.GetUserId()" name="reporter_id" hidden />
                 <div class="data__item">
                     <label for="short-desc">Điền lý do/mô tả:</label>
-                    <textarea name="description" rows="5" type="text" id="short-desc"></textarea>
+                    <textarea name="description" rows="5" type="text" id="short-desc" required></textarea>
                 </div>
                 <button type="submit">Đồng ý</button>
             </form>

@@ -31,7 +31,7 @@
                 <div class="tableContent__wrap-content">
                     <div class="tableContent__wrap-content--qlkd">
                         <div class="addProduct">
-                            <form action="@Url.Action("Create", "Thing")" method="post" enctype="multipart/form-data" autocomplete="off">
+                            <form action="@Url.Action("Update", "Thing", new { thingId = Model.id })" method="post" enctype="multipart/form-data" autocomplete="off">
                                 <div class="data__item">
                                     <label for="name">Tên sản phẩm</label>
                                     <input type="text" id="name" name="thing_name" value="@Model.thing_name" required />
@@ -78,7 +78,7 @@
                                     <label for="img">Hình ảnh</label>
                                     <!-- <label class="custom-file-upload"> -->
                                     <input onchange="readPicture(this);" type="file" id="img" name="picture"
-                                           accept="image/x-png,image/jpg,image/jpeg" required />
+                                           accept="image/x-png,image/jpg,image/jpeg" value="@Model.image" />
                                     @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
                                     <!-- Tải ảnh lên -->
                                     <!-- </label> -->

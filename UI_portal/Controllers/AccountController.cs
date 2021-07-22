@@ -340,8 +340,15 @@ namespace UI_portal.Controllers
             var userToSend = new UserAccount();
             userToSend.email = loginInfo.Email;
             var userAccount = await _accountService.sendEmailData(userToSend);
-            if (userAccount.email == null) return RedirectToAction("Login");
-            if (userAccount.block) result = SignInStatus.LockedOut;
+            if(userAccount == null)
+            {
+                result = SignInStatus.Failure;
+            }
+            else
+            {
+                if (userAccount.email == null) return RedirectToAction("Login");
+                if (userAccount.block) result = SignInStatus.LockedOut;
+            }
             switch (result)
             {
                 case SignInStatus.Success:

@@ -28,7 +28,11 @@ namespace UI_portal.Services
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<Post> newsfeed = await response.Content.ReadAsAsync<List<Post>>();
+            List<Post> newsfeed = new List<Post>();
+            if(response.Content != null)
+            {
+                newsfeed = await response.Content.ReadAsAsync<List<Post>>();
+            }
             return newsfeed;
         }
 

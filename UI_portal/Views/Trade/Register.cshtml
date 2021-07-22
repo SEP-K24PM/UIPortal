@@ -21,46 +21,53 @@
                             <div class="img"><img src="@Url.Content("~/Content/Assets/img/sapiens.svg")" alt=""></div>
                         </div>
                         <div class="inventory__wrap-bottom">
-                            <table class="table-scroll small-first-col">
-                                <thead>
-                                    <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Lựa chọn</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="body-half-screen">
-                                    @foreach (var item in userThingList)
-                                    {
+                            @if (userThingList.Count() == 0)
+                            {
+                                <h3>Bạn chưa có món đồ nào để đổi, <a href="@Url.Action("Create", "Thing")">thêm món đồ</a> tại đây.</h3>
+                            }
+                            else
+                            {
+                                <table class="table-scroll small-first-col">
+                                    <thead>
                                         <tr>
-                                            <td class="name">@item.thing_name</td>
-                                            <td>
-                                                <input required type="radio" class="button-check" name="thingId" value="@item.id" />
-                                            </td>
+                                            <th>Sản phẩm</th>
+                                            <th>Lựa chọn</th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <div class="register__form">
-                                <div class="register__form-message">
-                                    <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text" name="comm" maxlength="500"></textarea>
-                                    <input hidden value="@Model.user_id" name="userId" />
-                                    <input hidden value="@Model.post_id" name="postId" />
+                                    </thead>
+                                    <tbody class="body-half-screen">
+                                        @foreach (var item in userThingList)
+                                        {
+                                            <tr>
+                                                <td class="name">@item.thing_name</td>
+                                                <td>
+                                                    <input required type="radio" class="button-check" name="thingId" value="@item.id" />
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div class="register__form">
+                                    <div class="register__form-message">
+                                        <textarea placeholder="Viết lời nhắn.." rows="8" cols="50" type="text" name="comm" maxlength="500"></textarea>
+                                        <input hidden value="@Model.user_id" name="userId" />
+                                        <input hidden value="@Model.post_id" name="postId" />
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="register__form-button">
+                                            <div class="img">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/sendregist.svg")" alt="">
+                                            </div>
+                                            <div class="around"></div>
+                                        </button>
+                                        <a href="@Url.Action("DetailsAsync", "Post", new { postId = Model.post_id })" class="register__form-button cancel">
+                                            <div class="img">
+                                                <img src="@Url.Content("~/Content/Assets/img/icons/registcancel.svg")" alt="">
+                                            </div>
+                                            <div class="around"></div>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button type="submit" class="register__form-button">
-                                        <div class="img">
-                                            <img src="@Url.Content("~/Content/Assets/img/icons/sendregist.svg")" alt="">
-                                        </div>
-                                        <div class="around"></div>
-                                    </button>
-                                    <a href="@Url.Action("DetailsAsync", "Post", new { postId = Model.post_id })" class="register__form-button cancel">
-                                        <div class="img">
-                                            <img src="@Url.Content("~/Content/Assets/img/icons/registcancel.svg")" alt="">
-                                        </div>
-                                        <div class="around"></div>
-                                    </a>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </form>
                 </div>

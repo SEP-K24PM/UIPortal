@@ -530,11 +530,10 @@
     <Content Include="Views\Trade\RegisterFree.cshtml" />
     <Content Include="Views\Thing\Create.cshtml" />
     <Content Include="Views\Thing\Update.cshtml" />
+    <Content Include="Views\Rate\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Rate\" />
-    <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

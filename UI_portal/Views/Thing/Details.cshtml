@@ -76,7 +76,10 @@
                                 </div>
                                 <div class="data__item">
                                     <label for="category">Thể loại</label>
-                                    @Model.Thing.category.category_name
+                                    @if (Model.Thing.category != null)
+                                    {
+                                        @Model.Thing.category.category_name
+                                    }
                                 </div>
                                 <div class="data__item">
                                     <label for="origin">Xuất xứ</label>
