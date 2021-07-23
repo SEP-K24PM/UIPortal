@@ -34,15 +34,23 @@
                         <img src="@Url.Content(ImageConstants.Thing + Model.post.thing.image)" alt="Image placeholder" class="card-img-top">
                     }
 
-                    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                        @if (Model.handling == null)
-                        {
-                            <div class="d-flex justify-content-between">
-                                <button class="btn btn-sm btn-info mr-4" data-toggle="modal" data-target="#hide-form">Ẩn</button>
-                                <button class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#delete-form">Xoá</button>
-                            </div>
-                        }
-                    </div>
+                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                            @if (Model.handling == null)
+                            {
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-sm btn-info mr-4" data-toggle="modal" data-target="#hide-form">Ẩn</button>
+                                    <button class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#delete-form">Xoá</button>
+                                </div>
+                            }
+                            @if (Model.handling == "Ẩn bài đăng")
+                            {
+                                <h3>Bài đăng đã bị ẩn</h3>
+                            }
+                            @if (Model.handling == "Xoá bài đăng")
+                            {
+                                <h3>Bài đăng đã bị xoá</h3>
+                            }
+                        </div>
 
                     <div class="card-body pt-0">
                         @if (Model.post.thing != null)

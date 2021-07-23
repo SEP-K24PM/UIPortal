@@ -59,11 +59,12 @@ namespace UI_portal.Controllers
             {
                 thingService = new ThingService();
                 thing.user_id = userContextId;
+                thing.image = Guid.NewGuid().ToString() + ".png";
                 Thing savedThing = await thingService.CreateThing(thing);
                 if (picture != null)
                 {
                     var path = Server.MapPath($"~/{ImageConstants.Thing}");
-                    picture.SaveAs(path + savedThing.id + ".png");
+                    picture.SaveAs(path + thing.image);
                 }
                 return RedirectToAction("Details", new { thingId = savedThing.id });
             }
@@ -96,8 +97,8 @@ namespace UI_portal.Controllers
                 if (picture != null)
                 {
                     var path = Server.MapPath($"~/{ImageConstants.Thing}");
-                    System.IO.File.Delete(path + thingId + ".png");
-                    picture.SaveAs(path + savedThing.id + ".png");
+                    System.IO.File.Delete(path + thing.image);
+                    picture.SaveAs(path + thing.image);
                 }
                 return RedirectToAction("Details", new { thingId = thingId });
             }
@@ -111,11 +112,15 @@ namespace UI_portal.Controllers
         public async Task<ActionResult> Delete(string thingId)
         {
             thingService = new ThingService();
-            bool result = await thingService.Delete(thingId);
-            if(result)
+            Thing thing = await thingService.GetThingDetails(thingId);
+            if(thing != null)
             {
-                var path = Server.MapPath($"~/{ImageConstants.Thing}");
-                System.IO.File.Delete(path + thingId + ".png");
+                bool result = await thingService.Delete(thingId);
+                if (result)
+                {
+                    var path = Server.MapPath($"~/{ImageConstants.Thing}");
+                    System.IO.File.Delete(path + thing.image);
+                }
             }
             return RedirectToAction("Index");
         }

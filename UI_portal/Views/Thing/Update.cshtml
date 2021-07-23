@@ -88,6 +88,7 @@
                                     <img id="img-thing" width="200px" src="@Url.Content($"~{ImageConstants.Thing}{Model.image}")" />
                                 </div>
                                 <div class="data__item">
+                                    <input hidden name="image" value="@Model.image" />
                                     <label></label>
                                     <button onclick="cancel()" type="button" class="btn-submit"
                                                            style="background-color: #f9f4f2; color: #b49b3f">
