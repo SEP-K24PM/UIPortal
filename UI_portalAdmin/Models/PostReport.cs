@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +9,7 @@ namespace UI_portalAdmin.Models
     public class PostReport
     {
         public string id { get; set; }
+        [Required]
         public string description { get; set; }
         public string reason_by_admin { get; set; }
         public string handling { get; set; }

@@ -131,12 +131,18 @@
                         <h2 id="userInfo"></h2>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <div class="modal-body">
                     <form action="@Url.Action("BlockUser", "UserManagement")" method="post">
-                        <input id="userId" name="id" hidden />
-                        <input id="userEmail" name="email" hidden />
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <input id="userId" name="user_id" hidden />
+                        <div class="form-group mb-12">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <textarea type="text" name="reason" placeholder="Lý do" required class="form-control" maxlength="100"></textarea>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Đồng ý</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -150,7 +156,6 @@
     <script>
         function setValue(id, email, block) {
             document.getElementById("userId").value = id;
-            document.getElementById("userEmail").value = email;
             if (block === true) {
                 $("#confirmMessage").html("Bạn có chắc muốn mở khoá tài khoản người này?");
             } else {

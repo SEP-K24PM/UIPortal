@@ -32,17 +32,17 @@ namespace UI_portalAdmin.Services
             return users;
         }
 
-        public async Task<UserAccount> BlockUser(UserAccount user)
+        public async Task<UserHandling> BlockUser(UserHandling userHandling)
         {
-            var convertedUser = JsonConvert.SerializeObject(user);
+            var convertedUserHandling = JsonConvert.SerializeObject(userHandling);
             var request = new HttpRequestMessage();
             request.Method = HttpMethod.Post;
             request.RequestUri = new Uri(AdminApiConstants.USER_BLOCK);
-            request.Content = new StringContent(convertedUser, Encoding.UTF8, "application/json");
+            request.Content = new StringContent(convertedUserHandling, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _client.SendAsync(request);
 
-            UserAccount blockedUser = await response.Content.ReadAsAsync<UserAccount>();
+            UserHandling blockedUser = await response.Content.ReadAsAsync<UserHandling>();
             return blockedUser;
         }
     }

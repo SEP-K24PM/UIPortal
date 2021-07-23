@@ -20,9 +20,10 @@ namespace UI_portalAdmin.Models
         public string exchange_method { get; set; }
         public string status { get; set; }
         public string thing_id { get; set; }
-        public Thing thing { get; set; }
         public string given { get; set; }
         public string giver { get; set; }
+
+        public Thing thing { get; set; }
         public List<PostRegistration> postRegistrationList { get; set; }
     }
 }
