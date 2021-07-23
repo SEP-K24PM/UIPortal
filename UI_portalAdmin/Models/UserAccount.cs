@@ -15,5 +15,6 @@ namespace UI_portalAdmin.Models
         public List<Thing> thingList { get; set; }
         public List<Notification> notificationList { get; set; }
         public List<Post> postList { get; set; }
+        public List<UserHandling> userHandlingList { get; set; }
     }
 }

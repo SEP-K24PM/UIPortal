@@ -11,7 +11,12 @@
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Quản lý người dùng</h6>
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Quản lý người dùng</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -43,7 +48,9 @@
                                     <th scope="row">
                                         <div class="media align-items-center">
                                             <div class="media-body">
-                                                <span class="name mb-0 text-sm">@user.email</span>
+                                                <span class="name mb-0 text-sm">
+                                                    <a href="@Url.Action("GetUser", "UserManagement", new { userId = user.id })">@user.email</a>
+                                                </span>
                                             </div>
                                         </div>
                                     </th>

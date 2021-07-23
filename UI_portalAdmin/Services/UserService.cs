@@ -45,5 +45,17 @@ namespace UI_portalAdmin.Services
             UserHandling blockedUser = await response.Content.ReadAsAsync<UserHandling>();
             return blockedUser;
         }
+
+        public async Task<UserAccount> GetUser(string userId)
+        {
+            var request = new HttpRequestMessage();
+            request.Method = HttpMethod.Post;
+            request.RequestUri = new Uri(AdminApiConstants.USER_HANDLING_DETAILS + userId);
+
+            HttpResponseMessage response = await _client.SendAsync(request);
+
+            UserAccount user = await response.Content.ReadAsAsync<UserAccount>();
+            return user;
+        }
     }
 }

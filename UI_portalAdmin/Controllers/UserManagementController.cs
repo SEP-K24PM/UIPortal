@@ -35,5 +35,13 @@ namespace UI_portalAdmin.Controllers
             await _userService.BlockUser(userHandling);
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> GetUser(string userId)
+        {
+            UserAccount user = await _userService.GetUser(userId);
+            var list = user.userHandlingList.OrderByDescending(u => u.time).ToList();
+            user.userHandlingList = list;
+            return View(user);
+        }
     }
 }
