@@ -1,90 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using UI_portalAdmin.Models;
+using UI_portalAdmin.Services;
+using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace UI_portalAdmin.Controllers
 {
     [Authorize(Roles = "Quản trị viên")]
     public class ReportManagementController : Controller
     {
+        ReportService _reportService = new ReportService();
+        PostService _postService = new PostService();
+        private string userContextId = System.Web.HttpContext.Current.User.Identity.GetUserId();
         // GET: ReportManagement
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int? page = 1)
         {
-            return View();
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            List<PostReport> listReports = await _reportService.GetListReports();
+            return View(listReports.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ReportManagement/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(string reportId)
         {
-            return View();
+            var report = await _reportService.GetReport(reportId);
+            var post = await _postService.GetDetails(report.post.id);
+            report.post = post;
+            return View(report);
         }
 
-        // GET: ReportManagement/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ReportManagement/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> HandleReport(PostReport postReport)
         {
-            try
+            var report = new PostReport
             {
-                // TODO: Add insert logic here
+                id = postReport.id,
+                description = postReport.description,
+                handling = postReport.handling,
+                reason_by_admin = postReport.reason_by_admin,
+                admin = new AdminAccount
+                {
+                    id = userContextId
+                },
+                post = new Post
+                {
+                    id = postReport.post_id
+                },
+                reporter = new UserAccount
+                {
+                    id = postReport.reporter_id
+                }
+            };
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            await _reportService.HandleReport(report);
+            return RedirectToAction("Details", new { reportId = report.id });
         }
-
-        // GET: ReportManagement/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ReportManagement/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ReportManagement/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ReportManagement/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+       
     }
 }

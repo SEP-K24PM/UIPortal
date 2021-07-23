@@ -1,0 +1,204 @@
+﻿@model UI_portalAdmin.Models.PostReport
+@using UI_portalAdmin.Constants;
+@{
+    ViewBag.Title = "Báo cáo";
+}
+
+<div class="header bg-primary pb-6">
+    <div class="container-fluid">
+        <div class="header-body">
+            <div class="row align-items-center py-4">
+                <div class="col-lg-6 col-7">
+                    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                        <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i></a></li>
+                            <li class="breadcrumb-item"><a href="@Url.Action("Index", "ReportManagement")">Danh sách báo cáo</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Báo cáo</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-4 order-xl-2">
+
+            <div class="card card-profile">
+                @if (Model.post.deletion == false)
+                {
+                    if (Model.post.thing != null)
+                    {
+                        <img src="@Url.Content(ImageConstants.Thing + Model.post.thing.image)" alt="Image placeholder" class="card-img-top">
+                    }
+
+                    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                        @if (Model.handling == null)
+                        {
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-sm btn-info mr-4" data-toggle="modal" data-target="#hide-form">Ẩn</button>
+                                <button class="btn btn-sm btn-default float-right" data-toggle="modal" data-target="#delete-form">Xoá</button>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="card-body pt-0">
+                        @if (Model.post.thing != null)
+                        {
+                            <div class="text-center">
+                                <h5 class="h3">
+                                    @Model.post.thing.thing_name
+                                </h5>
+                                <div class="h5 font-weight-300">
+                                    <a href="@Url.Action("GetUser", "UserManagement", new { userId = Model.post.thing.userAccount.id })">
+                                        <i class="ni location_pin mr-2"></i>@Model.post.thing.userAccount.email
+                                    </a>
+                                </div>
+                                <div class="h5 mt-4">
+                                    <i class="ni business_briefcase-24 mr-2"></i>Trạng thái: @Model.post.status
+                                </div>
+                                <div>
+                                    <i class="ni education_hat mr-2"></i>Ngày đăng: @Model.post.created_time
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                        <div class="d-flex justify-content-between">
+                            Bài đăng đã bị xoá
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+        <div class="col-xl-8 order-xl-1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="mb-0">Chi tiết báo cáo </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <h6 class="heading-small text-muted mb-4">Người báo cáo</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">@Model.reporter.email</label>
+                                        <a href="@Url.Action("GetUser", "UserManagement", new { userId = Model.reporter.id })" class="btn btn-outline-default btn-sm">Xem</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+
+                        <h6 class="heading-small text-muted mb-4">Báo cáo</h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-address">Lý do/mô tả báo cáo</label>
+                                        @if (Model.description.IsEmpty() != true)
+                                        {
+                                            <textarea id="input-address" class="form-control" type="text" readonly>@Model.description.Trim()</textarea>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4" />
+
+                        @if (Model.handling != null)
+                        {
+                            <h6 class="heading-small text-muted mb-4">Xử lý</h6>
+                            <div class="pl-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label">Xử lý</label>
+                                    <input class="form-control" value="@Model.handling" readonly />
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="input-country">Người xử lý</label>
+                                    @Model.admin.email
+                                </div>
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    @Html.Partial("_FooterPartial")
+    <div class="modal fade" id="hide-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card bg-secondary border-0 mb-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <div class="text-center text-muted mb-4">
+                                <strong>Xác nhận ẩn bài đăng</strong>
+                            </div>
+                            <form role="form" action="@Url.Action("HandleReport", "ReportManagement")" method="post">
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <textarea name="reason_by_admin" class="form-control" placeholder="Lý do" type="text" maxlength="500" required></textarea>
+                                    </div>
+                                </div>
+                                <input hidden name="id" value="@Model.id" />
+                                <input hidden name="description" value="@Model.description" />
+                                <input hidden name="handling" value="Ẩn bài đăng" />
+                                <input hidden name="post_id" value="@Model.post.id" />
+                                <input hidden name="reporter_id" value="@Model.reporter.id" />
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary my-4">Đồng ý</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="delete-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-body p-0">
+                    <div class="card bg-secondary border-0 mb-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <div class="text-center text-muted mb-4">
+                                <strong>Xác nhận xoá bài đăng</strong>
+                            </div>
+                            <form role="form" action="@Url.Action("HandleReport", "ReportManagement")" method="post">
+                                <div class="form-group mb-3">
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <textarea name="reason_by_admin" class="form-control" placeholder="Lý do" type="text" maxlength="500" required></textarea>
+                                    </div>
+                                </div>
+                                <input hidden name="id" value="@Model.id" />
+                                <input hidden name="description" value="@Model.description" />
+                                <input hidden name="handling" value="Xoá bài đăng" />
+                                <input hidden name="post_id" value="@Model.post.id" />
+                                <input hidden name="reporter_id" value="@Model.reporter.id" />
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary my-4">Đồng ý</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
