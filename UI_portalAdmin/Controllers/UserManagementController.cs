@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using UI_portalAdmin.Models;
 using UI_portalAdmin.Services;
 using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace UI_portalAdmin.Controllers
 {
@@ -14,6 +15,7 @@ namespace UI_portalAdmin.Controllers
     public class UserManagementController : Controller
     {
         private UserService _userService = new UserService();
+        private string userContextId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
         // GET: userlist
         public async Task<ActionResult> Index(int? page = 1)
@@ -27,11 +29,19 @@ namespace UI_portalAdmin.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> BlockUser(UserAccount user)
+        public async Task<ActionResult> BlockUser(UserHandling userHandling)
         {
-            //user.block = isBlock;
-            await _userService.BlockUser(user);
+            userHandling.admin_id = userContextId;
+            await _userService.BlockUser(userHandling);
             return RedirectToAction("Index");
+        }
+
+        public async Task<ActionResult> GetUser(string userId)
+        {
+            UserAccount user = await _userService.GetUser(userId);
+            var list = user.userHandlingList.OrderByDescending(u => u.time).ToList();
+            user.userHandlingList = list;
+            return View(user);
         }
     }
 }

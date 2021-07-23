@@ -36,5 +36,9 @@ namespace UI_portalAdmin.Constants
         /// POST METHOD
         /// </summary>
         public static string USER_BLOCK = Endpoint.BACKEND_ENDPOINT + "api/management/admin/block-user";
+        /// <summary>
+        /// @PathVariable("userId") String userId
+        /// </summary>
+        public static string USER_HANDLING_DETAILS = Endpoint.BACKEND_ENDPOINT + "api/management/admin/user-handling/";
     }
 }
