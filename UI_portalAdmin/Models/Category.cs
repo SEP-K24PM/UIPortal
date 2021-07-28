@@ -9,5 +9,7 @@ namespace UI_portalAdmin.Models
     {
         public string id { get; set; }
         public string category_name { get; set; }
+
+        public int things { get; set; }
     }
 }

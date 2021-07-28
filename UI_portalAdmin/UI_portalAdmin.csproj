@@ -225,6 +225,7 @@
     <Compile Include="Services\AdminAccountService.cs" />
     <Compile Include="Services\PostService.cs" />
     <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\StatisticService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -3215,6 +3216,8 @@
     <Content Include="Views\UserManagement\GetUser.cshtml" />
     <Content Include="Views\ReportManagement\Index.cshtml" />
     <Content Include="Views\ReportManagement\Details.cshtml" />
+    <Content Include="Views\Statistic\Index.cshtml" />
+    <Content Include="Views\Statistic\StatisticPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -3239,7 +3242,6 @@
     <Folder Include="Content\assets\vendor\gulp-copy\node_modules\yargs\locales\" />
     <Folder Include="Content\assets\vendor\jekyll\bin\" />
     <Folder Include="Content\assets\vendor\jekyll\site\news\releases\" />
-    <Folder Include="Views\Statistic\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

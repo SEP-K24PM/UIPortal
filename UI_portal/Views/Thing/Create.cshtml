@@ -34,7 +34,7 @@
                             <form action="@Url.Action("Create", "Thing")" method="post" enctype="multipart/form-data" autocomplete="off">
                                 <div class="data__item">
                                     <label for="name">Tên sản phẩm</label>
-                                    <input type="text" id="name" name="thing_name" required />
+                                    <input type="text" id="name" name="thing_name" required maxlength="50" />
                                     @Html.ValidationMessageFor(model => model.thing_name, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
@@ -54,12 +54,12 @@
                                 </div>
                                 <div class="data__item">
                                     <label for="origin">Xuất xứ</label>
-                                    <input type="text" id="origin" name="origin" required />
+                                    <input type="text" id="origin" name="origin" required maxlength="50" />
                                     @Html.ValidationMessageFor(model => model.origin, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
                                     <label for="timeused">Thời gian sử dụng</label>
-                                    <input type="text" id="timeused" name="used_time" required />
+                                    <input type="text" id="timeused" name="used_time" required maxlength="100" />
                                     @Html.ValidationMessageFor(model => model.used_time, "", new { @class = "text-danger" })
                                 </div>
                                 <div class="data__item">
