@@ -1,90 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using UI_portalAdmin.Models;
+using UI_portalAdmin.Services;
 
 namespace UI_portalAdmin.Controllers
 {
     [Authorize(Roles = "Quản lý")]
     public class StatisticController : Controller
     {
+        private StatisticService _statisticService;
         // GET: Statistic
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            _statisticService = new StatisticService();
+            List<Category> category = await _statisticService.GetCategoryStatistic();
+            return View(category);
         }
 
-        // GET: Statistic/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> StatisticPost()
         {
-            return View();
+            _statisticService = new StatisticService();
+            List<Post> post = await _statisticService.GetPostStatistic();
+            return View(post);
         }
 
-        // GET: Statistic/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Statistic/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Statistic/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Statistic/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Statistic/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Statistic/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
