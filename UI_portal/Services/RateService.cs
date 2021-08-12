@@ -22,36 +22,44 @@ namespace UI_portal.Services
 
         public async Task<UserRating> Rating(UserRating rating)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(RatingApiConstants.CREATE);
-
-            var convertedRating = JsonConvert.SerializeObject(rating);
-            request.Content = new StringContent(convertedRating, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-
-            UserRating savedRating = new UserRating();
-            if (response.Content != null)
+            var savedRating = new UserRating();
+            try
             {
-                savedRating = await response.Content.ReadAsAsync<UserRating>();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(RatingApiConstants.CREATE);
+
+                var convertedRating = JsonConvert.SerializeObject(rating);
+                request.Content = new StringContent(convertedRating, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+
+                if (response.Content != null)
+                {
+                    savedRating = await response.Content.ReadAsAsync<UserRating>();
+                }
             }
+            catch (Exception e) { Console.Write(e); }
             return savedRating;
         }
 
         public async Task<List<UserRating>> getRatingsByPost(string postId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(RatingApiConstants.LIST_BY_POST + postId);
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-
-            List<UserRating> userRatings = new List<UserRating>();
-            if(response.Content != null)
+            var userRatings = new List<UserRating>();
+            try
             {
-                userRatings = await response.Content.ReadAsAsync<List<UserRating>>();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(RatingApiConstants.LIST_BY_POST + postId);
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+
+                if (response.Content != null)
+                {
+                    userRatings = await response.Content.ReadAsAsync<List<UserRating>>();
+                }
             }
+            catch (Exception e) { Console.Write(e); }
             return userRatings;
         }
     }

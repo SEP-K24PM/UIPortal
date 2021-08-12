@@ -27,13 +27,24 @@ namespace UI_portal.Controllers
             tradeService = new TradeService();
             List<PostRegistration> postRegistrations = await tradeService.GetListPostRegistrations(postId);
             Post post = await postService.GetDetails(postId);
+
             post.postRegistrationList = postRegistrations;
-            if (User.Identity.IsAuthenticated)
+            if (post.thing != null)
             {
-                if (userContextId == post.thing.userAccount.id)
-                    ViewData["AbleToModifyPost"] = "true";
-                else
-                    ViewData["AbleToModifyPost"] = "false";
+                if (User.Identity.IsAuthenticated)
+                {
+                    if (userContextId == post.thing.userAccount.id)
+                        ViewData["AbleToModifyPost"] = "true";
+                    else
+                        ViewData["AbleToModifyPost"] = "false";
+                }
+            }
+            else
+            {
+                var thing = new Thing();
+                thing.category = new Category();
+                thing.userAccount = new UserAccount();
+                post.thing = thing;
             }
             return View(post);
         }
@@ -52,7 +63,7 @@ namespace UI_portal.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Post post)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 postService = new PostService();
                 if (ModelState.IsValid)
@@ -115,7 +126,7 @@ namespace UI_portal.Controllers
                 postService = new PostService();
                 List<PostElastic> result = await postService.SearchPost(search);
                 List<PostElastic> visibleResult = new List<PostElastic>();
-                if(result != null)
+                if (result != null)
                 {
                     visibleResult = result.Where(p => p.visible == true).ToList();
                 }
@@ -134,7 +145,7 @@ namespace UI_portal.Controllers
             {
                 List<PostElastic> result = await postService.SearchPost(search);
                 List<PostElastic> visibleResult = new List<PostElastic>();
-                if(result != null)
+                if (result != null)
                 {
                     visibleResult = result.Where(p => p.visible == true).ToList();
                 }
@@ -157,7 +168,7 @@ namespace UI_portal.Controllers
         {
             postService = new PostService();
             Post post = await postService.CancelPost(postId);
-            if(post != null)
+            if (post != null)
             {
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }

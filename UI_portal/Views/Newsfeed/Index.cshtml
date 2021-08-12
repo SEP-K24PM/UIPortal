@@ -99,7 +99,8 @@
         function autoSearch() {
             var search = document.getElementById("auto-complete-search").value;
             console.log(search);
-            $.ajax({
+            if (search.length >= 3) {
+                $.ajax({
                 type: "POST",
                 url: "@Url.Action("Search", "Post")",
                 data: JSON.stringify({ search: search }),
@@ -114,6 +115,7 @@
                     }
                 }
             });
+            }
         }
 
         function showResult(list) {

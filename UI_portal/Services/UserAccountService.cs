@@ -22,21 +22,25 @@ namespace UI_portal.Services
 
         public async Task<UserAccount> sendEmailData(UserAccount user)
         {
-            var convertedUser = JsonConvert.SerializeObject(user);
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(UserAccountApiConstants.USER_ACCOUNT_LOGIN);
-            request.Content = new StringContent(convertedUser, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-            if(response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+            var resultUser = new UserAccount();
+            try
             {
-                UserAccount noUser = new UserAccount();
-                return noUser;
+                var convertedUser = JsonConvert.SerializeObject(user);
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(UserAccountApiConstants.USER_ACCOUNT_LOGIN);
+                request.Content = new StringContent(convertedUser, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+                if (response.StatusCode == System.Net.HttpStatusCode.Forbidden)
+                {
+                    UserAccount noUser = new UserAccount();
+                    return noUser;
+                }
+                resultUser = await response.Content.ReadAsAsync<UserAccount>();
             }
-            UserAccount resultUser = await response.Content.ReadAsAsync<UserAccount>();
+            catch (Exception e) { Console.Write(e); }
             return resultUser;
         }
-  
     }
 }

@@ -1,8 +1,28 @@
 ﻿<div class="tableContent__wrap-tag">
     <ul>
-        <li><a href="@Url.Action("Index", "Notification")">Thông báo của tôi</a></li>
-        <li><a href="@Url.Action("Index", "Thing")" class="active">Quản lý kho đồ</a></li>
-        <li><a href="@Url.Action("History", "User")">Tất cả giao dịch</a></li>
-        <li><a href="@Url.Action("Registration", "User")">Tất cả đăng ký</a></li>
+        <li>
+            <a href="@Url.Action("Index", "Notification")"
+               class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Notification" ? "active" : "")">
+                Thông báo của tôi
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Thing")"
+               class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Thing" ? "active" : "")">
+                Quản lý kho đồ
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("History", "User")"
+               class="@(ViewContext.RouteData.Values["Action"].ToString() == "History" ? "active" : "")">
+                Tất cả bài đăng
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Registration", "User")"
+               class="@(ViewContext.RouteData.Values["Action"].ToString() == "Registration" ? "active" : "")">
+                Tất cả đăng ký
+            </a>
+        </li>
     </ul>
 </div>

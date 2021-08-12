@@ -22,20 +22,24 @@ namespace UI_portal.Services
 
         public async Task<PostReport> Report(PostReport postReport)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(ReportApiConstants.REPORT);
-
-            var convertedReport = JsonConvert.SerializeObject(postReport);
-            request.Content = new StringContent(convertedReport, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-
             PostReport savedReport = new PostReport();
-            if(response.Content != null)
+            try
             {
-                savedReport = await response.Content.ReadAsAsync<PostReport>();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(ReportApiConstants.REPORT);
+
+                var convertedReport = JsonConvert.SerializeObject(postReport);
+                request.Content = new StringContent(convertedReport, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+
+                if (response.Content != null)
+                {
+                    savedReport = await response.Content.ReadAsAsync<PostReport>();
+                }
             }
+            catch (Exception e) { Console.Write(e); }
             return savedReport;
         }
     }

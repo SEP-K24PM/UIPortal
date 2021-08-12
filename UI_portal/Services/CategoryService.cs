@@ -20,17 +20,21 @@ namespace UI_portal.Services
 
         public async Task<List<Category>> GetCategories()
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(CategoryApiConstants.LIST_CATEGORIES);
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-
-            List<Category> list = new List<Category>();
-            if(response.Content != null)
+            var list = new List<Category>();
+            try
             {
-                list = await response.Content.ReadAsAsync<List<Category>>();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(CategoryApiConstants.LIST_CATEGORIES);
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+
+                if (response.Content != null)
+                {
+                    list = await response.Content.ReadAsAsync<List<Category>>();
+                }
             }
+            catch (Exception e) { Console.Write(e); }
             return list;
         }
     }

@@ -18,6 +18,7 @@ namespace UI_portal.Controllers
 
         // GET: Profile
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult> Index(string userId)
         {
             await getNotificationsAsync();

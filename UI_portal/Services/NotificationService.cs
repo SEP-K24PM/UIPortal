@@ -20,17 +20,21 @@ namespace UI_portal.Services
 
         public async Task<List<Notification>> GetNotificationsAsync(string userId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(UserApiConstants.getNotifications + userId);
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-
-            List<Notification> list = new List<Notification>();
-            if(response.Content != null)
+            var list = new List<Notification>();
+            try
             {
-                list = await response.Content.ReadAsAsync<List<Notification>>();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(UserApiConstants.getNotifications + userId);
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+
+                if (response.Content != null)
+                {
+                    list = await response.Content.ReadAsAsync<List<Notification>>();
+                }
             }
+            catch (Exception e) { Console.Write(e); }
             return list;
         }
     }

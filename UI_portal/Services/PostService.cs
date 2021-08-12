@@ -22,117 +22,148 @@ namespace UI_portal.Services
 
         public async Task<List<Post>> GetNewsfeed()
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.NEWSFEED);
-
-            HttpResponseMessage response = await _client.SendAsync(request);
-
-            List<Post> newsfeed = new List<Post>();
-            if(response.Content != null)
+            var newsfeed = new List<Post>();
+            try
             {
-                newsfeed = await response.Content.ReadAsAsync<List<Post>>();
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.NEWSFEED);
+
+                HttpResponseMessage response = await _client.SendAsync(request);
+
+                if (response.Content != null)
+                {
+                    newsfeed = await response.Content.ReadAsAsync<List<Post>>();
+                }
             }
+            catch (Exception e) { Console.Write(e); }
             return newsfeed;
         }
 
         public async Task<Post> GetDetails(string postId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.DETAILS + postId);
+            var post = new Post();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.DETAILS + postId);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            var post = await response.Content.ReadAsAsync<Post>();
+                post = await response.Content.ReadAsAsync<Post>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return post;
         }
 
         public async Task<Post> CreatePost(Post post)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.SAVE);
+            var savedPost = new Post();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.SAVE);
 
-            var convertedPost = JsonConvert.SerializeObject(post);
-            request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
+                var convertedPost = JsonConvert.SerializeObject(post);
+                request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            Post savedPost = await response.Content.ReadAsAsync<Post>();
+                savedPost = await response.Content.ReadAsAsync<Post>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return savedPost;
         }
 
         public async Task<Post> UpdatePost(Post post)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.UPDATE + post.id);
+            var updatedPost = new Post();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.UPDATE + post.id);
 
-            var convertedPost = JsonConvert.SerializeObject(post);
-            request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
+                var convertedPost = JsonConvert.SerializeObject(post);
+                request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            Post updatedPost = await response.Content.ReadAsAsync<Post>();
+                updatedPost = await response.Content.ReadAsAsync<Post>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return updatedPost;
         }
 
         public async Task DeletePost(string postId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.DELETE + postId);
-            await _client.SendAsync(request);
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.DELETE + postId);
+                await _client.SendAsync(request);
+            }
+            catch (Exception e) { Console.Write(e); }
         }
 
         public async Task<List<PostElastic>> SearchPost(string search)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.SEARCH);
+            var result = new List<PostElastic>();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.SEARCH);
 
-            var convertedSearch = JsonConvert.SerializeObject(search);
-            request.Content = new StringContent(convertedSearch, Encoding.UTF8, "application/json");
+                var convertedSearch = JsonConvert.SerializeObject(search);
+                request.Content = new StringContent(convertedSearch, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<PostElastic> result = await response.Content.ReadAsAsync<List<PostElastic>>();
+                result = await response.Content.ReadAsAsync<List<PostElastic>>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return result;
         }
 
         public async Task<Post> CancelPost(string postId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.CANCEL + postId);
+            var post = new Post();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.CANCEL + postId);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            Post post = new Post();
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                post = await response.Content.ReadAsAsync<Post>();
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    post = await response.Content.ReadAsAsync<Post>();
+            }
+            catch (Exception e) { Console.Write(e); }
+
             return post;
         }
 
         public async Task<Post> CompletePost(string postId, string userId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.COMPLETE + postId + "/" + userId);
+            var updatedPost = new Post();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.COMPLETE + postId + "/" + userId);
 
-            //Post post = new Post
-            //{
-            //    id = postId,
-            //    given = userId
-            //};
-            //var convertedPost = JsonConvert.SerializeObject(post);
-            //request.Content = new StringContent(convertedPost, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    updatedPost = await response.Content.ReadAsAsync<Post>();
+            }
+            catch (Exception e) { Console.Write(e); }
 
-            Post updatedPost = new Post();
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                updatedPost = await response.Content.ReadAsAsync<Post>();
             return updatedPost;
         }
     }
