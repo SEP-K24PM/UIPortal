@@ -22,38 +22,52 @@ namespace UI_portalAdmin.Services
 
         public async Task<List<PostReport>> GetListReports()
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(AdminApiConstants.REPORT_LIST);
+            List<PostReport> reports = new List<PostReport>();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(AdminApiConstants.REPORT_LIST);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<PostReport> reports = await response.Content.ReadAsAsync<List<PostReport>>();
+                reports = await response.Content.ReadAsAsync<List<PostReport>>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return reports;
         }
 
         public async Task<PostReport> GetReport(string reportId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(AdminApiConstants.REPORT_DETAILS + reportId);
+            var report = new PostReport();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(AdminApiConstants.REPORT_DETAILS + reportId);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            PostReport report = await response.Content.ReadAsAsync<PostReport>();
+                report = await response.Content.ReadAsAsync<PostReport>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return report;
         }
 
         public async Task HandleReport(PostReport report)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AdminApiConstants.REPORT_HANDLE);
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(AdminApiConstants.REPORT_HANDLE);
 
-            var convertedReport = JsonConvert.SerializeObject(report);
-            request.Content = new StringContent(convertedReport, Encoding.UTF8, "application/json");
+                var convertedReport = JsonConvert.SerializeObject(report);
+                request.Content = new StringContent(convertedReport, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
+            }
+            catch (Exception e) { Console.Write(e); }
         }
     }
 }

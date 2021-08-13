@@ -22,39 +22,54 @@ namespace UI_portalAdmin.Services
 
         public async Task<List<UserAccount>> GetUsers()
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AdminApiConstants.USER_LIST);
+            var users = new List<UserAccount>();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(AdminApiConstants.USER_LIST);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            List<UserAccount> users = await response.Content.ReadAsAsync<List<UserAccount>>();
+                users = await response.Content.ReadAsAsync<List<UserAccount>>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return users;
         }
 
         public async Task<UserHandling> BlockUser(UserHandling userHandling)
         {
-            var convertedUserHandling = JsonConvert.SerializeObject(userHandling);
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AdminApiConstants.USER_BLOCK);
-            request.Content = new StringContent(convertedUserHandling, Encoding.UTF8, "application/json");
+            var blockedUser = new UserHandling();
+            try
+            {
+                var convertedUserHandling = JsonConvert.SerializeObject(userHandling);
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(AdminApiConstants.USER_BLOCK);
+                request.Content = new StringContent(convertedUserHandling, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            UserHandling blockedUser = await response.Content.ReadAsAsync<UserHandling>();
+                blockedUser = await response.Content.ReadAsAsync<UserHandling>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return blockedUser;
         }
 
         public async Task<UserAccount> GetUser(string userId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AdminApiConstants.USER_HANDLING_DETAILS + userId);
+            var user = new UserAccount();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(AdminApiConstants.USER_HANDLING_DETAILS + userId);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            UserAccount user = await response.Content.ReadAsAsync<UserAccount>();
+                user = await response.Content.ReadAsAsync<UserAccount>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return user;
         }
     }

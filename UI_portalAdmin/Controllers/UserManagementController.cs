@@ -39,7 +39,9 @@ namespace UI_portalAdmin.Controllers
         public async Task<ActionResult> GetUser(string userId)
         {
             UserAccount user = await _userService.GetUser(userId);
-            var list = user.userHandlingList.OrderByDescending(u => u.time).ToList();
+            if (user == null) user = new UserAccount();
+            var list = user.userHandlingList == null ? user.userHandlingList = new List<UserHandling>() 
+                : user.userHandlingList.OrderByDescending(u => u.time).ToList();
             user.userHandlingList = list;
             return View(user);
         }

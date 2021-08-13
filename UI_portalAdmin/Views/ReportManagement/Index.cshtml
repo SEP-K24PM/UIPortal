@@ -46,61 +46,61 @@
                         <tbody class="list">
                             @foreach (var report in Model)
                             {
-                            <tr>
-                                <th scope="row">
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">
-                                                <a href="">@report.reporter.email</a>
-                                            </span>
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">
+                                                    @report.reporter.email
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </th>
-                                <td>
-                                    <span class="badge badge-dot mr-4">
-                                        @if (report.handling != null)
-                                        {
-                                            <i class="bg-success"></i>
-                                            <span class="status">Đã xử lý</span>
-                                        }
-                                        else
-                                        {
-                                            <i class="bg-warning"></i>
-                                            <span class="status">Chưa xử lý</span>
-                                        }
-                                    </span>
-                                </td>
-                                <td>
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">
-                                                @if (report.admin != null)
-                                                {
-                                                    @report.admin.email
-                                                }
-                                            </span>
+                                    </th>
+                                    <td>
+                                        <span class="badge badge-dot mr-4">
+                                            @if (report.handling != null)
+                                            {
+                                                <i class="bg-success"></i>
+                                                <span class="status">Đã xử lý</span>
+                                            }
+                                            else
+                                            {
+                                                <i class="bg-warning"></i>
+                                                <span class="status">Chưa xử lý</span>
+                                            }
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">
+                                                    @if (report.admin != null)
+                                                    {
+                                                        @report.admin.email
+                                                    }
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="media align-items-center">
-                                        <div class="media-body">
-                                            <span class="name mb-0 text-sm">
-                                                @if (report.handling != null)
-                                                {
-                                                   @report.handling
-                                                }
-                                            </span>
+                                    </td>
+                                    <td>
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <span class="name mb-0 text-sm">
+                                                    @if (report.handling != null)
+                                                    {
+                                                        @report.handling
+                                                    }
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td class="text-right">
-                                    <a href="@Url.Action("Details", "ReportManagement", new { reportId = report.id })" class="btn btn-icon btn-primary" >
-                                        <span class="btn-inner--icon"><i class="fas fa-info-circle"></i></span>
-                                        <span class="btn-inner--text">Chi tiết</span>
-                                    </a>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@Url.Action("Details", "ReportManagement", new { reportId = report.id })" class="btn btn-icon btn-primary">
+                                            <span class="btn-inner--icon"><i class="fas fa-info-circle"></i></span>
+                                            <span class="btn-inner--text">Chi tiết</span>
+                                        </a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

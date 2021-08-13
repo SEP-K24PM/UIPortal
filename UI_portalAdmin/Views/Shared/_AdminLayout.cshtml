@@ -35,25 +35,25 @@
                     <!-- Nav items -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="@Url.Action("Index", "Home")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")" href="@Url.Action("Index", "Home")">
                                 <i class="ni ni-tv-2 text-primary"></i>
                                 <span class="nav-link-text">Trang chủ</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "ReportManagement")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "ReportManagement" ? "active" : "")" href="@Url.Action("Index", "ReportManagement")">
                                 <i class="ni ni-planet text-orange"></i>
                                 <span class="nav-link-text">Báo cáo</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "UserManagement")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "UserManagement" ? "active" : "")" href="@Url.Action("Index", "UserManagement")">
                                 <i class="ni ni-single-02 text-yellow"></i>
                                 <span class="nav-link-text">Người dùng</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Statistic")">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == "Statistic" ? "active" : "")" href="@Url.Action("Index", "Statistic")">
                                 <i class="ni ni-chart-pie-35 text-info"></i>
                                 <span class="nav-link-text">Thống kê</span>
                             </a>

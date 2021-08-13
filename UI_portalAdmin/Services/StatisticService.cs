@@ -20,25 +20,35 @@ namespace UI_portalAdmin.Services
 
         public async Task<List<Post>> GetPostStatistic()
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(ManagerApiConstants.STATISTIC_POST);
+            var post = new List<Post>();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(ManagerApiConstants.STATISTIC_POST);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            var post = await response.Content.ReadAsAsync<List<Post>>();
+                post = await response.Content.ReadAsAsync<List<Post>>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return post;
         }
 
         public async Task<List<Category>> GetCategoryStatistic()
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Get;
-            request.RequestUri = new Uri(ManagerApiConstants.STATISTIC_CATEGORY);
+            var category = new List<Category>();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(ManagerApiConstants.STATISTIC_CATEGORY);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            var category = await response.Content.ReadAsAsync<List<Category>>();
+                category = await response.Content.ReadAsAsync<List<Category>>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return category;
         }
     }

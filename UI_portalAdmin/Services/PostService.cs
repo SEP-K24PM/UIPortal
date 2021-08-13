@@ -19,16 +19,21 @@ namespace UI_portalAdmin.Services
         }
 
         HttpClient _client = new HttpClient();
-        
+
         public async Task<Post> GetDetails(string postId)
         {
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(PostApiConstants.DETAILS + postId);
+            var post = new Post();
+            try
+            {
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(PostApiConstants.DETAILS + postId);
 
-            HttpResponseMessage response = await _client.SendAsync(request);
+                HttpResponseMessage response = await _client.SendAsync(request);
 
-            var post = await response.Content.ReadAsAsync<Post>();
+                post = await response.Content.ReadAsAsync<Post>();
+            }
+            catch (Exception e) { Console.Write(e); }
             return post;
         }
 

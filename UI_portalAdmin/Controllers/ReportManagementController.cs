@@ -30,8 +30,14 @@ namespace UI_portalAdmin.Controllers
         public async Task<ActionResult> Details(string reportId)
         {
             var report = await _reportService.GetReport(reportId);
-            var post = await _postService.GetDetails(report.post.id);
+            var post = report == null ? new Post() : await _postService.GetDetails(report.post.id);
             report.post = post;
+            if(post == null)
+            {
+                var thing = new Thing();
+                thing.userAccount = new UserAccount();
+                post.thing = thing;
+            }
             return View(report);
         }
 

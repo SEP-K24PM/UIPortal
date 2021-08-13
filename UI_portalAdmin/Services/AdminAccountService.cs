@@ -22,15 +22,18 @@ namespace UI_portalAdmin.Services
 
         public async Task<HttpResponseMessage> SendEmailData(AdminAccount account)
         {
-            var convertedAdmin = JsonConvert.SerializeObject(account);
-            var request = new HttpRequestMessage();
-            request.Method = HttpMethod.Post;
-            request.RequestUri = new Uri(AccountApiConstants.ADMIN_ACCOUNT_LOGIN);
-            request.Content = new StringContent(convertedAdmin, Encoding.UTF8, "application/json");
+            var response = new HttpResponseMessage();
+            try
+            {
+                var convertedAdmin = JsonConvert.SerializeObject(account);
+                var request = new HttpRequestMessage();
+                request.Method = HttpMethod.Post;
+                request.RequestUri = new Uri(AccountApiConstants.ADMIN_ACCOUNT_LOGIN);
+                request.Content = new StringContent(convertedAdmin, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await _client.SendAsync(request);
-
-            //Admin_Account resultAdmin = await response.Content.ReadAsAsync<Admin_Account>();
+                response = await _client.SendAsync(request);
+            }
+            catch (Exception e) { Console.Write(e); }
             return response;
         }
     }
