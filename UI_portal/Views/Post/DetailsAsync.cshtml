@@ -13,7 +13,10 @@
                 <div class="detail__left-slider" itemscope data-pswp-uid="1">
                     <figure class="detail__left-slider-item">
                         <div class="img">
-                            <img src="@Url.Content($"~{ImageConstants.Thing}{Model.thing.image}")" alt="@Model.thing.thing_name">
+                            @if (Model.thing != null)
+                            {
+                                <img src="@Url.Content($"~{ImageConstants.Thing}{Model.thing.image}")" alt="@Model.thing.thing_name">
+                            }
                         </div>
                     </figure>
                 </div>
@@ -42,13 +45,19 @@
                 </div>
                 <div class="detail__left-userinfo">
                     <div class="right">
-                        <div class="detail__left-userinfo name">
-                            <div class="wrap-top">
-                                <!--Tên người dùng-->
-                                <p class="name">Người đăng: @Model.thing.userAccount.email</p>
-                            </div>
-                            <a href="@Url.Action("Index", "User", new { userId = Model.thing.userAccount.id })" class="button-primary userlink"><p>Trang cá nhân</p></a>
-                        </div>
+                        @if (Model.thing != null)
+                        {
+                            if (Model.thing.userAccount != null)
+                            {
+                                <div class="detail__left-userinfo name">
+                                    <div class="wrap-top">
+                                        <!--Tên người dùng-->
+                                        <p class="name">Người đăng: @Model.thing.userAccount.email</p>
+                                    </div>
+                                    <a href="@Url.Action("Index", "User", new { userId = Model.thing.userAccount.id })" class="button-primary userlink"><p>Trang cá nhân</p></a>
+                                </div>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -163,18 +172,18 @@
                                                         <img src="@Url.Content($"~{ImageConstants.Thing}{register.thing.image}")" alt="@register.thing.thing_name">
                                                     </div>
                                                 }
-                                                    <div class="wrap-info">
-                                                        <!--Tên món đồ-->
-                                                        @if (register.thing != null)
-                                                        {
-                                                            <a href="" class="name-prod">@register.thing.thing_name</a>
-                                                        }
-                                                        <p>Đề xuất đổi bởi: </p>
-                                                        <!--Tên và đường dẫn profile người dùng-->
-                                                        <a class="profile" href="@Url.Action("Index", "User", new { userId = register.userAccount.id })">
-                                                            @register.userAccount.email
-                                                        </a>
-                                                    </div>
+                                                <div class="wrap-info">
+                                                    <!--Tên món đồ-->
+                                                    @if (register.thing != null)
+                                                    {
+                                                        <a href="" class="name-prod">@register.thing.thing_name</a>
+                                                    }
+                                                    <p>Đề xuất đổi bởi: </p>
+                                                    <!--Tên và đường dẫn profile người dùng-->
+                                                    <a class="profile" href="@Url.Action("Index", "User", new { userId = register.userAccount.id })">
+                                                        @register.userAccount.email
+                                                    </a>
+                                                </div>
                                             </td>
                                             <td class="info">
                                                 <div class="infotop">

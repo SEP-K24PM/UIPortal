@@ -56,7 +56,10 @@
                                                 <tr>
                                                     <td class="name">
                                                         <div class="img">
-                                                            <img src="@Url.Content($"~{ImageConstants.Thing}{item.thing.image}")" alt="">
+                                                            @if (item.thing != null)
+                                                            {
+                                                                <img src="@Url.Content($"~{ImageConstants.Thing}{item.thing.image}")" alt="">
+                                                            }
                                                         </div>
                                                         <div class="wrap-info">
                                                             <!--Tên món đồ-->

@@ -39,14 +39,23 @@
                         <a href="@Url.Action("DetailsAsync", "Post", new { postId = post.id })">
                             <div class="item-img">
                                 <!--Ảnh sản phẩm-->
-                                <img src="@Url.Content($"~{ImageConstants.Thing}{post.thing.image}")" alt="">
+                                @if (post.thing != null)
+                                {
+                                    <img src="@Url.Content($"~{ImageConstants.Thing}{post.thing.image}")" alt="">
+                                }
                                 <div class="label">
                                     <!--Thể loại sản phẩm-->
-                                    <p class="type">@post.thing.category.category_name</p>
+                                    @if (post.thing.category != null)
+                                    {
+                                        <p class="type">@post.thing.category.category_name</p>
+                                    }
                                 </div>
                             </div>
                             <!--Tên sản phẩm-->
-                            <h3 class="title">@post.thing.thing_name</h3>
+                            @if (post.thing != null)
+                            {
+                                <h3 class="title">@post.thing.thing_name</h3>
+                            }
                             <!--Mô tả ngắn-->
                             <p class="desc">@post.description</p>
                             <div class="user__info">
@@ -55,7 +64,10 @@
                                         <div class="wrap-top">
                                             <span>Đăng bởi</span>
                                             <!--Tên người dùng-->
-                                            <p class="name">@post.thing.userAccount.email</p>
+                                            @if (post.thing.userAccount != null)
+                                            {
+                                                <p class="name">@post.thing.userAccount.email</p>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -124,7 +136,7 @@
             for (var i = 0; i < len; i++) {
                 var id = list[i]['id'];
                 var name = list[i]['thing_name'];
-                $("#searchResult").append("<li><a href=/Post/DetailsAsync/" + id + ">" + name + "</a></li>");
+                $("#searchResult").append("<li><a href=/Post/DetailsAsync/?postId=" + id + ">" + name + "</a></li>");
             }
             
             // binding click event to li

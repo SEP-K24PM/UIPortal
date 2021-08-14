@@ -347,7 +347,7 @@ namespace UI_portal.Controllers
             else
             {
                 if (userAccount.email == null) return RedirectToAction("Login");
-                if (userAccount.block) result = SignInStatus.LockedOut;
+                if (userAccount.block) result = SignInStatus.Failure;
             }
             switch (result)
             {
@@ -359,6 +359,9 @@ namespace UI_portal.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
+                    ModelState.AddModelError("", "Tài khoản đã bị khoá");
+                    AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return RedirectToAction("Login");
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;

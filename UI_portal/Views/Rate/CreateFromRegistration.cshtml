@@ -33,13 +33,22 @@
                     <div class="tableContent__wrap-content--dg">
                         <div class="productRating">
                             <div class="productRating__img">
-                                <img src="@Url.Content("~" + ImageConstants.Thing + post.thing.image)" alt="">
+                                @if (post.thing != null)
+                                {
+                                    <img src="@Url.Content("~" + ImageConstants.Thing + post.thing.image)" alt="">
+                                }
                             </div>
                             <div class="productRating__wrapInfo">
                                 <p class="productRating__wrapInfo-nameProd"><a href="@Url.Action("DetailsAsync", "Post", new { postId = post.id })">@post.thing.thing_name</a></p>
                                 <p>Trao đổi với</p>
                                 <a class="productRating__wrapInfo-linkprofile" href="@Url.Action("Index", "User", new { userId = post.thing.userAccount.id })">
-                                    @post.thing.userAccount.email
+                                    @if (post.thing != null)
+                                    {
+                                        if (post.thing.userAccount != null)
+                                        {
+                                            @post.thing.userAccount.email
+                                        }
+                                    }
                                 </a>
                             </div>
                             <div class="productRating__ratingbox">

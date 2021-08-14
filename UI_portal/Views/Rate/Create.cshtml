@@ -32,10 +32,16 @@
                     <div class="tableContent__wrap-content--dg">
                         <div class="productRating">
                             <div class="productRating__img">
-                                <img src="@Url.Content("~" + ImageConstants.Thing + postRegis.thing.image)" alt="">
+                                @if (postRegis.thing != null)
+                                {
+                                    <img src="@Url.Content("~" + ImageConstants.Thing + postRegis.thing.image)" alt="">
+                                }
                             </div>
                             <div class="productRating__wrapInfo">
-                                <p class="productRating__wrapInfo-nameProd">@postRegis.thing.thing_name</p>
+                                @if(postRegis.thing != null)
+                                {
+                                    <p class="productRating__wrapInfo-nameProd">@postRegis.thing.thing_name</p>
+                                }
                                 <p>Trao đổi với</p>
                                 <a class="productRating__wrapInfo-linkprofile" href="@Url.Action("Index", "User", new { userId = postRegis.userAccount.id })">
                                     @postRegis.userAccount.email

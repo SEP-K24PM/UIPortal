@@ -113,7 +113,7 @@
             for (var i = 0; i < len; i++) {
                 var id = list[i]['id'];
                 var name = list[i]['thing_name'];
-                $("#searchResult").append("<li><a href=/Post/DetailsAsync/" + id + ">" + name + "</a></li>");
+                $("#searchResult").append("<li><a href=/Post/DetailsAsync?postId=" + id + ">" + name + "</a></li>");
             }
 
             // binding click event to li
